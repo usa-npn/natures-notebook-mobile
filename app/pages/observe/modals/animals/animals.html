@@ -1,0 +1,90 @@
+<GridLayout columns="*" rows="*, 48">
+    <ScrollView *ngIf="showList">
+        <StackLayout row="0" col="0" width="100%" padding="2">
+
+            <StackLayout class="bordered-stack-header">
+                <Label text="{{selectedIndividual.individual_userstr}}" textWrap="true"></Label>
+                <Label fontSize="14" text="{{_observationGroupsService.getDateText(observationDate)}}"></Label>
+            </StackLayout>
+
+            <StackLayout class="bordered-stack">
+
+                <StackLayout class="bordered-stack-row"
+                    [ngClass]="{evenRow: false}" horizontalAlignment="center">
+                    <StackLayout orientation="horizontal" verticalAlignment="center" height="50">
+                        <Button
+                                text="Mark all phenophases as No"
+                                (tap)="setAllToNo()" verticalAlignment="center" class="all-no-button"></Button>
+                    </StackLayout>
+                </StackLayout>
+
+                <FlexboxLayout *ngFor="let phenophase of phenophases; let i = index"
+                               alignItems="center" [class.evenRow]="i%2==0" [class.oddRow]="i%2!=0" width="100%">
+<!-- phenophase -->
+                    <Label text="{{phenophase.phenophaseDefinition.phenophase_name}}" textWrap="true" width="43%"></Label>
+<!-- Y N ? -->
+                    <FlexboxLayout flexDirection="column" width="46%">
+                        <FlexboxLayout alignItems="center">
+                            <Button class ="phenophase-button phenophase-button-left"
+                                    [class.phenophase-active]="phenophase.yesSelected"
+                                    text="Y"
+                                    (tap)="changePhenophaseSelection(phenophase, 'yes')"></Button>
+                            <Button class ="phenophase-button phenophase-button-center"
+                                    [class.phenophase-active]="phenophase.noSelected"
+                                    text="N"
+                                    (tap)="changePhenophaseSelection(phenophase, 'no')"></Button>
+                            <Button class ="phenophase-button phenophase-button-right"
+                                    [class.phenophase-active]="phenophase.notSureSelected"
+                                    text="?"
+                                    (tap)="changePhenophaseSelection(phenophase, 'notSure')"></Button>
+                        </FlexboxLayout>
+<!-- abundance -->
+                        <StackLayout orientation="horizontal"
+                                     *ngIf="(phenophase.yesSelected || phenophase.notSureSelected) && phenophase.abundanceCategories && phenophase.abundanceCategories.length > 0"
+                                     class="dropdown-box dropdown-box-abundance">
+                            <Label text="{{ phenophase.abundanceValue ? phenophase.abundanceValue.short_name : 'Not Sure' }}" (tap)="popupAbundancePicker(phenophase)" width="78%" class="dropdown-text"></Label>
+                            <Label text="{{ dropdownIcon }}" (tap)="popupAbundancePicker(phenophase)" width="20%" class="dropdown-icon"></Label>
+                        </StackLayout>
+<!--intensity-->
+                        <StackLayout orientation="horizontal"
+                                     *ngIf="(phenophase.yesSelected || phenophase.notSureSelected) 
+                                     && (!phenophase.abundanceCategories || phenophase.abundanceCategories.length < 1)
+                                     && (phenophase.extent_min != null && phenophase.extent_max != null)"
+                                     class="">
+                            <Button class="number-selector-button" text="{{minusIcon}}"
+                                    (tap)="decrementIntensity(phenophase)"></Button>
+                            <TextField class="number-selector-text"
+                                       [(ngModel)]="phenophase.intensity"
+                                       keyboardType="number"
+                                       hint="enter amount"></TextField>
+                            <Button class="number-selector-button" text="{{plusIcon}}"
+                                    (tap)="incrementIntensity(phenophase)"></Button>
+                        </StackLayout>
+                    </FlexboxLayout>
+<!--info icon-->
+                    <FlexboxLayout alignItems="center" justifyContent="flex-end" width="40" height="50" (tap)="popupPhenophaseInfo(phenophase, true)">
+                        <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+                    </FlexboxLayout>
+                </FlexboxLayout>
+
+            </StackLayout>
+
+            <FlexboxLayout class="flex-bordered-box"
+                           alignItems="center">
+                <Label text="Comments" marginRight="2"></Label>
+                <TextField style="text-align: center"
+                           flexGrow="1"
+                           [(ngModel)]="comments"
+                           (ngModelChange)="onCommentsChange($event)"
+                           hint="enter comments"></TextField>
+            </FlexboxLayout>
+
+        </StackLayout>
+    </ScrollView>
+    <StackLayout orientation="horizontal"
+                 row="1" col="0">
+        <Button text="{{getBackButtonText()}}"
+        class="back-to-checklist-button"
+        (tap)="backToChecklist()"></Button>
+    </StackLayout>
+</GridLayout>

@@ -1,0 +1,31 @@
+@import '../../variables.scss';
+
+.page-header {
+  font-size: 15;
+  text-align: center;
+}
+
+.filter-header-text {
+  color: $white;
+  font-weight: bold;
+}
+
+.col-upload {
+  margin: 0;
+  text-align: left;
+}
+
+.col-site-ind {
+  margin: 0;
+  text-align: center;
+}
+
+.col-records {
+  margin: 0;
+  text-align: center;
+}
+
+.col-date {
+  margin: 0;
+  text-align: right;
+}

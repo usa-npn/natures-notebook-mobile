@@ -1,0 +1,123 @@
+<GridLayout *ngIf="!isLoading"
+            columns="*" rows="auto,*,auto"
+            height="100%"
+            width="100%" padding="2">
+
+    <FlexboxLayout class="bordered-box"
+                   flexDirection="column"
+                   alignItems="center"
+                   justifyContent="center"
+                   padding="4" marginBottom="2"
+                   *ngIf="selectedGroup"
+                   row="0" column="0">
+        <Label text="{{selectedGroup.name}}" fontSize="20" textWrap="true"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="1" column="0"
+                   *ngIf="sites.length === 0 || !selectedSite">
+        <FlexboxLayout class="inner-box-header" align-content="center" width="95%">
+            <Label text="{{lightbulbIcon}}"
+            class="lightbulb-icon"
+            textWrap="true"></Label>
+            <Label text="Tap below to create a site"></Label>
+        </FlexboxLayout>
+        <StackLayout class="inner-box" width="95%">
+            <Label (tap)="openBrowser()" textWrap="true">
+              <FormattedString>
+                <Span text="A site is a location at which you will make observations. For more information on how to select a site, visit "></Span>
+                <Span text="www.usanpn.org/nn/guidelines" textDecoration="underline"></Span>
+              </FormattedString>
+            </Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <StackLayout
+                   class="data-grid"
+                   row="1" column="0"
+                   *ngIf="showList && !(sites.length === 0 || !selectedSite)">
+    <!-- <FlexboxLayout flexDirection="column"
+                   class="data-grid"
+                   row="1" column="0"
+                   *ngIf="showList && !(sites.length === 0 || !selectedSite)"> -->
+        <FlexboxLayout class="flex-header"
+                       alignItems="center"
+                       justifyContent="space-between">
+            <Label text="Site"></Label>
+            <Label text="Selected"></Label>
+        </FlexboxLayout>
+
+        <StackLayout> <!--flexGrow="1"-->
+            <ListView [items]="sites | sitesPipe : selectedGroup" height="100%">
+                <!-- <ng-template let-i="index">
+                    <Label text="{{ sites[i].station_name}}"></Label>
+                </ng-template> -->
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <FlexboxLayout alignItems="center" [class.evenRow]="even" [class.oddRow]="odd" width="100%">
+                        <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" (tap)="popupSiteInfo(item)">
+                            <Label text="{{ item.file_url ? cameraIcon : infoIcon }}" class="icon"></Label>
+                        </FlexboxLayout>
+                        <FlexboxLayout alignItems="center" height="50" flexGrow="1" (tap)="toggleSite(item)">
+                            <Label [text]="item.station_name" textwrap="true"></Label>
+                        </FlexboxLayout>
+                        <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" (tap)="toggleSite(item)">
+                            <Label text="{{ item.selected == true ? radioCheckedIcon : radioUncheckedIcon }}"
+                                   class="radio-icon"></Label>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+
+    </StackLayout>
+
+
+    <FlexboxLayout
+                 row="2" column="0" marginTop="2">
+        <FlexboxLayout class="button-stack"
+            *ngIf="permissionToAddSite()"
+            (tap)="popupSiteCreation()"
+                       marginRight="1"
+                       flexDirection="column"
+                       flexGrow="2">
+            <Label text="{{locationIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Create Site"
+                   class="button-text"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class="button-stack"
+                       marginLeft="1"
+                       (tap)="goToIndividuals()"
+                       flexDirection="column">
+            <Label text="{{leafIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Go to Plants & Animals"
+                   class="button-text"></Label>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+
+    <!-- <StackLayout class="button-stack"
+                 marginTop="2"
+                 width="100%"
+                 (tap)="popupSiteCreation()"
+                 row="2" column="0" *ngIf="permissionToAddSite()">
+        <Label text="{{locationIcon}}"
+               class="button-icon"></Label>
+        <Label text="Create New Site"
+               class="button-text"></Label>
+    </StackLayout> -->
+</GridLayout>
+
+<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+        <Label text="loading..."></Label>
+        <ActivityIndicator [busy]="isLoading"
+                           horizontalAlignment="center"
+                           verticalAlignment="center" color="#6E6E6E">
+        </ActivityIndicator>
+    </FlexboxLayout>
+</FlexboxLayout>

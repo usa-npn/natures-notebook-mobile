@@ -1,0 +1,41 @@
+<GridLayout columns="*" rows="auto,*,auto"
+height="100%"
+width="100%" style="background-color: white">
+    
+    <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" column="0">
+        <Label text="Privacy Statement"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column" padding="2" row="1" column="0">
+        <ScrollView>
+            <StackLayout>
+                <StackLayout class="notification-stack" marginBottom="2" padding="2">
+                    <Label textWrap="true">
+                        <FormattedString>
+                            <Span text="GENERAL PRIVACY POLICY " fontWeight="Bold"></Span>
+                        </FormattedString>
+                    </Label>
+                    <Label textWrap="true" text="You are able to visit the USA National Phenology Network (USA-NPN) Website without identifying who you are or providing any personal information. If you do decide to register with USA-NPN to facilitate reporting your phenological observations or contributing content to the site, we will not sell, trade, or give away your personal information, which includes your name, home address, e-mail address, telephone numbers, and suggestions or comments made by e-mail. The USA-NPN uses secure, encrypted web interfaces and mobile apps to transmit all personally identifiable information. All data are stored in a secure and conditioned room, and are firewall-protected. Additionally, staff are trained in IT security and software is maintained to reduce vulnerabilities.">
+                    </Label>
+                </StackLayout>
+
+                <!-- <StackLayout class="notification-stack" marginBottom="2">
+                    <Label text="{{generalPrivacyPolicy}}"
+                            class="notification-text"
+                            textWrap="true"></Label>
+                </StackLayout> -->
+
+                <StackLayout class="notification-stack" padding="2">
+                    <Label text="OBSERVER PRIVACY POLICY" fontWeight="Bold"></Label>
+                    <Label text="{{observerPrivacyPolicy}}"
+                    textWrap="true"></Label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </FlexboxLayout>
+
+    <FlexboxLayout justifyContent="space-between" row="2" column="0">
+        <Button text="Ok" (tap)="closeModal()" flexGrow="1"></Button>
+    </FlexboxLayout>
+
+</GridLayout>

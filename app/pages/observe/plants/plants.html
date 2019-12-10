@@ -1,0 +1,133 @@
+<StackLayout width="100%">
+
+    <FlexboxLayout class="flex-bordered-box" marginTop="1"
+                   alignItems="center"
+                   *ngIf="individuals.length > 0">
+        <FlexboxLayout alignItems="center"
+                       class="dropdown" flexGrow="1"
+                       (tap)="popupIndividualPicker()">
+            <Label text="{{ selectedIndividual ? selectedIndividual.individual_userstr : '' }}" textWrap="true"
+                   class="dropdown-text"></Label>
+            <Label text="{{ dropdownIcon }}"
+                   class="dropdown-icon"></Label>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+    <StackLayout *ngIf="individuals.length < 1"
+                 class="notification-stack"
+                 orientation="horizontal" height="99%" margin="0 2 2 2">
+        <Label text="{{notificationIcon}}"
+               class="notification-icon"
+               textWrap="true"></Label>
+        <Label text="There are currently no plants for this site."
+               class="notification-text"
+               textWrap="true" width="100%"></Label>
+    </StackLayout>
+
+</StackLayout>
+
+<GridLayout columns="*" rows="{{(individuals.length > 0) ? '*, 48' : '*'}}">
+    
+    <ListView [items]="phenophasesWithMarkAllNo" row="0", col="0">
+    <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+
+        <StackLayout orientation="horizontal"
+            verticalAlignment="center"
+            height="{{item.phenophase_id == null ? 60 : 85}}" [class.evenRow]="even" [class.oddRow]="odd">
+
+        <StackLayout *ngIf="item.phenophase_id == null && i < 1" class="bordered-stack-row"
+            [ngClass]="{evenRow: false}" horizontalAlignment="center">
+            <StackLayout orientation="horizontal" verticalAlignment="center" height="50">
+            <Button
+                    text="Mark all phenophases as No"
+                    (tap)="setAllToNo()" verticalAlignment="center" class="all-no-button"></Button>
+            </StackLayout>
+        </StackLayout>
+
+        <!-- <StackLayout *ngIf="item.phenophase_id != null"> -->
+
+    <!-- phenophase -->
+        <Label *ngIf="item.phenophase_id != null" text="{{item.phenophaseDefinition.phenophase_name}}"
+                textWrap="true"
+                width="41%"
+                textAlignment="left"
+                verticalAlignment="center">
+        </Label>
+    <!-- Y N ? -->
+        <StackLayout *ngIf="item.phenophase_id != null" width="47%" verticalAlignment="center">
+            <StackLayout orientation="horizontal" verticalAlignment="center">
+                <Button class ="phenophase-button phenophase-button-left"
+                        [class.phenophase-active]="item.yesSelected"
+                        text="Y"
+                        (tap)="changePhenophaseSelection(item, 'yes')"></Button>
+                <Button class ="phenophase-button phenophase-button-center"
+                        [class.phenophase-active]="item.noSelected"
+                        text="N"
+                        (tap)="changePhenophaseSelection(item, 'no')"></Button>
+                <Button class ="phenophase-button phenophase-button-right"
+                        [class.phenophase-active]="item.notSureSelected"
+                        text="?"
+                        (tap)="changePhenophaseSelection(item, 'notSure')"></Button>
+            </StackLayout>
+    <!-- abundance -->
+            <StackLayout orientation="horizontal"
+                            *ngIf="(item.yesSelected || item.notSureSelected) && item.abundanceCategories && item.abundanceCategories.length > 0"
+                            class="dropdown-box dropdown-box-abundance">
+                <Label text="{{ item.abundanceValue ? item.abundanceValue.short_name : 'Not Sure' }}" (tap)="popupAbundancePicker(item)" width="78%" class="dropdown-text"></Label>
+                <Label text="{{ dropdownIcon }}" (tap)="popupAbundancePicker(item)" width="20%" class="dropdown-icon"></Label>
+            </StackLayout>
+    <!-- intensity -->
+            <StackLayout orientation="horizontal"
+                            *ngIf="(item.yesSelected || item.notSureSelected) 
+                            && (!item.abundanceCategories || item.abundanceCategories.length < 1) 
+                            && (item.extent_min != null && item.extent_max != null)"
+                            class="">
+                <Button class="number-selector-button" text="{{minusIcon}}"
+                        (tap)="decrementIntensity(item)"></Button>
+                <TextField class="number-selector-text"
+                            [(ngModel)]="item.intensity"
+                            keyboardType="number"
+                            hint="enter amount"></TextField>
+                <Button class="number-selector-button" text="{{plusIcon}}"
+                        (tap)="incrementIntensity(item)"></Button>
+            </StackLayout>
+
+        </StackLayout>
+    <!-- info icon -->
+        <FlexboxLayout *ngIf="item.phenophase_id != null" alignItems="center" justifyContent="flex-end" height="50" width="12%" (tap)="popupPhenophaseInfo(item, false)">
+            <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+        </FlexboxLayout>
+
+        <StackLayout *ngIf="item.phenophase_id == null" class="bordered-stack-row"
+            [ngClass]="{evenRow: false}" horizontalAlignment="center">
+            <StackLayout orientation="horizontal" verticalAlignment="center" height="40">
+            <Label text="Comments" verticalAlignment="center" marginRight="2"></Label>
+            <TextField style="text-align: center"
+                        [(ngModel)]="comments"
+                        (ngModelChange)="onCommentsChange($event)"
+                        hint="enter comments" width="100%"></TextField>
+            </StackLayout>
+        </StackLayout>   
+       
+        </StackLayout>
+        <!-- </StackLayout> -->
+
+             
+
+    </ng-template>
+    </ListView>
+
+    <FlexboxLayout row="1" col="0">
+        <FlexboxLayout [ngClass]="{'button-stack' : true, 'save-data-button': true, 'button-stack-success' : (dataSaved || tappedSaveButton)}"
+                        flexGrow="0"
+                        alignItems="center"
+                        (tap)="saveButtonTapped()">
+            <Label text="{{(dataSaved || tappedSaveButton) ? checkmarkIcon : ''}}"
+                    class="button-icon"></Label>
+            <Label text="{{(dataSaved || tappedSaveButton) ? 'Data Saved' : 'Save Data'}}"
+                    class="button-text" flexGrow="1"></Label>
+        </FlexboxLayout>
+        <Button text="Next Plant" class="next-plant-button" (tap)="selectNextPlant()" flexGrow="1"></Button>
+    </FlexboxLayout>
+
+</GridLayout>

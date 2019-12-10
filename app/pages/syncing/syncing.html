@@ -1,0 +1,13 @@
+<StackLayout class="sync-page" width="100%" height="100%" padding="8,8,8,8">
+    <StackLayout orientation="vertical">
+        <Label class="sync-text" text="{{'Syncing ' + _syncService.currentlySyncing}}"></Label>
+        <Label class="sync-text" text="Please wait..."></Label>
+    </StackLayout>
+    <StackLayout verticalAlign="center" height="100">
+        <Progress [value]="progressValue" (valueChanged)="onValueChanged($event)" maxValue="100"></Progress>
+        <!-- <Progress
+            [value]="(_syncService.progressValue / (_syncService.totalAccountsToSync * _syncService.totalItemsPerAccountToSync)) * 100"
+            maxValue="100">
+        </Progress> -->
+    </StackLayout>
+</StackLayout>

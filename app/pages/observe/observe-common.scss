@@ -1,0 +1,107 @@
+@import '../../variables.scss';
+
+.save-data-button {
+  height: 50;
+  margin: 2;
+  padding: 2;
+  width: 50%;
+}
+
+.visit-details-text {
+  width: 45%;
+}
+
+.plant-picker {}
+
+.survey-method-picker {}
+
+.slider-box {
+  width: 45%;
+}
+
+.slider-box > Label {
+  vertical-align: center;
+}
+
+.dropdown-box-date {
+  width: 60%;
+}
+
+.date-button {
+  height: 30;
+  padding: 2;
+  width: 25%;
+}
+
+//phenophase Y N ? buttons
+.phenophase-button {
+  background-color: $color-phenophase-button-background;
+  border-color: $color-phenophase-button-border;
+  color: $color-phenophase-button-text;
+  height: 40;
+  margin: 1;
+  padding: 2;
+  width: 32%;
+}
+
+.phenophase-button-center {
+  border-radius: 0;
+}
+
+.phenophase-button-left {
+  border-radius: 0;
+  clip-path: ellipse(55% 100% at 57% 50%);
+}
+
+.phenophase-button-right {
+  border-radius: 0;
+  clip-path: ellipse(55% 100% at 44% 50%);
+}
+
+.phenophase-active {
+  background-color: $color-phenophase-button-background-active;
+  border-color: $color-phenophase-button-border-active;
+  color: $color-phenophase-button-text;
+}
+
+.dropdown-box-abundance {
+  width: 100%;
+}
+
+.all-no-button {
+  height: 30;
+  padding: 2;
+  width: 96%;
+}
+
+.number-selector-button {
+  border-radius: 50%;
+  font-family: 'IcoMoon-Free';
+  height: 30;
+  padding: 2;
+  width: 30;
+}
+
+.number-selector-text {
+  height: 30;
+  padding: 2;
+  text-align: center;
+  width: 50%;
+}
+
+.date-button-stack {
+  margin-bottom: 0;
+  margin-left: 2;
+  margin-right: 2;
+  margin-top: 0;
+  padding: 2;
+}
+
+.date-button-icon {
+  font-size: 18;
+}
+
+.date-button-text {
+  color: $white;
+  font-weight: bold;
+}

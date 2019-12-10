@@ -1,0 +1,77 @@
+@import '../../variables.scss';
+
+.page-header {
+  font-size: 20;
+}
+
+.picker-body-stack {
+  height: 100%;
+  margin: 5;
+  width: 98%;
+}
+
+.bordered-stack-row {
+  width: 100%;
+}
+
+.filter-stack {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+  width: 100%;
+  padding: 2;
+}
+
+.image-box {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+}
+
+.error-label {
+  color: $color-error-label;
+  text-align: center;
+}
+
+.horizontal-scroll-button {
+  height: 40;
+}
+
+.row-left {
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+  width: 80;
+}
+
+.row-right {
+  flex-grow: 1;
+  margin: 0;
+  text-align: left;
+}
+
+.species-row {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.species-label {
+  font-size: 14;
+  height: 18;
+  text-align: center;
+  width: 99%;
+}
+
+.ind-details-left-labels {
+  font-size: 14;
+  font-weight: bold;
+  width: 80;
+}
+
+.ind-details-right-labels {
+  font-size: 14;
+}

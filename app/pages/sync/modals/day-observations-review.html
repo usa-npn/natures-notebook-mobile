@@ -1,0 +1,73 @@
+<GridLayout columns="*" rows="auto,*,auto"
+            height="100%"
+            width="100%" padding="2">
+
+    <!-- <FlexboxLayout alignContent="center" justifyContent="center" row="0" column="0" width="100%" height="25"
+                   [ngClass]="{'filter-header-text': true, 'bordered-box': true, 'green-box': userDataUpToDate(), 'red-box': (noWifi || noConnection), 'orange-box': (!userDataUpToDate() && !noWifi && !noConnection && !syncing), 'blue-box': syncing}" marginBottom="2">
+        <Label text="{{ getStatusBarText() }}"></Label>
+    </FlexboxLayout> -->
+
+    <FlexboxLayout row="0" column="0" 
+    class="bordered-box"
+    flexDirection="column"
+    alignItems="center"
+    justifyContent="center"
+    padding="4" marginBottom="2">
+        <Label text="{{selectedSite.station_name}}" fontSize="20" textWrap="true"></Label>
+        <Label text="{{getSelectedDate()}}" fontSize="16" textWrap="true"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="1" column="0"
+                    *ngIf="loading">
+        <Label text="Loading..." textWrap="true"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="1" column="0"
+                    *ngIf="observations.length === 0 && !loading">
+        <Label text="No observations recorded." textWrap="true"></Label>
+    </FlexboxLayout>
+
+    <StackLayout class="data-grid"
+                   row="1" column="0"
+                   *ngIf="observations.length != 0 && !loading">
+    <!-- <FlexboxLayout flexDirection="column"
+                   class="data-grid"
+                   row="1" column="0"
+                   *ngIf="observations.length != 0"> -->
+
+        <FlexboxLayout class="flex-header two-row"
+                       alignItems="center" justifyContent="space-between">
+            <FlexboxLayout alignItems="center" (tap)="sortTimeDesc = !sortTimeDesc">
+                <Label text="Time" class="col-upload"></Label>
+                <!-- <Label [text]="sortTimeDesc ? sortAmountDescIcon : sortAmountAscIcon" class="font-awesome"></Label> -->
+            </FlexboxLayout>
+            <Label text="Individual" class="col-site-ind"></Label>
+            <Label text="# Records" class="col-records"></Label>
+        </FlexboxLayout>
+
+        <StackLayout>
+            <ListView [items]="observations" height="100%">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <FlexboxLayout alignItems="center" justifyContent="space-between" [class.evenRow]="even" [class.oddRow]="odd" (tap)="onSelectObservation(item)">
+                        <FlexboxLayout alignItems="center" height="50" width="30%">
+                            <Label [text]="getObservationTime(item)" textWrap="true"></Label>
+                        </FlexboxLayout>
+                        <Label [text]="item.individual_userstr" textWrap="true" width="55%"></Label>
+                        <Label [text]="item.completed + '/' + phenophaseCounts[item.protocol_id]" textAlignment="right" textWrap="true" width="13%"></Label>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+
+    <Button text="Back" (tap)="submit()" row="2" column="0"></Button>
+
+</GridLayout>

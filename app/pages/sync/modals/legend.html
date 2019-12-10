@@ -1,0 +1,37 @@
+<GridLayout columns="*" rows="*,auto"
+            height="100%"
+            width="100%" padding="2">
+
+
+    <StackLayout justifyContent="center" textAlign="center"
+                   class="bordered-box"
+                   row="0" column="0">
+        
+        <Label text="Calendar Legend" fontSize="30" style="font-weight: bold; text-align: center; padding-top: 20"></Label>
+        <StackLayout orientation="horizontal" style="padding-top: 20">
+            <StackLayout>
+                <Label text="{{completeIcon}}" padding="4" fontSize="30" color="#69BD45"></Label>
+            </StackLayout>
+            <Label textWrap="true" fontSize="20">
+                <FormattedString>
+                    <Span text="Complete Data: " fontWeight="Bold"></Span>
+                    <Span text="You've completed a full phenology report for every plant and animal species at your site on this date. Great work!"></Span>
+             </FormattedString>
+            </Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding-top: 20">
+            <StackLayout>
+                <Label text="{{incompleteIcon}}" padding="4" fontSize="30" color="#404040"></Label>
+            </StackLayout>
+            <Label textWrap="true" fontSize="20">
+                <FormattedString>
+                    <Span text="Incomplete Data: " fontWeight="Bold"></Span>
+                    <Span text="You've submitted a 'Yes', 'No', or 'Not sure' response for at least one phenophase for an individual plant or animal species at your site but you haven't completed a full report for all your plants and animal species."></Span>
+             </FormattedString>
+            </Label>
+        </StackLayout>
+    </StackLayout>
+
+    <Button text="Back" (tap)="close()" row="1" column="0"></Button>
+
+</GridLayout>

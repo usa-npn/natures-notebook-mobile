@@ -1,0 +1,7 @@
+// You can add custom settings here
+// for example you can uncomment the following line to force distribution code signing
+CODE_SIGN_IDENTITY = iPhone Distribution: National Phenology Network (U53H9GMHBS);
+PROVISIONING_PROFILE = 86bb642f-2b1c-4581-88fc-b02a2c32b310;
+DEVELOPMENT_TEAM = U53H9GMHBS;
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

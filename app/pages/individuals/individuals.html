@@ -1,0 +1,121 @@
+<GridLayout columns="*" rows="*,auto"
+            *ngIf="!isLoading"
+            height="100%"
+            width="100%" padding="2"
+            [ngClass]="{'entering-page': pageEnter, 'exiting-page': pageExit}">
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="0" column="0"
+                   *ngIf="_sitesService.getSitesForSelectedNetwork().length === 0">
+        <Label text="{{notificationIcon}}"
+               class="notification-icon"
+               textWrap="true"></Label>
+        <Label text="You haven't yet added any sites."></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="0" column="0"
+                   *ngIf="_sitesService.getSitesForSelectedNetwork().length != 0 && individuals.length === 0">
+        
+        <FlexboxLayout class="inner-box-header" align-content="center" width="95%">
+            <Label text="{{lightbulbIcon}}"
+            class="lightbulb-icon"
+            textWrap="true"></Label>
+            <Label text="Tap below to add a plant or animal"></Label>
+        </FlexboxLayout>
+        <StackLayout class="inner-box" width="95%">
+            <Label (tap)="openBrowser()" textWrap="true">
+                <FormattedString>
+                <Span text="As part of Nature’s Notebook, you are invited to observe both plants and animals. For more information about choosing plant and animal species, visit "></Span>
+                <Span text="www.usanpn.org/nn/guidelines" textDecoration="underline"></Span>
+                </FormattedString>
+            </Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <StackLayout    class="data-grid"
+                    row="0" column="0"
+                    *ngIf="_sitesService.getSitesForSelectedNetwork().length != 0 && individuals.length != 0">
+    <!-- <FlexboxLayout flexDirection="column"
+                   class="data-grid"
+                   row="0" column="0"
+                   *ngIf="_sitesService.getSitesForSelectedNetwork().length != 0 && individuals.length != 0"> -->
+        <FlexboxLayout class="flex-header"
+                       alignItems="center"
+                       justifyContent="center">
+            <Label [text]="getPageHeader()" textWrap="true"></Label>
+        </FlexboxLayout>
+
+        <StackLayout *ngIf="showList">
+        <!-- <FlexboxLayout flexGrow="1" *ngIf="showList"> -->
+            <ListView [items]="individuals" height="100%">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <FlexboxLayout alignItems="center"
+                                   [class.evenRow]="even" [class.oddRow]="odd"
+                                   (tap)="popupIndividualInfo(item)" width="100%">
+                        <FlexboxLayout flexDirection="column" class="row-left">
+                            <Label text="Nickname:"></Label>
+                            <Label text="Species:"></Label>
+                        </FlexboxLayout>
+                        <FlexboxLayout flexDirection="column" class="row-right">
+                            <Label [text]="item.individual_userstr"></Label>
+                            <Label [text]="item.species.common_name"></Label>
+                        </FlexboxLayout>
+                        <Image class="bordered-box" stretch="fill" [src]="getIndividualImage(item)" height="100" width="100" loadMode="async"></Image>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+
+    <FlexboxLayout  *ngIf="_sitesService.getSitesForSelectedNetwork().length != 0"
+                 row="1" column="0" marginTop="2">
+        <FlexboxLayout class="button-stack"
+                *ngIf="permissionToAddIndividual()"
+                       (tap)="addIndividual()"
+                       marginRight="1"
+                       flexDirection="column"
+                       flexGrow="2">
+            <Label text="{{leafIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Add Plants & Animals"
+                   class="button-text"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class="button-stack"
+                       marginLeft="1"
+                       (tap)="goToObserve()"
+                       flexDirection="column">
+            <Label text="{{eyeIcon}}"
+                   class="button-icon font-awesome"></Label>
+            <Label text="Go to Observe"
+                   class="button-text"></Label>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column" class="button-stack" marginTop="2"
+                 (tap)="goToSites()"
+                 row="1" column="0"
+                 *ngIf="_sitesService.getSitesForSelectedNetwork().length === 0">
+        <Label text="{{backwardIcon}}"
+               class="button-icon"></Label>
+        <Label text="Go To Sites Page"
+               class="button-text"></Label>
+    </FlexboxLayout>
+
+</GridLayout>
+
+<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+        <Label text="loading..."></Label>
+        <ActivityIndicator [busy]="isLoading"
+                           horizontalAlignment="center"
+                           verticalAlignment="center" color="#6E6E6E">
+        </ActivityIndicator>
+    </FlexboxLayout>
+</FlexboxLayout>

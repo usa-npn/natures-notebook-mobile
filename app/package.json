@@ -1,0 +1,31 @@
+{
+    "private": false,
+    "nativescript": {
+        "id": "org.usanpn.naturesnotebookmobile"
+    },
+    "name": "org-usanpn-naturesnotebookmobile",
+    "main": "main.js",
+    "version": "2.3.0",
+    "author": "Jeff Switzer <jeff@usanpn.org>",
+    "description": "Natures Notebook Mobile App",
+    "license": "BSD",
+    "keywords": [
+        "telerik",
+        "mobile",
+        "angular",
+        "nativescript",
+        "{N}",
+        "tns",
+        "appbuilder",
+        "template"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/usa-npn/natures-notebook-mobile"
+    },
+    "homepage": "https://github.com/usa-npn/natures-notebook-mobile",
+    "android": {
+        "v8Flags": "--expose_gc",
+        "markingMode": "none"
+    }
+}

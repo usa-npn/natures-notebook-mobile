@@ -1,0 +1,26 @@
+<FlexboxLayout height="100%" width="100%" flexDirection="column" justifyContent="center">
+    <FlexboxLayout flexDirection="column" class="picker-modal" justifyContent="space-between">
+        <FlexboxLayout *ngIf="showHeader" flexDirection="column" class="picker-header-stack-light">
+            <Label text="{{headerText}}"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout flexDirection="column" padding="2">
+
+            <StackLayout class="notification-stack"
+                            orientation="horizontal">
+                <Label text="{{informationText}}"
+                        class="notification-text"
+                        textWrap="true"></Label>
+            </StackLayout>
+
+            <FlexboxLayout justifyContent="space-between">
+                <Button text="Ok" (tap)="closeModal(true)" flexGrow="1"></Button>
+            </FlexboxLayout>
+
+            <FlexboxLayout *ngIf="showCancel" justifyContent="space-between">
+                <Button text="Cancel" (tap)="closeModal(false)" flexGrow="1"></Button>
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+</FlexboxLayout>

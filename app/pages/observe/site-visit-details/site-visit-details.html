@@ -1,0 +1,135 @@
+<GridLayout columns="*" rows="*, auto">
+    <ScrollView *ngIf="showList" row="0" col="0" height="100%"> 
+        <FlexboxLayout flexDirection="column" class="flex-bordered-box" style="margin-top: 0; margin-bottom: 0;">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+                <Label text="Time Observing" textWrap="true" class="site-visit-left"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.time_spent"
+                           (textChange)="dirtyData = true;"
+                           keyboardType="number"
+                           hint="enter minutes"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('time-observing')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Time Spent In Travel" textWrap="true" class="site-visit-left"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.travel_time"
+                           (textChange)="dirtyData = true;"
+                           keyboardType="number"
+                           hint="enter minutes"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box"(tap)="popupInfo('time-spent-in-travel')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+                <Label text="Time Spent Searching For Animals" textWrap="true" class="site-visit-left"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.duration_of_search"
+                           (textChange)="dirtyData = true;"
+                           keyboardType="number"
+                           hint="enter minutes"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('time-spent-searching-animals')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Animal Survey Method" textWrap="true" class="site-visit-left"></Label>
+                <FlexboxLayout alignItems="center"
+                               class="dropdown" flexGrow="1"
+                               (tap)="popupSurveyMethodPicker()">
+                    <Label text="{{ !selectedObservationGroup.method ? 'Tap to select' : selectedObservationGroup.method }}"
+                           class="dropdown-text"></Label>
+                    <Label text="{{ dropdownIcon }}"
+                           class="dropdown-icon"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('animal-survey-method')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+                <Label text="Snow On Ground" textWrap="true" class="site-visit-left"></Label>
+                <StackLayout orientation="horizontal" class="radio-box">
+                    <Label text="{{ selectedObservationGroup.snow_ground == 1 ? radioCheckedIcon : radioUncheckedIcon }}"
+                           class="radio-icon"
+                           (tap)="toggleSnowOnGround(true)"></Label>
+                    <Label text="Yes"
+                           class="radio-text"></Label>
+                    <Label text="{{ selectedObservationGroup.snow_ground == 0 ? radioCheckedIcon : radioUncheckedIcon }}"
+                           class="radio-icon"
+                           (tap)="toggleSnowOnGround(false)"></Label>
+                    <Label text="No"
+                           class="radio-text"></Label>
+                </StackLayout>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box"(tap)="popupInfo('snow-in-tree-tops')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Ground Covered" textWrap="true" class="site-visit-left"></Label>
+                <StackLayout orientation="horizontal" class="slider-box">
+                    <Label text="{{ getSliderValueAsPercent() }}" width="25%" isEnabled="{{selectedObservationGroup.snow_ground == 1}}"></Label>
+                    <Slider [(ngModel)]="selectedObservationGroup.snow_ground_coverage"
+                            (valueChange)="dirtyData = true;"
+                            width="75%"
+                            isEnabled="{{selectedObservationGroup.snow_ground == 1}}">
+                    </Slider>
+                </StackLayout>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('percent-ground-covered')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+                <Label text="Snow In Tree Tops" textWrap="true" class="site-visit-left"></Label>
+                <StackLayout orientation="horizontal" class="radio-box">
+                    <Label text="{{ selectedObservationGroup.snow_overstory_canopy == 1 ? radioCheckedIcon : radioUncheckedIcon }}"
+                           class="radio-icon"
+                           (tap)="toggleSnowInTreeTops(true)"></Label>
+                    <Label text="Yes"
+                           class="radio-text"></Label>
+                    <Label text="{{ selectedObservationGroup.snow_overstory_canopy == 0 ? radioCheckedIcon : radioUncheckedIcon }}"
+                           class="radio-icon"
+                           (tap)="toggleSnowInTreeTops(false)"></Label>
+                    <Label text="No"
+                           class="radio-text"></Label>
+                </StackLayout>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('snow-in-tree-tops')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Comments" textWrap="true" class="site-visit-left"></Label>
+                <TextField class="visit-details-text"
+                           (textChange)="dirtyData = true;"
+                           [(ngModel)]="selectedObservationGroup.notes"
+                           hint="enter site comments" maxLength="250"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('site-comments')">
+                    <Label text="{{ infoIcon }}"
+                           class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+    </ScrollView>
+<StackLayout row="1" col="0">
+    <FlexboxLayout [ngClass]="{'button-stack' : true, 'save-data-button': true, 'button-stack-success' : (dataSaved && !dirtyData)}"
+                   flexGrow="0"
+                   margin="2"
+                   alignItems="center"
+                   (tap)="saveObservationGroup()">
+        <Label text="{{(dataSaved && !dirtyData) ? checkmarkIcon : ''}}"
+               class="button-icon"></Label>
+        <Label text="{{(dataSaved && !dirtyData) ? 'Data Saved' : 'Save Data'}}"
+               class="button-text" flexGrow="1"></Label>
+    </FlexboxLayout>
+</StackLayout>
+</GridLayout>

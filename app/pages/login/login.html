@@ -1,0 +1,5 @@
+<GridLayout columns="*" rows="*,auto">
+    <WebView #loginWebView src="{{loginUrl}}"  row="0" col="0" visibility="{{hideWebview ? 'hidden' : 'visible'}}"></WebView>
+    <Button *ngIf="showCancel" text="{{cancelText}}" (tap)="cancelLogin()" row="1" col="0"></Button> 
+    <Button *ngIf="showBack" text="Back" (tap)="webViewBack()" row="1" col="0"></Button>
+</GridLayout>

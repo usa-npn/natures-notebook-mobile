@@ -1,0 +1,17 @@
+.icon-box {
+  height: 50;
+  width: 50;
+}
+
+.bordered-stack {
+  margin: 0;
+  margin-bottom: 2;
+}
+
+.nn-pic {
+  background-image: url('~/images/natures_notesbook-tagline-RGB.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */ /* not supported in {N} yet */
+  background-position: center top; /* instead set ypos to top to avoid scroll-up */
+}

@@ -1,0 +1,80 @@
+@import '../../variables.scss';
+
+.add-bar {
+  background-color: $red;
+  padding: 5 10;
+}
+
+.add-bar Image {
+  height: 15;
+  margin-left: 10;
+  margin-right: 5;
+  vertical-align: center;
+}
+
+CheckBox {
+  border-width: 1;
+  font-size: 20;
+  vertical-align: center;
+}
+
+.medium-spacing {
+  margin: 10;
+}
+
+.title {
+  font-size: 30;
+  font-weight: bold;
+  margin: 20;
+}
+
+.caption {
+  font-size: 16;
+  margin: 5;
+}
+
+.icon {
+  margin-right: 4;
+}
+
+// site info modal
+.page-header {
+  font-size: 20;
+}
+
+.picker-body-stack {
+  height: 100%;
+  margin: 5;
+  width: 98%;
+}
+
+.bordered-stack-row {
+  width: 100%;
+}
+
+.filter-stack {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+  width: 100%;
+}
+
+.image-box {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+  width: 98%;
+}
+
+.ind-details-left-labels {
+  font-weight: bold;
+  width: 30%;
+}
+
+.ind-details-right-labels {
+  width: 70%;
+}

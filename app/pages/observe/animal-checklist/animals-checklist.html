@@ -1,0 +1,96 @@
+<GridLayout *ngIf="animals.length === 0" columns="*" rows="*, auto">
+    <FlexboxLayout flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        class="bordered-box"
+        margin="0 2 2 2"
+        row="0" column="0">
+        <Label text="{{notificationIcon}}" class="notification-icon" textWrap="true"></Label>
+        <Label text="There are currently no animals for this site."></Label>
+    </FlexboxLayout>
+
+    <StackLayout *ngIf="permissionToAddAnimals()"
+        class="button-stack"
+        margin="0 2 2 2"
+        (tap)="addAnimal()"
+        row="1" column="0">
+        <Label text="Add animal species"
+               class="button-text"></Label>
+    </StackLayout>
+</GridLayout>
+
+<GridLayout columns="*" rows="*, auto"
+            *ngIf="animals.length > 0">
+    <StackLayout row="0" col="0">
+        <!-- <StackLayout class="bordered-stack-header">
+            <Label text="Animals"></Label>
+        </StackLayout> -->
+
+        <StackLayout *ngIf="showList"> <!--class="bordered-stack"-->
+        <ListView #animalListView [items]="animals" height="100%" width="100%">
+            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <FlexboxLayout alignItems="center" [class.evenRow]="even" [class.oddRow]="odd"
+                               width="100%" height="80">
+
+                    <Label text="{{item.individual_userstr}}" textWrap="true" width="100" textAlignment="left"></Label>
+                    <Label flexGrow="1"></Label>
+                    <StackLayout orientation="horizontal" width="200" flexGrow=0>
+                        <Button class ="phenophase-button phenophase-button-left"
+                            [class.phenophase-active]="item.observed"
+                            text="Observed"
+                            (tap)="changeAnimalSelection(item, 'observed')"></Button>
+                        <Button class ="phenophase-button phenophase-button-right"
+                            [class.phenophase-active]="item.notPresent"
+                            text="Not Present"
+                            (tap)="changeAnimalSelection(item, 'no')"></Button>
+                    </StackLayout>
+
+                </FlexboxLayout>
+                </ng-template>
+        </ListView>
+        </StackLayout>
+
+    </StackLayout>
+
+    <StackLayout row="1" col="0" marginLeft="2" marginRight="2">
+
+        <StackLayout class="bordered-stack" width="100%" marginBottom="0">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+                <Label text="Time Spent Searching For Animals" textWrap="true" width="100"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.duration_of_search"
+                           (ngModelChange)="onTimeSpentSearchingChange($event)"
+                           keyboardType="number"
+                           hint="enter minutes"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" (tap)="popupInfo('time-spent-searching-animals')">
+                    <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Animal Survey Method" textWrap="true" width="100"></Label>
+                <FlexboxLayout alignItems="center"
+                               class="dropdown" flexGrow="1"
+                               (tap)="popupSurveyMethodPicker()">
+                    <Label text="{{ !selectedObservationGroup.method ? 'Tap to select' : selectedObservationGroup.method }}"
+                           class="dropdown-text"></Label>
+                    <Label text="{{ dropdownIcon }}"
+                           class="dropdown-icon"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" (tap)="popupInfo('animal-survey-method')">
+                    <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+        </StackLayout>
+        <FlexboxLayout [ngClass]="{'button-stack' : true, 'save-data-button': true, 'button-stack-success' : (dataSaved)}"
+                       flexGrow="0"
+                       margin="2"
+                       alignItems="center"
+                       (tap)="saveData()">
+            <Label text="{{(dataSaved) ? checkmarkIcon : ''}}"
+                   class="button-icon"></Label>
+            <Label text="{{(dataSaved) ? 'Data Saved' : 'Save Data'}}"
+                   class="button-text" flexGrow="1"></Label>
+        </FlexboxLayout>
+    </StackLayout>
+
+</GridLayout>

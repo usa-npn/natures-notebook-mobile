@@ -1,0 +1,673 @@
+﻿@import 'variables.scss';
+
+.title-text {
+  font-size: 24;
+  font-weight: bold;
+  text-align: center;
+}
+
+.content-text {
+  font-size: 20;
+}
+
+.question-text {
+  font-size: 20;
+  font-weight: bold;
+  text-align: center;
+}
+
+button {
+  background-color: $color-btn;
+  border-color: $color-btn;
+  border-radius: 3;
+  border-width: 1;
+  color: $color-btn-text;
+  height: 50;
+  margin: 2;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.notification-button {
+  border-radius: 0;
+  margin: 0;
+}
+
+// .ios button {
+//   padding: 10;
+// }
+
+label {
+  color: #000000;
+}
+
+.button-with-icon {
+  padding: 2;
+  text-transform: none;
+}
+
+//icon buttons
+.button-stack {
+  background-color: $color-btn;
+  border-color: $color-btn;
+  border-radius: 3;
+  border-width: 1;
+  color: $color-btn-text;
+  flex-grow: 1;
+  padding: 8;
+  text-transform: capitalize;
+}
+
+.no-side-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@keyframes fadeout {
+  0% {
+    background-color: $color-save-button;
+  }
+
+  100% {
+    background-color: $color-btn;
+  }
+}
+
+.button-stack-success {
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-name: fadeout;
+  background-color: $color-save-button;
+}
+
+.button-icon {
+  color: $white;
+  font-family: 'IcoMoon-Free';
+  font-size: 28;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: center;
+}
+
+.button-icon-fa {
+  color: $white;
+  font-family: 'FontAwesome';
+  font-size: 40;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: center;
+}
+
+.button-text {
+  color: $white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.back-button {
+  background-color: transparent;
+  color: $dove-gray;
+  font-family: 'FontAwesome';
+  font-size: 40;
+  font-weight: normal;
+  text-align: left;
+  vertical-align: center;
+  border-width: 0;
+}
+
+Page {
+  background-color: $color-page-background;
+  font-size: 15;
+}
+
+.icon {
+  font-family: 'IcoMoon-Free';
+  font-size: 22;
+  font-weight: normal;
+}
+
+.icomoon {
+  font-family: 'IcoMoon-Free';
+}
+
+ActionBar {
+  background-color: $color-actionbar-background;
+  color: $color-actionbar-text;
+}
+
+//radio buttons
+.radio-box {
+  width: 45%;
+}
+
+.radio-box > Label {
+  text-align: left;
+  vertical-align: center;
+}
+
+.radio-icon {
+  font-family: 'IcoMoon-Free';
+  font-size: 22;
+  width: 25;
+}
+
+.radio-text {
+  margin-right: 20;
+}
+
+//top scrollable nav menu
+.scroll-menu {
+  background-color: $color-nav-background;
+  height: 45;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.menu-item {
+  background-color: $color-nav-background;
+  height: 45;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-button {
+  background-color: $color-nav-background;
+  border-radius: 0;
+  font-size: 14;
+  font-weight: bold;
+  height: 40;
+  margin: 0;
+  padding: 10;
+}
+
+.menu-item-active {
+  background-color: $color-nav-selected-bar;
+}
+
+.menu-text {
+  color: $color-nav-text;
+  margin-left: 3;
+  margin-right: 3;
+}
+
+.menu-text-active {
+  color: $color-nav-text-selected;
+}
+
+//data grids
+.data-grid {
+  background-color: $color-datagrid-background;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+}
+
+.grid-header {
+  background-color: $color-datagrid-header;
+  border-radius: 3 3 0 0;
+  color: $color-datagrid-header-text;
+  font-weight: bold;
+  height: 40;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.grid-header > Label {
+  vertical-align: center;
+}
+
+.grid-row {
+  background-color: $color-datagrid-background;
+  border-radius: 3 3 0 0;
+  height: 50;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.grid-row > Label {
+  color: $color-datagrid-row-label;
+  vertical-align: center;
+}
+
+.row-left {
+  margin-left: 20;
+  text-align: left;
+  width: 70%;
+}
+
+.row-right {
+  margin-right: 20;
+  text-align: right;
+  width: 30%;
+}
+
+//datagrid 2
+.bordered-stack {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+}
+
+.individuals-stack {
+  background-color: $color-datagrid-row-odd;
+}
+
+.individual-label {
+  font-weight: bold;
+}
+
+.bordered-stack-row {
+  min-height: 50;
+  padding: 4;
+}
+
+.evenRow {
+  background-color: $color-datagrid-row-even;
+  min-height: 50;
+  padding: 4;
+}
+
+.oddRow {
+  background-color: $color-datagrid-row-odd;
+  min-height: 50;
+  padding: 4;
+}
+
+.switch {
+  flex: 1;
+}
+
+.bordered-stack-row-label {
+  text-align: left;
+  width: 43%;
+}
+
+.bordered-stack-header {
+  color: $dove-gray;
+  font-size: 28;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+//info icons
+.info-icon {
+  font-family: 'IcoMoon-Free';
+  font-size: 22;
+  text-align: right;
+  vertical-align: center;
+  width: 10%;
+}
+
+.info-icon2 {
+  font-family: 'IcoMoon-Free';
+  color: $color-btn;
+  font-size: 26;
+  text-align: right;
+  vertical-align: center;
+}
+
+.info-icon-legend {
+  font-family: 'IcoMoon-Free';
+  color: $color-btn;
+  font-size: 12;
+  text-align: right;
+  vertical-align: top;
+}
+
+.lightbulb-icon {
+  color: $color-lightbulb-icon;
+  font-family: 'FontAwesome';
+  font-size: 30;
+  margin: 5;
+  text-align: left;
+  vertical-align: center;
+}
+
+.fa-icon {
+  color: $dove-gray;
+  font-family: 'FontAwesome';
+  font-size: 30;
+}
+
+.font-awesome {
+  font-family: 'FontAwesome';
+  font-weight: normal;
+}
+
+//notifications
+.notification-stack {
+  background-color: $color-notification-background;
+  border-color: $color-notification-border;
+  border-radius: 3;
+  border-width: 2;
+}
+
+.notification-icon {
+  color: $color-notification-icon;
+  font-family: 'IcoMoon-Free';
+  font-size: 30;
+  margin: 5;
+  text-align: left;
+  vertical-align: center;
+}
+
+.notification-text {
+  color: $color-notification-text;
+  font-size: 15;
+  margin: 5;
+  vertical-align: center;
+}
+
+//text fields
+TextField {
+  background-color: $color-textfield-background;
+  color: black;
+  placeholder-color: black;
+  border-radius: 3;
+  font-size: 13;
+  padding: 10;
+}
+
+//dropdown boxes
+.dropdown-box {
+  background-color: $color-dropdown-background;
+  border-color: $color-dropdown-border;
+  border-radius: 3;
+  border-width: 1;
+  color: $color-dropdown-text;
+  min-height: 40;
+  padding: 2;
+}
+
+.dropdown-box > Label {
+  vertical-align: center;
+}
+
+.dropdown {
+  background-color: $color-dropdown-background;
+  border-color: $color-dropdown-border;
+  border-radius: 3;
+  border-width: 1;
+  color: $color-dropdown-text;
+  height: 40;
+  padding: 2;
+  label {
+    color: #fff;
+  }
+}
+
+.dropdown-text {
+  flex-grow: 1;
+  flex-wrap: wrap;
+  text-align: center;
+  color: #fff;
+}
+
+.dropdown-icon {
+  font-family: 'FontAwesome';
+  font-size: 30;
+  width: 30;
+  color: #fff;
+}
+
+//modals
+.picker-modal {
+  background-color: #ffffff;
+  border-radius: 5;
+  width: 95%;
+}
+
+.picker-modal-full {
+  background-color: #ffffff;
+  border-radius: 5;
+  width: 100%;
+}
+
+.picker-header-stack {
+  background-color: #6E6E6E;
+  border-color: #6E6E6E;
+  border-radius: 0;
+  margin: 0;
+  padding: 10;
+  vertical-align: center;
+}
+
+.picker-header-stack-light {
+  background-color: $silver-chalice;
+  border-color: $silver-chalice;
+  border-radius: 0;
+  margin: 0;
+  padding: 10;
+  vertical-align: center;
+}
+
+.picker-stack {
+  padding: 2;
+  width: 100%;
+}
+
+.picker-body-stack {
+  background-color: $gallery;
+  border-color: $gallery;
+  border-radius: 3;
+  height: 50%;
+  margin: 5;
+  width: 50%;
+}
+
+.date-picker-body-stack {
+  background-color: $white;
+  margin: 0;
+  width: 100%;
+}
+
+.picker-header-stack > Label {
+  color: $white;
+  font-size: 24;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+.picker-header-stack-light > Label {
+  color: $white;
+  font-size: 24;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+.date-stack {
+  background-color: $gallery;
+  border-color: $gallery;
+  border-radius: 3;
+  margin: 5;
+  padding: 2;
+}
+
+.date-label {
+  margin-left: 2;
+  vertical-align: center;
+  width: 15%;
+}
+
+.date-text {
+  vertical-align: center;
+  width: 45%;
+}
+
+//tabs
+.tab-button {
+  background-color: $color-tab;
+  border-color: $color-tab;
+  color: $color-tab-text;
+  font-weight: bold;
+  margin: 1;
+  padding: 2;
+}
+
+.tab-button-center {
+  border-radius: 0;
+}
+
+.tab-button-left {
+  border-radius: 0;
+  clip-path: ellipse(55% 100% at 57% 50%);
+}
+
+.tab-button-left-after {
+  border-radius: 0;
+  border-top-color: transparent;
+  border-top-width: 40;
+  border-bottom-color: transparent;
+  border-bottom-width: 40;
+  border-left-color: $color-tab-selected;
+  border-left-width: 40;
+  position: absolute; right: -40px; top: 0;
+}
+
+.tab-button-right {
+  border-radius: 0;
+  clip-path: ellipse(55% 100% at 44% 50%);
+}
+
+.tab-active {
+  background-color: $color-tab-selected;
+  border-color: $color-tab-selected;
+  color: $color-tab-text-selected;
+}
+
+.inner-box {
+  background-color: $color-datagrid-background;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 2;
+  font-size: 18;
+}
+
+.inner-box-header {
+  background-color: $color-datagrid-border;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: white;
+  font-size: 18;
+  font-weight: bold;
+  text-align: center;
+}
+
+//flex grid
+.bordered-box {
+  background-color: $color-datagrid-background;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+}
+
+.green-box {
+  background-color: $green;
+  border-color: $green;
+}
+
+.red-box {
+  background-color: $red;
+  border-color: $red;
+}
+
+.orange-box {
+  background-color: $pizazz;
+  border-color: $pizazz;
+}
+
+.blue-box {
+  background-color: $cyan;
+  border-color: $cyan;
+}
+
+.flex-bordered-box {
+  background-color: $color-datagrid-background;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+  padding: 4;
+}
+
+.flex-header {
+  background-color: $color-datagrid-header;
+  border-radius: 0;
+  color: $color-datagrid-header-text;
+  font-weight: bold;
+  height: 40;
+  min-height: 40;
+  padding: 4;
+  label {
+    color: $color-datagrid-header-text;
+  }
+}
+
+.two-row {
+  height: 50;
+  min-height: 50;
+}
+
+ListView {
+  background-color: $color-datagrid-background;
+}
+
+@keyframes data-saved {
+  from {
+    background-color: $color-btn;
+  }
+
+  to {
+    background-color: $color-save-button;
+    border-color: $color-save-button;
+  }
+}
+
+.data-saved {
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-name: data-saved;
+}
+
+@keyframes exiting-page {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.exiting-page {
+  animation-duration: .25s;
+  animation-fill-mode: forwards;
+  animation-name: exiting-page;
+}
+
+@keyframes entering-page {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.entering-page {
+  animation-duration: .25s;
+  animation-fill-mode: forwards;
+  animation-name: entering-page;
+}

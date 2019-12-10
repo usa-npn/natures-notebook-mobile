@@ -1,0 +1,21 @@
+<FlexboxLayout flexDirection="column" height="100%" width="100%" padding="2">
+    <Label text="Welcome to Nature's Notebook!" class="title-text" paddingTop="8"></Label>
+    <FlexboxLayout flexDirection="column" class="bordered-box" padding="8" marginBottom="2">
+        <Label class="content-text" textWrap="true" text="Nature's Notebook is a national, online program where amateur and professional naturalists regularly record observations of plants and animals to generate long-term data sets used for scientific discovery and decision-making."></Label>
+    </FlexboxLayout>
+    <FlexboxLayout flexDirection="column" class="bordered-box" padding="8">
+            <Label class="content-text" textWrap="true" text="Groups are for users who participate with one of our Local Phenology Programs. You can also participate in Nature's Notebook as an individual observer by setting up a site at your home or other location that you frequent."></Label>
+            <!-- <Label class="content-text" textWrap="true" text="If you're not part of a group ... (need text)"></Label> -->
+    </FlexboxLayout>
+    <Label flexGrow="1" class="question-text" textWrap="true" text="Are you here to join a group or would you like to continue on your own?"></Label>
+    <FlexboxLayout marginTop="2" marginBottom="2">
+        <StackLayout class="button-stack" marginRight="1" (tap)="goToGroups()" width="50%">
+            <Label text="{{usersIcon}}" class="button-icon-fa"></Label>
+            <Label text="I'm part of a group." textWrap="true" class="button-text"></Label>
+        </StackLayout>
+        <StackLayout class="button-stack" marginLeft="1" (tap)="goToSites()" width="50%">
+            <Label text="{{userIcon}}" class="button-icon-fa"></Label>
+            <Label text="I'll continue on my own, thanks!" textWrap="true" class="button-text"></Label>
+        </StackLayout>
+    </FlexboxLayout>
+</FlexboxLayout>

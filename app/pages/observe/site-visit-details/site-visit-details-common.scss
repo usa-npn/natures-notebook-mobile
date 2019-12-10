@@ -1,0 +1,59 @@
+.save-data-button{
+    padding:2;
+    height:35;
+    border-radius:0;
+    //font-weight: bold;
+}
+
+.visit-details-text {
+    width: 45%;
+    text-align: center;
+    height: 40;
+    // padding: 2;
+    // margin: 0;
+}
+
+.slider-box {
+    width: 45%;
+}
+
+.slider-box > Label {
+    vertical-align: center;
+}
+
+.flex-bordered-box {
+    padding: 0;
+}
+
+.site-visit-left {
+    width: 130;
+}
+
+.oddRow {
+    //height: 35;
+    flex-grow: 1;
+    // padding-bottom: 1;
+    // padding-top: 1;
+    min-height: 0;
+    padding: 3;
+}
+
+.evenRow {
+    //height: 35;
+    flex-grow: 1;
+    // padding-bottom: 1;
+    // padding-top: 1;
+    min-height: 0;
+    padding: 3;
+}
+
+.icon-box {
+    height: 35;
+    width: 35;
+}
+
+.dropdown-box {
+    min-height: 35;
+    height: 35;
+}
+

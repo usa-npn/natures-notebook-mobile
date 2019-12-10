@@ -1,0 +1,91 @@
+<GridLayout columns="*" rows="*,auto"
+             height="100%"
+             width="100%" padding="2"
+            *ngIf="!isLoading">
+
+    <FlexboxLayout flexDirection="column"
+                   justifyContent="center"
+                   alignItems="center"
+                   class="bordered-box"
+                   row="0" column="0"
+                   *ngIf="groups.length === 1">
+
+        <FlexboxLayout class="inner-box-header" align-content="center" width="95%">
+            <Label text="{{lightbulbIcon}}"
+            class="lightbulb-icon"
+            textWrap="true"></Label>
+            <Label text="Tap below to join a group"></Label>
+        </FlexboxLayout>
+        <StackLayout class="inner-box" width="95%">
+            <Label (tap)="openBrowser()" textWrap="true">
+                <FormattedString>
+                <Span text="If you are participating in a local, organized effort, you might want to join a group so you have access to their sites. For more information about observing with a group, visit "></Span>
+                <Span text="www.usanpn.org/nn/guidelines/group-sites" textDecoration="underline"></Span>
+                </FormattedString>
+            </Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <StackLayout class="data-grid"
+                   row="0" column="0"
+                   *ngIf="groups.length != 1">
+    <!-- <FlexboxLayout flexDirection="column"
+                   class="data-grid"
+                   row="0" column="0"
+                   *ngIf="groups.length != 1"> -->
+        <FlexboxLayout class="flex-header"
+                       alignItems="center"
+                       justifyContent="space-between">
+            <Label text="Group"></Label>
+            <Label text="Selected"></Label>
+        </FlexboxLayout>
+
+        <StackLayout>
+        <!-- <FlexboxLayout flexGrow="1"> -->
+            <ListView [items]="groups" height="100%">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <FlexboxLayout alignItems="center" [class.evenRow]="even" [class.oddRow]="odd" (tap)="toggleGroup(item)" width="100%">
+                        <Label [text]="item.name" width="90%" textwrap="true"></Label>
+                        <Label text="" height="50" flexGrow="1"></Label>
+                        <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" >
+                            <Label text="{{ item.no_group_site == 1 ? infoIcon : (item.selected == true ? radioCheckedIcon : radioUncheckedIcon) }}"
+                                   class="radio-icon"></Label>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+
+    </StackLayout>
+
+    <FlexboxLayout row="1" column="0" marginTop="2">
+        <StackLayout class="button-stack"
+                     marginRight="1"
+                     (tap)="joinGroup()">
+            <Label text="{{groupIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Join a Group"
+                   class="button-text"></Label>
+        </StackLayout>
+        <StackLayout class="button-stack"
+                     marginLeft="1"
+                     (tap)="goToMySites()">
+            <Label text="{{locationIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Go to Sites"
+                   class="button-text"></Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+</GridLayout>
+
+<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+        <Label text="loading..."></Label>
+        <ActivityIndicator [busy]="isLoading"
+                           horizontalAlignment="center"
+                           verticalAlignment="center" color="#6E6E6E">
+        </ActivityIndicator>
+    </FlexboxLayout>
+</FlexboxLayout>
+

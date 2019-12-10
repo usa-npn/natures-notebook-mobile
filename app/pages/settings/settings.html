@@ -1,0 +1,106 @@
+<FlexboxLayout flexDirection="column"
+               height="100%"
+               width="100%" padding="2">
+
+    <FlexboxLayout flexDirection="column" class="bordered-stack">
+        <FlexboxLayout alignItems="center"
+                       class="oddRow">
+            <Label text="Sync Over Wi-Fi Only"
+                   width="120"
+                   textWrap="true"></Label>
+            <StackLayout orientation="horizontal"
+                         flexGrow="1">
+                <Label text="{{ wifiOnlySync == true ? radioCheckedIcon : radioUncheckedIcon }}"
+                       class="radio-icon"
+                       (tap)="toggleWifiOnlySync(true)"></Label>
+                <Label text="Yes"
+                       class="radio-text"></Label>
+                <Label text="{{ wifiOnlySync == false ? radioCheckedIcon : radioUncheckedIcon }}"
+                       class="radio-icon"
+                       (tap)="toggleWifiOnlySync(false)"></Label>
+                <Label text="No"
+                       class="radio-text"></Label>
+            </StackLayout>
+            <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('wifi-only')">
+                <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+        <FlexboxLayout alignItems="center"
+                       class="evenRow">
+            <Label text="Include Time in Dates Observed"
+                   width="120"
+                   textWrap="true"></Label>
+            <StackLayout orientation="horizontal"
+                         flexGrow="1">
+                <Label text="{{ recordObservationTime == true ? radioCheckedIcon : radioUncheckedIcon }}"
+                       class="radio-icon"
+                       (tap)="toggleRecordObservationTime(true)"></Label>
+                <Label text="Yes"
+                       class="radio-text"></Label>
+                <Label text="{{ recordObservationTime == false ? radioCheckedIcon : radioUncheckedIcon }}"
+                       class="radio-icon"
+                       (tap)="toggleRecordObservationTime(false)"></Label>
+                <Label text="No"
+                       class="radio-text"></Label>
+            </StackLayout>
+            <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('include-time')">
+                <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+        <!--<FlexboxLayout alignItems="center"-->
+                       <!--class="oddRow">-->
+            <!--<Label text="Use simplified Protocols" textWrap="true" width="125"></Label>-->
+            <!--<StackLayout orientation="horizontal"-->
+                         <!--flexGrow="1">-->
+                <!--<Label text="{{ useSimplifiedProtocols == true ? radioCheckedIcon : radioUncheckedIcon }}"-->
+                       <!--class="radio-icon"-->
+                       <!--(tap)="toggleUseSimplifiedProtocols(true)"></Label>-->
+                <!--<Label text="Yes"-->
+                       <!--class="radio-text"-->
+                       <!--[class.radio-yes-text]="useSimplifiedProtocols"></Label>-->
+                <!--<Label text="{{ useSimplifiedProtocols == false ? radioCheckedIcon : radioUncheckedIcon }}"-->
+                       <!--class="radio-icon"-->
+                       <!--(tap)="toggleUseSimplifiedProtocols(false)"></Label>-->
+                <!--<Label text="No"-->
+                       <!--class="radio-text"-->
+                       <!--[class.radio-no-text]="useSimplifiedProtocols == false"></Label>-->
+            <!--</StackLayout>-->
+            <!--<FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo()">-->
+                <!--<Label text="{{ infoIcon }}" class="icon"></Label>-->
+            <!--</FlexboxLayout>-->
+        <!--</FlexboxLayout>-->
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   class="bordered-box" padding="4" marginBottom="2">
+        <FlexboxLayout alignItems="center" height="50">
+            <Label class="account-info-text" text="Current Account: "></Label>
+            <TextField text={{getAccountEmail()}} editable="false" flexGrow="1"></TextField>
+        </FlexboxLayout>
+        <StackLayout class="button-stack" style="width:100%" marginTop="2" (tap)="manageAccounts()">
+            <Label text="{{groupIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Manage Accounts"
+                   class="button-text"></Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                  
+                   (tap)="incrementDebug()"
+                   class="bordered-box" flexGrow="1" padding="2" paddingTop="6" style.backgroundColor="{{ getBackgroundColor() }}">
+        <StackLayout class="nn-pic" height="100" width="200"></StackLayout>
+        <Label style="font-size: 12; text-align: center" text="{{ getVersion() }}"></Label>
+        <Label style="font-size: 6" textWrap="true">
+              <FormattedString>
+                     <Span text="&#xA;PAPERWORK REDUCTION ACT STATEMENT: " fontWeight="Bold"></Span>
+                     <Span text="In accordance with the Paperwork Reduction Act (44 U.S.C. 3501), please note the following. This information collection is authorized by Organic Act, 43 U.S.C. 31 et seq., 1879 and Fish and Wildlife Coordination Act. Your response is voluntary. We estimate that it will take approximately 2 minutes to make and report observations per respondent. An agency may not conduct or sponsor and a person is not required to respond to a collection of information unless it displays a currently valid Office of Management and Budget control number. OMB has reviewed and approved this information collection and assigned OMB Control Number 1028-0103. You may submit comments on any aspect of this information collection, including the accuracy of the estimated burden hours and suggestions to reduce this burden. Send your comments to: Information Collection Clearance Officer, U.S. Geological Survey, 12201 Sunrise Valley Drive, MS 807, Reston, VA 20192.
+OMB Control #: 1028-0103
+Expiration Date: 10/31/2019"></Span>
+              </FormattedString>
+        </Label>
+        <Label flexGrow="1"></Label>
+        <Button text="View Privacy Statement" style="width:97%" (tap)="popupPrivacy()"></Button>
+    </FlexboxLayout>
+
+</FlexboxLayout>

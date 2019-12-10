@@ -1,0 +1,53 @@
+<FlexboxLayout flexDirection="column"
+               width="100%"
+               height="100%"
+               padding="2">
+    <FlexboxLayout alignContent="center"
+                   justifyContent="center">
+        <Label text="{{bugIcon}}"
+               class="header-icon"></Label>
+        <Label text="Debug Menu"
+               class="header-text"></Label>
+        <Label text="{{bugIcon}}"
+               class="header-icon"></Label>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   alignItems="center"
+                   justifyContent="center"
+                   class="bordered-box"
+                   flexGrow="1">
+        <Label class="account-info-text" text="We're sorry you're having issues."></Label>
+        <Label class="account-info-text" text="This page can help us help you!"></Label>
+        <TextField hint="Describe your problem here and tap Submit Issue."textWrap="true" width="90%" [(ngModel)]="problemText"></TextField>
+    </FlexboxLayout>
+
+    <StackLayout [ngClass]="{'button-stack' : true, 'button-stack-success' : databaseUploaded}"
+                 flexGrow="0"
+                 marginTop="2" marginBottom="2"
+                 (tap)="uploadDatabase()">
+        <Label text="{{databaseButtonImage}}"
+               class="button-icon"></Label>
+        <Label text="{{databaseButtonText}}"
+               class="button-text"></Label>
+    </StackLayout>
+
+    <StackLayout [ngClass]="{'button-stack' : true, 'button-stack-success' : databaseUploaded}"
+                 flexGrow="0"
+                 marginTop="2" marginBottom="2"
+                 (tap)="deleteUnsyncedObservations()">
+        <Label text="{{removeObsButtonImage}}"
+               class="button-icon-fa"></Label>
+        <Label text="{{removeObsButtonText}}"
+               class="button-text"></Label>
+    </StackLayout>
+
+    <StackLayout class="button-stack"
+                 flexGrow="0"
+                 (tap)="goToSettings()">
+        <Label text="{{backwardIcon}}"
+               class="button-icon"></Label>
+        <Label text="Back to Settings"
+               class="button-text"></Label>
+    </StackLayout>
+</FlexboxLayout>

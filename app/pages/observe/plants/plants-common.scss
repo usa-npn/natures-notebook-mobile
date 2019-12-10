@@ -1,0 +1,77 @@
+@import '../../../variables.scss';
+
+// general modal
+.picker-header-stack > Label {
+  color: $white;
+  font-size: 24;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+.picker-body-stack {
+  background-color: $gallery;
+  border-color: $gallery;
+  border-radius: 3;
+  height: 50%;
+  margin: 5;
+  width: 50%;
+}
+
+// phenophase info popup
+.phenophase-info-header-stack {
+  background-color: $dove-gray;
+  border-color: $dove-gray;
+  border-radius: 0;
+  height: 20%;
+  margin: 0;
+  vertical-align: center;
+  width: 100%;
+}
+
+.phenophase-info-header-stack > Label {
+  color: $white;
+  font-size: 24;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+.phenophase-info-stack {
+  background-color: $gallery;
+  border-color: $gallery;
+  border-radius: 3;
+  height: 60%;
+  margin: 5;
+  width: 90%;
+}
+
+.phenophase-info-subsection-header {
+  background-color: $dove-gray;
+  color: $white;
+  text-align: center;
+  vertical-align: center;
+  width: 100%;
+  padding: 2;
+}
+
+.plant-picker {}
+
+.survey-method-picker {}
+
+// bottom buttons
+.save-data-button {
+  border-radius: 0;
+  border-width: 0;
+  height: 40;
+  margin-right: 1;
+  padding: 2;
+}
+
+.next-plant-button {
+  border-radius: 0;
+  font-weight: bold;
+  height: 40;
+  margin-left: 1;
+  padding: 2;
+}

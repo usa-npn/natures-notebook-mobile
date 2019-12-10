@@ -1,0 +1,107 @@
+<GridLayout columns="*" rows="auto,*,auto,auto,auto">
+
+    <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" col="0">
+        <Label text="Find Your Site Location"></Label>
+    </FlexboxLayout>
+
+    <MapView #MapView
+             bearing="{{ bearing }}"
+             tilt="{{ tilt }}"
+             i-padding="50,50,50,50"
+             padding="{{ padding }}"
+             (mapReady)="onMapReady($event)"
+             (coordinateTapped)="onCoordinateTapped($event)"
+             row="1" col="0"
+             visibility="{{ activeTab === 'map' ? 'visible' : 'collapsed' }}">
+    </MapView>
+
+    <FlexboxLayout visibility="{{ activeTab === 'address' ? 'visible' : 'collapsed' }}"
+                   padding="2"
+                   row="1" col="0">
+        <FlexboxLayout flexDirection="column" class="bordered-box" width="100%">
+            <FlexboxLayout class="oddRow"
+                           alignItems="center">
+                <Label text="Street Address:" textWrap="true" class="ind-details-left-labels"></Label>
+                <TextField [ngModel]="streetAddress | async" (ngModelChange)="streetAddress.next($event)" hint="street address" textAlignment="center" flexGrow="1"></TextField>
+            </FlexboxLayout>
+            <FlexboxLayout class="evenRow"
+                           alignItems="center">
+                <Label text="City:" textWrap="true" class="ind-details-left-labels"></Label>
+                <TextField [ngModel]="thecity | async" (ngModelChange)="thecity.next($event)" hint="city name" textAlignment="center" flexGrow="1"></TextField>
+            </FlexboxLayout>
+            <FlexboxLayout class="oddRow"
+                           alignItems="center">
+                <Label text="State:" textWrap="true" class="ind-details-left-labels"></Label>
+                <FlexboxLayout alignItems="center"
+                               class="dropdown" height="40" flexGrow="1"
+                               (tap)="popupStatePicker()">
+                    <Label text="{{ state ? state.state_name : 'select State' }}"
+                           class="dropdown-text"></Label>
+                    <Label text="{{ dropdownIcon }}"
+                           class="dropdown-icon"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout class="evenRow"
+                           flexDirection="column"
+                           alignItems="center"
+                           flexGrow="1">
+                <ActivityIndicator [busy]="true"
+                                   *ngIf="geoStatus === 'Searching for address...'"
+                                   horizontalAlignment="center"
+                                   verticalAlignment="center" color="#6E6E6E" width="100%">
+                </ActivityIndicator>
+                <Label text="{{ geoStatus }}" textWrap="true" textAlignment="center" width="100%"></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+    <FlexboxLayout justifyContent="space-between" row="2" col="0">
+        <Button text="by map"
+                class="tab-button tab-button-left"
+                [class.tab-active]="activeTab == 'map'"
+                (tap)="openMapTab()"
+                flexGrow="1">
+
+        </Button>
+        <Button text="by address"
+                class="tab-button tab-button-right"
+                [class.tab-active]="activeTab == 'address'"
+                (tap)="openAddressTab()"
+                flexGrow="1">
+
+        </Button>
+    </FlexboxLayout>
+
+    <FlexboxLayout padding="2" row="3" col="0">
+        <FlexboxLayout flexDirection="column" class="bordered-box" >
+            <FlexboxLayout *ngIf="latitude != null" class="oddRow"
+                           alignItems="center">
+                <Label text="Name:" class="ind-details-left-labels"></Label>
+                <Label text="{{ siteName }}" class="ind-details-right-label" textWrap="true"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout *ngIf="latitude != null" class="evenRow"
+                           alignItems="center">
+                <Label text="Longitude:" class="ind-details-left-labels"></Label>
+                <Label text="{{ longitude }}" class="ind-details-right-labels"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout *ngIf="latitude != null" class="oddRow"
+                           alignItems="center">
+                <Label text="Latitude:" class="ind-details-left-labels"></Label>
+                <Label text="{{ latitude }}" class="ind-details-right-labels"></Label>
+            </FlexboxLayout>
+            <FlexboxLayout *ngIf="latitude == null" class="oddRow"
+                           alignItems="center" width="100%">
+                <label text="Tap the map where {{siteName}} is located or enter its address." textWrap="true"></label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+    </FlexboxLayout>
+
+    <FlexboxLayout justifyContent="space-between" row="4" col="0" *ngIf="!savingNewSite">
+        <Button text="Cancel" flexGrow="1" (tap)="cancelNewSite()"></Button>
+        <Button text="Save" flexGrow="1" (tap)="saveNewSite()"></Button>
+    </FlexboxLayout>
+    <FlexboxLayout row="4" col="0" class="picker-stack" *ngIf="savingNewSite">
+        <Button text="Creating site..." flexGrow="1"></Button>
+    </FlexboxLayout>
+</GridLayout>
+

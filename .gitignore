@@ -1,0 +1,16 @@
+node_modules
+platforms
+.idea
+.vscode
+.DS_Store
+hooks/**
+app/*.css
+app/*.js
+app/pages/**/*.js
+app/pages/**/*.map
+app/pages/**/*.css
+app/shared/**/*.js
+app/shared/**/*.map
+app/config.json
+report
+app/App_Resources/Android/src/main/res/values/nativescript_google_maps_api.xml

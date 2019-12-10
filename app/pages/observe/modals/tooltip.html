@@ -1,0 +1,19 @@
+<FlexboxLayout height="100%" width="100%" flexDirection="column" justifyContent="center">
+    <FlexboxLayout flexDirection="column" class="picker-modal" justifyContent="space-between">
+        <!--<FlexboxLayout flexDirection="column" class="picker-header-stack">-->
+            <!--<Label text="{{lightbulbIcon}}"-->
+                   <!--class="lightbulb-icon"-->
+                   <!--textWrap="true"></Label>-->
+        <!--</FlexboxLayout>-->
+        <FlexboxLayout flexDirection="column" padding="2" flexGrow="1">
+            <StackLayout class="notification-stack"
+                         orientation="horizontal">
+
+                <Label text="{{tipText}}"
+                       class="notification-text"
+                       textWrap="true"></Label>
+            </StackLayout>
+        </FlexboxLayout>
+        <Button text="Ok" (tap)="closeModal()"></Button>
+    </FlexboxLayout>
+</FlexboxLayout>

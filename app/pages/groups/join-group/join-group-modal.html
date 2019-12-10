@@ -1,0 +1,100 @@
+<Page>
+<GridLayout columns="*" rows="auto,*,auto"
+               class="picker-modal-full" *ngIf="!isLoading">
+
+    <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" col="0">
+        <Label text="Join a Group"></Label>
+    </FlexboxLayout>
+
+    <StackLayout class="picker-stack" row="1" col="0">
+        <!--(ngModelChange)="searchTextChanged()"-->
+
+        <FlexboxLayout class="flex-bordered-box"
+                       alignItems="center"
+                       justifyContent="space-between">
+            <Label text="{{searchIcon}}"
+                   class="font-awesome"
+                   fontSize="20"
+                   width="25"></Label>
+            <TextField #searchField
+                       flexGrow="1"
+                       [(ngModel)]="searchPhrase"
+                       (ngModelChange)="searchTerms.next($event)"
+                       style="text-align: center"
+                       autocapitalizationType="none"
+                       autocorrect="false"
+                       hint="search by group name">
+            </TextField>
+        </FlexboxLayout>
+
+        <StackLayout class="picker-body-stack">
+            <ScrollView height="100%">
+                <StackLayout >
+                    <StackLayout #groupsListView *ngFor="let item of groupsHierarchy">
+                                <FlexboxLayout alignItems="center" class="groups-hierarchy-row" (tap)="toggleGroup(item)" *ngIf="showGroup(item)">
+                                    <FlexboxLayout alignItems="center" justifyContent="flex-end" height="50" width="10%">
+                                        <Label text="{{ getIcon(item) }}"
+                                               class="fa-icon"></Label>
+                                    </FlexboxLayout>
+                                    <Label [text]="item.network_name" textWrap="true" width="90%"></Label>
+                                </FlexboxLayout>
+
+                                <StackLayout *ngIf="(expandHierarchy && item.secondary_network) || item.showChildren">
+                                    <StackLayout *ngFor="let secondaryNetwork of item.secondary_network">
+                                        <FlexboxLayout alignItems="center" class="groups-hierarchy-row" (tap)="toggleGroup(secondaryNetwork)" *ngIf="showGroup(secondaryNetwork)">
+                                            <FlexboxLayout alignItems="center" justifyContent="flex-end" height="50" width="15%">
+                                                <Label text="{{ getIcon(secondaryNetwork) }}"
+                                                       class="fa-icon"></Label>
+                                            </FlexboxLayout>
+                                            <Label [text]="secondaryNetwork.network_name" textWrap="true" width="85%"></Label>
+                                        </FlexboxLayout>
+
+                                        <StackLayout *ngIf="(expandHierarchy && secondaryNetwork.tertiary_network) || secondaryNetwork.showChildren">
+                                            <StackLayout *ngFor="let tertiaryNetwork of secondaryNetwork.tertiary_network">
+                                                <FlexboxLayout alignItems="center" class="groups-hierarchy-row" (tap)="toggleGroup(tertiaryNetwork)" *ngIf="showGroup(tertiaryNetwork)">
+                                                    <FlexboxLayout alignItems="center" justifyContent="flex-end" height="50" width="20%">
+                                                        <Label text="{{ getIcon(tertiaryNetwork) }}"
+                                                               class="fa-icon"></Label>
+                                                    </FlexboxLayout>
+                                                    <Label [text]="tertiaryNetwork.network_name" textWrap="true" width="80%"></Label>
+                                                </FlexboxLayout>
+
+                                                <StackLayout *ngIf="(expandHierarchy && tertiaryNetwork.quaternary_network) || tertiaryNetwork.showChildren">
+                                                    <StackLayout *ngFor="let quaternaryNetwork of tertiaryNetwork.quaternary_network">
+                                                        <FlexboxLayout alignItems="center" class="groups-hierarchy-row" (tap)="toggleGroup(quaternaryNetwork)" *ngIf="showGroup(quaternaryNetwork)">
+                                                            <FlexboxLayout alignItems="center" justifyContent="flex-end" height="50" width="25%">
+                                                                <Label text="{{ getIcon(quaternaryNetwork) }}"
+                                                                       class="fa-icon"></Label>
+                                                            </FlexboxLayout>
+                                                            <Label [text]="quaternaryNetwork.network_name" textWrap="true" width="75%"></Label>
+                                                        </FlexboxLayout>
+                                                    </StackLayout >
+                                                </StackLayout>
+                                            </StackLayout >
+                                        </StackLayout>
+                                    </StackLayout >
+                                </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </StackLayout>
+    <FlexboxLayout row="2" col="0" class="picker-stack" *ngIf="!loadingNewGroup">
+        <Button text="Cancel" (tap)="cancelModal()" flexGrow="1"></Button>
+        <Button text="Join" (tap)="closeModal()" flexGrow="1"></Button>
+    </FlexboxLayout>
+    <FlexboxLayout row="2" col="0" class="picker-stack" *ngIf="loadingNewGroup">
+        <Button text="Downloading Group Data..." flexGrow="1"></Button>
+    </FlexboxLayout>
+</GridLayout>
+
+<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+        <Label text="loading..."></Label>
+        <ActivityIndicator [busy]="isLoading"
+                           horizontalAlignment="center"
+                           verticalAlignment="center" color="#6E6E6E">
+        </ActivityIndicator>
+    </FlexboxLayout>
+</FlexboxLayout>
+</Page>

@@ -1,0 +1,27 @@
+<FlexboxLayout height="100%" width="100%" flexDirection="column" justifyContent="center">
+    <FlexboxLayout flexDirection="column" class="picker-modal" justifyContent="space-between">
+        <FlexboxLayout flexDirection="column" class="picker-header-stack-light">
+            <Label text="{{headerText}}"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout flexDirection="column" padding="2">
+
+            <StackLayout>
+                <StackLayout class="notification-stack"
+                             orientation="horizontal">
+                    <Label text="{{lightbulbIcon}}"
+                           class="lightbulb-icon"
+                           textWrap="true"></Label>
+                    <Label text="{{informationText}}"
+                           class="notification-text"
+                           textWrap="true"></Label>
+                </StackLayout>
+            </StackLayout>
+
+            <FlexboxLayout justifyContent="space-between">
+                <Button text="Ok" (tap)="closeModal()" flexGrow="1"></Button>
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+</FlexboxLayout>

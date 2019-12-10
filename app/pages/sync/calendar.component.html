@@ -1,0 +1,124 @@
+<GridLayout columns="*" rows="auto,auto,*,auto,auto"
+            height="100%"
+            width="100%" padding="2"
+            *ngIf="!isLoading">
+
+    <StackLayout
+        alignContent="center" 
+        alignItems="center" 
+        justifyContent="center" 
+        row="0" 
+        column="0" 
+        width="100%" 
+        height="40"
+        [ngClass]="{'filter-header-text': true, 'bordered-box': true, 'green-box': userDataUpToDate(), 'red-box': (noWifi || noConnection), 'orange-box': (!userDataUpToDate() && !noWifi && !noConnection && !syncing), 'blue-box': syncing}" marginBottom="2"
+        (tap)="createSyncQueueModelView()">
+        <StackLayout orientation="horizontal" horizontalAlignment="center" height="40">
+                <Label text="{{ getStatusBarText() }}" verticalAlignment="center"></Label>
+        </StackLayout>
+    </StackLayout>
+
+    <StackLayout class="bordered-box" padding="2" margin="0" width="100%" row="1" column="0" height="40">
+        <FlexboxLayout alignItems="center" height="40">
+
+            <Label text="Site" marginRight="2" width="30" textWrap="true"></Label>
+            <FlexboxLayout alignItems="center"
+                           class="dropdown" height="32" flexGrow="1"
+                           (tap)="popupSitePicker()">
+                <Label text="{{ selectedSite ? selectedSite.station_name : 'Tap to choose a site' }}" textWrap="true"
+                       class="dropdown-text"></Label>
+                <Label text="{{ dropdownIcon }}"
+                       class="dropdown-icon"></Label>
+            </FlexboxLayout>
+        </FlexboxLayout>
+    </StackLayout>
+
+    <StackLayout row="2" column="0">
+        <RadCalendar #myCalendar id="myCalendar"
+                     [monthViewStyle]="monthViewStyle"
+                     [yearViewStyle]="yearViewStyle"
+                     [viewMode]="viewMode"
+                     [eventSource]="_events"
+                     [selectedDate]="curDate" 
+                     [selectionMode]="'None'"
+                     (cellTap)="onCellTap($event)"
+                     (navigatedToDate)="onNavigatedToDate($event)"
+                     (navigatedToDateEvent)="onNavigatedToDateEvent($event)"
+                     (viewModeChanged)="onViewModeChanged($event)">
+        </RadCalendar>
+        <RadListView [items]="myItems">
+            <ng-template let-item="item">
+                <StackLayout class="listRow">
+                    <Label [text]="item.title"></Label>
+                </StackLayout>
+            </ng-template>
+        </RadListView>
+    </StackLayout>
+
+
+    <FlexboxLayout width="100%" row="3" column="0" height="45">
+
+        <StackLayout class="bordered-box" paddingLeft="1" paddingRight="1" paddingTop="0" paddingBottom="0" margin="1" flexGrow="1" (tap)="popupLegend()">
+            <FlexboxLayout alignItems="center" justifyContent="center" alignContent="center">
+                <Label text="Legend:" marginRight="1" style="font-weight: bold;"></Label>
+                <StackLayout flexGrow="1">
+                    <FlexboxLayout alignItems="center" height="20">
+                        <Label text="{{getIconUnicode(true)}}" marginRight="1" fontSize="16" color="#69BD45"></Label>
+                        <Label text="Complete Data" marginRight="2" textWrap="true"></Label>
+                    </FlexboxLayout>
+                    <FlexboxLayout alignItems="center" height="20">
+                        <Label text="{{getIconUnicode(false)}}" marginRight="1" fontSize="16" color="#404040"></Label>
+                        <Label text="Incomplete Data" marginRight="2" textWrap="true"></Label>
+                    </FlexboxLayout>
+                </StackLayout>
+                <StackLayout height="40" style="padding-top: 1">
+                    <Label text="{{ infoIcon }}" class="info-icon-legend"></Label>
+                </StackLayout>
+            </FlexboxLayout>
+        </StackLayout>
+        
+        <StackLayout class="button-stack" padding="1" margin="1"
+            orientation="horizontal"
+            horizontalAlignment="center"
+            (tap)="toggleCalendarViewMode()">
+            <Label text="{{calendarIcon}} "
+                class="button-icon icomoon"
+                style="font-size: 16"></Label> 
+            <Label text="Toggle View" class="button-text" height="20"></Label>
+        </StackLayout>
+
+    </FlexboxLayout>
+
+    
+
+
+    <FlexboxLayout flexDirection="column" alignContent="center" justifyContent="center"
+                   row="4" column="0" *ngIf="syncing">
+        <FlexboxLayout flexDirection="column" alignContent="center" justifyContent="center">
+            <Label class="page-header" text="{{'Syncing Account: ' + _syncService.syncingAccount}}"></Label>
+            <Label class="page-header" text="{{'Syncing: ' + _syncService.currentlySyncing}}"></Label>
+            <Label class="page-header" text="Please Wait..."></Label>
+        </FlexboxLayout>
+        <StackLayout verticalAlign="center" height="40" width="100%">
+            <Progress
+                [value]="(_syncService.progressValue / (_syncService.totalAccountsToSync * _syncService.totalItemsPerAccountToSync)) * 100"
+                maxValue="100"> <!--(valueChanged)="onValueChanged($event)"--> 
+            </Progress>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <StackLayout class="button-stack"
+                 orientation="horizontal"
+                 horizontalAlignment="center"
+                 height="40"
+                 width="100%"
+                 marginTop="2"
+                 (tap)="sync()"
+                 row="4" column="0" *ngIf="!syncing">
+        <Label text="{{refreshIcon}}"
+               class="button-icon font-awesome" style="font-size: 20"></Label>
+        <Label text=" Sync"
+               class="button-text"></Label>
+    </StackLayout>
+
+</GridLayout>

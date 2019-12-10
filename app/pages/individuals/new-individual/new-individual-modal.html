@@ -1,0 +1,114 @@
+<StackLayout class="picker-modal-full">
+    <GridLayout *ngIf="!showPicker" columns="*" rows="auto,auto,auto,*,*,auto">
+        <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" column="0">
+            <Label text="Add a New Plant or Animal"></Label>
+        </FlexboxLayout>
+    
+        <StackLayout *ngIf="species.length > 0" class="picker-stack" row="1" column="0">
+            <FlexboxLayout flexDirection="column" class="filter-stack">
+                <FlexboxLayout class="flex-bordered-box"
+                               alignItems="center"
+                               justifyContent="space-between">
+                    <Label text="Species Name"
+                           textWrap="true"
+                           width="60" fontSize="14"></Label>
+                    <FlexboxLayout alignItems="center"
+                                   class="dropdown" flexGrow="1"
+                                   (tap)="openPicker()">
+                        <Label text="{{ getSpeciesName() }}"
+                               class="dropdown-text"></Label>
+                        <Label text="{{ dropdownIcon }}"
+                               class="dropdown-icon"></Label>
+                    </FlexboxLayout>
+                </FlexboxLayout>
+    
+                <StackLayout orientation="horizontal">
+                    <Button class ="tab-button tab-button-left" width="50%" height="40"
+                            [class.tab-active]="activeTab == 'common'"
+                            text="Common" (tap)="changePage('common')"></Button>
+                    <Button class ="tab-button tab-button-right" width="50%" height="40"
+                            [class.tab-active]="activeTab == 'scientific'"
+                            text="Scientific" (tap)="changePage('scientific')"></Button>
+                </StackLayout>
+
+            </FlexboxLayout>
+        </StackLayout>
+    
+        <FlexboxLayout flexDirection="column"
+                       class="flex-bordered-box" row="2" column="0">
+            <Label class="error-label"
+                   *ngIf="nicknameError != ''"
+                   text='{{nicknameError}}'></Label>
+            <FlexboxLayout alignItems="center"
+                           justifyContent="space-between"
+                           *ngIf="showNicknameBox()">
+                <Label text="Nickname"
+                       textWrap="true"
+                       width="70"
+                       fontSize="14"></Label>
+                <TextField flexGrow="1" 
+                           style="text-align: center; height: 50"
+                           [(ngModel)]="nickname"
+                           (ngModelChange)="validateNickname()"
+                           autocorrect="false"
+                           autocapitalizationType="none"
+                           hint="enter nickname"></TextField>
+            </FlexboxLayout>
+        </FlexboxLayout>
+    
+        <StackLayout *ngIf="selectedSpecies"
+                    class="image-box"
+                    (tap)="enlargeSpeciesImage()" row="3" column="0">
+            <Image #speciesImage></Image>
+        </StackLayout>
+    
+        <StackLayout *ngIf="selectedSpecies && rangeImageExists"
+                     class="image-box"
+                     (tap)="enlargeRangeImage()" row="4" column="0">
+            <Image #rangeImage></Image>
+        </StackLayout>
+    
+        <FlexboxLayout *ngIf="species.length > 0" justifyContent="space-between"
+                     orientation="horizontal" row="5" column="0">
+            <Button text="Cancel" (tap)="cancelModal()" flexGrow="1"></Button>
+            <Button text="Save" (tap)="closeModal()" flexGrow="1"></Button>
+        </FlexboxLayout>
+    
+    </GridLayout>
+    <GridLayout *ngIf="showPicker" columns="*" rows="auto,auto,*,auto">
+        <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" column="0">
+            <Label text="Add a New Plant or Animal"></Label>
+        </FlexboxLayout>
+
+        <FlexboxLayout class="flex-bordered-box"
+                        alignItems="center"
+                        justifyContent="space-between" row="1" column="0">
+            <Label text="Species Name"
+                    textWrap="true"
+                    width="60"></Label>
+            <TextField #searchField
+                        flexGrow="1"
+                        style="text-align: center"
+                        [(ngModel)]="searchPhrase"
+                        (ngModelChange)="searchTextChanged()"
+                        autocapitalizationType="none"
+                        autocorrect="false"
+                        (tap)="showPicker = true"
+                        hint="search for species"></TextField>
+        </FlexboxLayout>
+
+        <StackLayout class="picker-body-stack" row="2" column="0">
+            <ListView [items]="species | speciesPipe : searchPhrase : activeTab" (itemTap)="closePicker($event)">
+                <ng-template let-item="item" let-i="index">
+                    <FlexboxLayout class="species-row">
+                        <Label [text]="activeTab === 'common' ? item.common_name : item.genus + ' ' + item.species" class="species-label"></Label>
+                        <StackLayout height="50" width="1%"></StackLayout>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+
+        <Button text="Back" row="3" column="0" (tap)="cancelPicker()"></Button>
+
+    </GridLayout>
+</StackLayout>

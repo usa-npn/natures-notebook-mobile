@@ -1,0 +1,106 @@
+<GridLayout *ngIf="!isLoading && _sitesService.sites.length === 0" 
+    columns="*" rows="*,auto" 
+    height="100%" width="100%"
+    padding="2">
+    <FlexboxLayout row="0" column="0" flexDirection="column" justifyContent="center" alignItems="center" class="bordered-box" flexGrow="1" marginBottom="2">
+        <Label text="{{notificationIcon}}" class="notification-icon" textWrap="true"></Label>
+        <Label text="You haven't yet added any sites."></Label>
+    </FlexboxLayout>
+    <FlexboxLayout row="1" column="0" flexDirection="column" class="button-stack no-side-margin" marginTop="2" flexGrow="0" (tap)="_router.navigate(['/sites']);">
+        <Label text="{{backwardIcon}}" class="button-icon"></Label>
+        <Label text="Go To Sites Page" class="button-text"></Label>
+    </FlexboxLayout>
+</GridLayout>
+
+<GridLayout *ngIf="!isLoading && _sitesService.sites.length != 0 && _individualsService.individuals.length === 0" 
+    columns="*" rows="*,auto" 
+    height="100%" width="100%"
+    padding="2">
+    <FlexboxLayout row="0" column="0" flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    class="bordered-box"
+                    flexGrow="1" marginBottom="2">
+        <Label text="{{notificationIcon}}"
+                class="notification-icon"
+                textWrap="true"></Label>
+        <Label text="You haven't yet added any individuals."></Label>
+    </FlexboxLayout>
+    <StackLayout row="1" column="0" class="button-stack no-side-margin"
+                    (tap)="_router.navigate(['/individuals']);">
+        <Label text="{{backwardIcon}}"
+                class="button-icon"></Label>
+        <Label text="Go To Individuals Page"
+                class="button-text"></Label>
+    </StackLayout>
+</GridLayout>
+
+<StackLayout height="100%"
+             width="100%"
+             *ngIf="!isLoading && _sitesService.sites.length != 0 && _individualsService.individuals.length != 0" >
+    <StackLayout width="100%" marginTop="1">
+        <FlexboxLayout justifyContent="space-around">
+
+            <Button class ="tab-button tab-button-left"
+                    [class.tab-active]="activeTab == 'plants'"
+                    text="Plants"
+                    (tap)="changePage('plants')"
+                    flexGrow="1" ios:width="33%"
+                    textWrap="true"></Button>
+            <!-- <Button class ="tab-button-left-after"
+                    text="s"
+                    (tap)="changePage('plants')"
+                    textWrap="true"></Button> -->
+            <Button class ="tab-button tab-button-center"
+                    [class.tab-active]="activeTab == 'animals-checklist'"
+                    text="Animals"
+                    (tap)="changePage('animals-checklist')"
+                    flexGrow="1" ios:width="33%"
+                    textWrap="true"></Button>
+            <Button class ="tab-button tab-button-right"
+                    [class.tab-active]="activeTab == 'site-visit-details'"
+                    text="Site-Visit Details"
+                    (tap)="changePage('site-visit-details')"
+                    flexGrow="1" ios:width="33%"
+                    textWrap="true"></Button>
+        </FlexboxLayout>
+
+        <FlexboxLayout class="flex-bordered-box"
+                       alignItems="center"
+                       justifyContent="space-between">
+            <label text="Observation Date " width="100" textWrap="true"></label>
+            <FlexboxLayout alignItems="center"
+                           class="dropdown" flexGrow="1"
+                           (tap)="popupDateTimePicker()">
+                <Label text="{{ _observationGroupsService.getDateText(observationDate) }}"
+                       class="dropdown-text"></Label>
+                <Label text="{{ dropdownIcon }}"
+                       class="dropdown-icon"></Label>
+            </FlexboxLayout>
+            <!--<StackLayout class="button-stack date-button-stack" width="75" height="40"-->
+                         <!--(tap)="popupDateTimePicker()">-->
+                <!--<Label text="{{calendarIcon}}"-->
+                       <!--class="button-icon date-button-icon" style="font-size: 15;"></Label>-->
+                <!--<Label text="New Date"-->
+                       <!--class="button-text date-button-text" style="font-weight: normal;"></Label>-->
+            <!--</StackLayout>-->
+        </FlexboxLayout>
+
+        <StackLayout>
+            <siteVisitDetails #siteVisitDetailsChild *ngIf="activeTab == 'site-visit-details'"></siteVisitDetails>
+            <plants #plantsChild  *ngIf="activeTab == 'plants'"></plants>
+            <animals-checklist #animalsChecklistChild  *ngIf="activeTab == 'animals-checklist'"></animals-checklist>
+            <!-- <animals #animalsChild *ngIf="activeTab == 'animals'"></animals> -->
+        </StackLayout>
+    </StackLayout>
+</StackLayout>
+
+<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+        <Label text="loading..."></Label>
+        <ActivityIndicator [busy]="isLoading"
+                           horizontalAlignment="center"
+                           verticalAlignment="center" color="#6E6E6E">
+        </ActivityIndicator>
+    </FlexboxLayout>
+</FlexboxLayout>

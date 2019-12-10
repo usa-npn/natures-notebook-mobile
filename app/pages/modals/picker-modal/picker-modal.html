@@ -1,0 +1,34 @@
+<GridLayout class="picker-modal-full" height="100%" columns="*" rows="auto,*,auto">
+    <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" column="0" style="padding: 2">
+        <Label text="{{title}}" textWrap="true"></Label>
+        <Label *ngIf="subtitle" text="{{subtitle}}" fontSize="14" textWrap="true"></Label>
+    </FlexboxLayout>
+    <GridLayout class="picker-stack" row="1" column="0" columns="*" rows="auto,*">
+        <FlexboxLayout class="flex-bordered-box"
+                       *ngIf="showSearchBox"
+                       alignItems="center"
+                       justifyContent="space-between" row="0" column="0">
+            <Label text="{{searchIcon}}"
+                   class="font-awesome"
+                   fontSize="20"
+                   width="25"></Label>
+            <TextField #searchField
+                       flexGrow="1"
+                       height="50"
+                       style="text-align: center"
+                       [(ngModel)]="searchPhrase"
+                       autocapitalizationType="none"
+                       autocorrect="false"
+                       hint="{{searchHint}}"></TextField>
+        </FlexboxLayout>
+        <ListView [items]="items | pickerSearchPipe : searchPhrase : pickerType : showSearchBox" row="1" column="0">
+            <ng-template let-item="item" let-i="index">
+                <FlexboxLayout [ngClass]="{'picker-row': true, 'selected-row': isSelected(item)}" (tap)="closePicker(item)">
+                    <Label [text]="getItemDisplayText(item)" class="picker-label"></Label>
+                    <StackLayout height="50" width="1%"></StackLayout>
+                </FlexboxLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+    <Button text="Back" row="2" column="0" (tap)="cancel()"></Button>
+</GridLayout>

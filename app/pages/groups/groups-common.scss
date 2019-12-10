@@ -1,0 +1,34 @@
+@import '../../variables.scss';
+
+CheckBox {
+  border-width: 1;
+  font-size: 20;
+  vertical-align: center;
+}
+
+.groups-hierarchy-row {}
+
+.group-picker-stack {
+  background-color: $web-orange;
+  margin: 5;
+  width: 100%;
+}
+
+.filter-stack {
+  background-color: $color-datagrid-row-odd;
+  border-color: $color-datagrid-border;
+  border-radius: 3;
+  border-width: 2;
+  margin: 2;
+  width: 100%;
+}
+
+.picker-body-stack {
+  height: 100%;
+  margin: 5;
+  width: 98%;
+}
+
+.fa-icon {
+  margin-right: 2;
+}

@@ -1,0 +1,32 @@
+<FlexboxLayout flexDirection="column" class="picker-modal" width="100%" height="100%" >
+    <GridLayout columns="*" rows="auto,*,auto" visibility="{{ !imageFullScreen ? 'visible' : 'collapsed' }}">
+        <FlexboxLayout alignItems="center" class="picker-header-stack" row="0" col="0" (tap)="closeSiteInfo('OK')">
+            <Label text="{{backwardIcon}}"
+                   class="fa-icon" width="100" style="font-size: 40"></Label>
+            <Label text="Site Details" flexGrow="1"></Label>
+        </FlexboxLayout>
+
+        <MapView #SiteInfoMapView
+                 latitude="{{ siteLatitude }}"
+                 longitude="{{ siteLongitude }}"
+                 zoom="{{ zoomLvl }}"
+                 bearing="{{ bearing }}"
+                 tilt="{{ tilt }}"
+                 i-padding="50,50,50,50"
+                 padding="{{ padding }}"
+                 (mapReady)="onMapReady($event)"
+                 row="1" col="0">
+        </MapView>
+
+        <FlexboxLayout row="2" col="0" *ngIf="showImage()" (tap)="toggleImageFullScreen()" class="filter-stack">
+                <Image src="{{siteImage}}" stretch="fill" width="100%" height="250"></Image>
+        </FlexboxLayout>
+    </GridLayout>
+
+    <GridLayout visibility="{{ imageFullScreen ? 'visible' : 'collapsed' }}" columns="*" rows="auto,*" style="background-color: black">
+        <Button text="Back to Site Details" (tap)="toggleImageFullScreen()" row="0" col="0"></Button>
+        <ImageZoom src="{{siteImage}}" row="1" col="0"></ImageZoom>
+    </GridLayout>
+    
+</FlexboxLayout>
+

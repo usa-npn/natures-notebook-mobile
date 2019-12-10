@@ -1,0 +1,50 @@
+<FlexboxLayout height="100%" width="100%" flexDirection="column" justifyContent="center">
+    <FlexboxLayout flexDirection="column" class="picker-modal" justifyContent="space-between">
+        <FlexboxLayout flexDirection="column" class="picker-header-stack">
+            <Label text="{{getHeadingText()}}"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout flexDirection="column" padding="2">
+
+            <StackLayout *ngIf="showTip">
+                <StackLayout class="notification-stack"
+                             orientation="horizontal">
+                    <Label text="{{lightbulbIcon}}"
+                           class="lightbulb-icon"
+                           textWrap="true"></Label>
+                    <Label text="Use the settings menu to turn on observation time in addition to date."
+                           class="notification-text"
+                           textWrap="true"></Label>
+                </StackLayout>
+            </StackLayout>
+
+            <FlexboxLayout justifyContent="center"
+                         *ngIf="recordObservationTime">
+                <Button class ="tab-button tab-button-left" flexGrow="1" height="50"
+                        [class.tab-active]="activeTab == 'show-date'"
+                        text="Set Date" (tap)="changePage('show-date')"></Button>
+                <Button class ="tab-button tab-button-right" flexGrow="1" height="50"
+                        [class.tab-active]="activeTab == 'show-time'"
+                        text="Set Time" (tap)="changePage('show-time')"></Button>
+            </FlexboxLayout>
+
+            <StackLayout *ngIf="activeTab == 'show-date'"
+                         class="date-picker-body-stack">
+                <DatePicker
+                        [maxDate]="maxDate"
+                        [minDate]="minDate"
+                        [(ngModel)]="selectedDate"></DatePicker>
+            </StackLayout>
+            <StackLayout *ngIf="activeTab == 'show-time'"
+                         class="date-picker-body-stack">
+                <TimePicker [time]="selectedTime" (timeChange)="onTimeChanged($event)"></TimePicker>
+            </StackLayout>
+
+            <FlexboxLayout justifyContent="space-between">
+                <Button text="Cancel" (tap)="cancelModal()" flexGrow="1"></Button>
+                <Button text="Save" (tap)="closeModal()" flexGrow="1"></Button>
+            </FlexboxLayout>
+
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+</FlexboxLayout>

@@ -1,0 +1,64 @@
+<FlexboxLayout flexDirection="column"
+               height="100%"
+               width="100%" padding="2"
+               *ngIf="!isLoading">
+
+    <FlexboxLayout flexDirection="column"
+                   class="data-grid"
+                   height="50%">
+
+        <FlexboxLayout class="flex-header"
+                       alignItems="center"
+                       justifyContent="space-between">
+            <Label text="Account"></Label>
+            <Label text="Selected"></Label>
+        </FlexboxLayout>
+
+        <FlexboxLayout flexGrow="1">
+            <ListView [items]="people">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <FlexboxLayout alignItems="center" [class.evenRow]="even" [class.oddRow]="odd" (tap)="togglePerson(item)">
+                        <Label [text]="item.username"></Label>
+                        <Label text="" height="50" flexGrow="1"></Label>
+                        <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50">
+                            <Label text="{{ item.selected == true ? radioCheckedIcon : radioUncheckedIcon }}"
+                                   class="radio-icon"></Label>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
+                </ng-template>
+            </ListView>
+        </FlexboxLayout>
+
+    </FlexboxLayout>
+
+    <FlexboxLayout marginTop="2" marginBottom="2">
+        <StackLayout class="button-stack"
+                     marginRight="1"
+                     (tap)="createNewAccount()">
+            <Label text="{{userPlusIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Create New Account"
+                   class="button-text"></Label>
+        </StackLayout>
+        <StackLayout class="button-stack"
+                     marginLeft="1"
+                     (tap)="addExistingAccount()">
+            <Label text="{{userCheckIcon}}"
+                   class="button-icon"></Label>
+            <Label text="Add Existing Account"
+                   class="button-text"></Label>
+        </StackLayout>
+    </FlexboxLayout>
+
+    <FlexboxLayout flexDirection="column"
+                   alignItems="center"
+                   justifyContent="center"
+                   class="bordered-box" flexGrow="1">
+        <Label class="account-info-text" text="Account Information" style="font-size: 14"></Label>
+        <Label class="account-info-text" [text]="getAccountName()" style="font-size: 14"></Label>
+        <Label class="account-info-text" [text]="getAccountEmail()" style="font-size: 14"></Label>
+    </FlexboxLayout>
+
+    <Button text="Back" (tap)="cancel()" marginRight="0" marginLeft="0" marginBottom="0"></Button>
+
+</FlexboxLayout>

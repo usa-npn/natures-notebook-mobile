@@ -1,0 +1,13 @@
+@import '../../variables.scss';
+
+.header-text {
+  font-size: 20;
+}
+
+.header-icon {
+  color: $color-text;
+  font-family: 'IcoMoon-Free';
+  font-size: 28;
+  text-align: center;
+  vertical-align: center;
+}

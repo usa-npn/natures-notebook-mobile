@@ -1,0 +1,79 @@
+//color naming scheme from http://chir.ag/projects/name-that-color/
+$dove-gray: #6e6e6e;
+$silver-chalice: #acacac;
+$silver: #c0c0c0;
+$alto: #dbdbdb;
+$gallery: #efefef;
+$citrine-white: #fcf6ea;
+$titan-white: #f8f8ff;
+$cyan: #00d0ff;
+$pizazz: #ff9000;
+$web-orange: #ffa500;
+$japanese-laurel: #0a6906;
+$red: #f00;
+$green: #69bd45;
+$carmine: #960018;
+$corn: #e7bf05;
+$white: #fff;
+
+//general
+$color-page-background: #fff;
+$color-text: $dove-gray;
+$color-textfield-background: $citrine-white;
+
+//buttons
+$color-btn: $dove-gray;
+$color-btn-text: #fff;
+
+//tab selector colors
+$color-tab: $pizazz;
+$color-tab-text: $titan-white;
+$color-tab-selected: $cyan;
+$color-tab-text-selected: #fff;
+
+//datagrids
+$color-datagrid-border: $dove-gray;
+$color-datagrid-header: $dove-gray;
+$color-datagrid-header-text: #fff;
+$color-datagrid-background: $alto;
+$color-datagrid-row-even: $alto;
+$color-datagrid-row-odd: $gallery;
+$color-datagrid-row-label: $dove-gray;
+
+//top scrollable nav colors
+$color-nav-background: $dove-gray;
+$color-nav-text: #fff;
+$color-nav-text-selected: $cyan;
+$color-nav-selected-bar: $cyan;
+
+//action bar
+$color-actionbar-background: $dove-gray;
+$color-actionbar-text: #fff;
+
+//notifications
+$color-notification-text: $dove-gray;
+$color-notification-icon: $carmine;
+$color-notification-background: $alto;
+$color-notification-border: $dove-gray;
+
+//tips
+$color-lightbulb-icon: $corn;
+
+//dropdown boxes
+$color-dropdown-border: $dove-gray;
+//$color-dropdown-background: $silver;
+$color-dropdown-background: $dove-gray;
+$color-dropdown-text: #fff;
+
+//phenophase Y N ? buttons
+$color-phenophase-button-background: $dove-gray;
+$color-phenophase-button-border: $dove-gray;
+$color-phenophase-button-text: #fff;
+$color-phenophase-button-background-active: $web-orange;
+$color-phenophase-button-border-active: $web-orange;
+
+//errors
+$color-error-label: $carmine;
+
+//saving data
+$color-save-button: #69bd45;
