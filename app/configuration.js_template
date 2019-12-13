@@ -1,0 +1,12 @@
+//rename this to congfiguration.js and fill in your keys and config
+
+export default {
+    "googleapikey": "google maps api key",
+    "consumerkey": "consumer key for oauth",
+    "consumersecret": "consumer secret for oauth",
+    "scistarterkey": "scistarter api key",
+    "release-type": "production or development",
+    "version": "app version number",
+    "debug": boolean for debug mode, allows reading in a users debug sqlite db,
+    "disableSyncing": boolean to disable syncing when debugging
+}
