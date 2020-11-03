@@ -311,7 +311,7 @@ export class SitesService extends SyncableTableService {
         .toPromise();
 
         return serverStations.some((site: Site) => {
-            return ((selectedGroup.name === 'My Sites' && selectedPerson.person_id === site.observer_id)
+            return ((selectedGroup.name === 'Personal Sites' && selectedPerson.person_id === site.observer_id)
                 || (site.network_id && site.network_id === selectedGroup.network_id));
         });
     }

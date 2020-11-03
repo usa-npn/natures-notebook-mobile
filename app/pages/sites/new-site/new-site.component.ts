@@ -160,7 +160,7 @@ export class NewSiteComponent implements OnInit, AfterViewInit {
                 site.longitude = this.longitude;
                 site.observer_id = this._peopleService.selectedPerson.person_id;
 
-                if (this._networkService.selectedNetwork && this._networkService.selectedNetwork.name != "My Sites") {
+                if (this._networkService.selectedNetwork && this._networkService.selectedNetwork.name != "Personal Sites") {
                     site.network_id = this._networkService.selectedNetwork.network_id
                 }
 
@@ -174,7 +174,7 @@ export class NewSiteComponent implements OnInit, AfterViewInit {
                 //set the person_id column before insertion into the localdatabase
                 postedSite.person_id = this._peopleService.selectedPerson.person_id;
                 //possibly set the network_id and send off a network station to server
-                if (this._networkService.selectedNetwork && this._networkService.selectedNetwork.name != "My Sites") {
+                if (this._networkService.selectedNetwork && this._networkService.selectedNetwork.name != "Personal Sites") {
                     postedSite.network_id = this._networkService.selectedNetwork.network_id;
                     // send network station to remote server
                     let networkStation = {

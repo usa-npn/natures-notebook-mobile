@@ -29,7 +29,7 @@ export class NetworksService extends SyncableTableService {
         this.sqLiteTypes.set('no_group_site', 'integer');
         this.sqLiteTypes.set('drupal_tid', 'integer');
         this.sqLiteTypes.set('deleted', 'integer');
-        this.mySites.name = 'My Sites';
+        this.mySites.name = 'Personal Sites';
         this.mySites.network_id = -1;
     }
 
