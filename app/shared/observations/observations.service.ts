@@ -325,6 +325,10 @@ export class ObservationsService extends SyncableTableService {
 
             //note the timestamp is utc millis since 1970 of when the observation was last modified
 
+            if(<unknown>observation.raw_abundance_value == '') {
+               observation.raw_abundance_value = null; 
+            }
+
             if (operationType === 'post') {
                 return {
                     client_id: observation.local_id,
