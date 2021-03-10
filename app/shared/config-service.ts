@@ -5,7 +5,7 @@ import config from '../configuration.js';
 export class ConfigService {
     constructor() {}
 
-    public releaseType = config.releaseType;
+    public releaseType = config.releasetype;
     public version = config.version;
     
     //these are for when you want to load a sqlite db in from a debug upload

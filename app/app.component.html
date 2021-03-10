@@ -14,8 +14,9 @@
         </FlexboxLayout>
     </ScrollView>
     <StackLayout *ngIf="intialLoad" class="loading-background" height="200" width="200"></StackLayout>
-    <ActivityIndicator *ngIf="intialLoad" #activityIndicator busy="true" width="50" height="50" class="activity-indicator" color="gray"></ActivityIndicator>
-    <Label *ngIf="intialLoad" style="font-size: 12; text-align: center" text="loading database..."></Label>
+    <ActivityIndicator *ngIf="intialLoad && !networkError" #activityIndicator busy="true" width="50" height="50" class="activity-indicator" color="gray"></ActivityIndicator>
+    <Label *ngIf="intialLoad && !networkError" style="font-size: 12; text-align: center" text="loading database..."></Label>
+    <Label *ngIf="networkError" style="font-size: 12; text-align: center; padding: 20;" text="Nature's Notebook requires an internet connection during the installation process to download our list of species and other information. Your device is having difficulty connecting to our servers so please try again later when you've reached an area with internet service. Once the app is installed you will be able to record data in locations without connectivity." textWrap="true"></Label>
     <router-outlet></router-outlet>
 </StackLayout>
 <!-- </Page> -->

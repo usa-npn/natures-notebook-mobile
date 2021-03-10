@@ -151,7 +151,8 @@ export class DatabaseService {
                             }
                         }, error => {
                             console.log("OPEN NN_SYSTEM_DB ERROR", error);
-                            reject();
+                            //since we can't open the system db, redownload it
+                            resolve(this.downloadSystemDatabase(res['serverDatabasePath']));
                         });
                     } else { 
                         console.log("download because system db doesn't exist locally");
@@ -201,6 +202,7 @@ export class DatabaseService {
                         resolve();
                     }, error => {
                         console.log("OPEN NN_SYSTEM_DB ERROR", error);
+                        alert("There was an error updating the database, please reopen the app to try again.");
                         reject();
                     });
                 }, (error) => {
@@ -212,6 +214,7 @@ export class DatabaseService {
                         resolve();
                     }, error => {
                         console.log("OPEN NN_SYSTEM_DB ERROR", error);
+                        alert("There was an error updating the database, please reopen the app to try again.");
                         reject();
                     });
                 });

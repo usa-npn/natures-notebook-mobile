@@ -67,6 +67,17 @@
                 </FlexboxLayout>
             </FlexboxLayout>
             <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Number Observers Looking For Animals" textWrap="true" width="100"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.num_observers_searching"
+                           (ngModelChange)="observerCountChange($event)"
+                           keyboardType="number"
+                           hint="enter observer count"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" height="50" width="50" (tap)="popupInfo('num-observers-looking-for-animals')">
+                    <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
                 <Label text="Animal Survey Method" textWrap="true" width="100"></Label>
                 <FlexboxLayout alignItems="center"
                                class="dropdown" flexGrow="1"

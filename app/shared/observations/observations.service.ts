@@ -299,6 +299,17 @@ export class ObservationsService extends SyncableTableService {
         else return 0;
     }
 
+    sanitizeRawAbundanceValues() {
+        let query = `UPDATE observations SET raw_abundance_value = NULL WHERE CAST(raw_abundance_value AS INTEGER) IS NOT raw_abundance_value;`;
+        this._databaseService.db.execSQL(query)
+            .then(result => {
+                return result;
+            })
+            .catch(err => {
+                console.log('ERROR: ' + err);
+            });
+    }
+
     // async checkIfAllAnimalsHaveAnObsOnDate(animals: Individual[], observationDate: Date) {
     //     let query = `SELECT COUNT(DISTINCT individual_id) AS animal_count
     //     FROM observations o 

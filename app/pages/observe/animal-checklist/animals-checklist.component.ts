@@ -323,6 +323,9 @@ export class AnimalsChecklistComponent implements OnInit, AfterViewInit, OnDestr
             tipText = 'Choose your observation method: Incidental (chance sighting while not specifically searching), Stationary (standing or sitting at a single point), Walking (a single pass or transect through your site) or Area search (multiple passes through your site).';
         else if(infoPressed == 'time-spent-searching-animals')
             tipText = 'If you are observing animals, report the time you spent searching for animals (the recommended search time is 3 minutes). There is no need to report time for incidental sightings.';
+        else if (infoPressed == "num-observers-looking-for-animals")
+            tipText =
+              "Please report the number of observers searching for animals during this site visit. When more than one observer contributes to the search for and count of individual animals on a site visit, it affects the statistical probability of detection during the time spent searching. This is important to take into account for some types of analysis of animal observation data.";
         let options: ModalDialogOptions = {
             viewContainerRef: this.viewContainerRef,
             context: {
@@ -342,6 +345,10 @@ export class AnimalsChecklistComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     onTimeSpentSearchingChange(event) {
+        this.dataSaved = false;
+    }
+
+    observerCountChange(event) {
         this.dataSaved = false;
     }
 

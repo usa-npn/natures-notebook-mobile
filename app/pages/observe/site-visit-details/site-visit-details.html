@@ -38,6 +38,17 @@
                 </FlexboxLayout>
             </FlexboxLayout>
             <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+                <Label text="Number Observers Looking For Animals" textWrap="true" class="site-visit-left"></Label>
+                <TextField class="visit-details-text"
+                           [(ngModel)]="selectedObservationGroup.num_observers_searching"
+                           (textChange)="dirtyData = true;"
+                           keyboardType="number"
+                           hint="enter observer count"></TextField>
+                <FlexboxLayout alignItems="center" justifyContent="center" class="icon-box" (tap)="popupInfo('num-observers-looking-for-animals')">
+                    <Label text="{{ infoIcon }}" class="info-icon2"></Label>
+                </FlexboxLayout>
+            </FlexboxLayout>
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
                 <Label text="Animal Survey Method" textWrap="true" class="site-visit-left"></Label>
                 <FlexboxLayout alignItems="center"
                                class="dropdown" flexGrow="1"
@@ -52,7 +63,7 @@
                            class="info-icon2"></Label>
                 </FlexboxLayout>
             </FlexboxLayout>
-            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
                 <Label text="Snow On Ground" textWrap="true" class="site-visit-left"></Label>
                 <StackLayout orientation="horizontal" class="radio-box">
                     <Label text="{{ selectedObservationGroup.snow_ground == 1 ? radioCheckedIcon : radioUncheckedIcon }}"
@@ -71,7 +82,7 @@
                            class="info-icon2"></Label>
                 </FlexboxLayout>
             </FlexboxLayout>
-            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
                 <Label text="Ground Covered" textWrap="true" class="site-visit-left"></Label>
                 <StackLayout orientation="horizontal" class="slider-box">
                     <Label text="{{ getSliderValueAsPercent() }}" width="25%" isEnabled="{{selectedObservationGroup.snow_ground == 1}}"></Label>
@@ -86,7 +97,7 @@
                            class="info-icon2"></Label>
                 </FlexboxLayout>
             </FlexboxLayout>
-            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
                 <Label text="Snow In Tree Tops" textWrap="true" class="site-visit-left"></Label>
                 <StackLayout orientation="horizontal" class="radio-box">
                     <Label text="{{ selectedObservationGroup.snow_overstory_canopy == 1 ? radioCheckedIcon : radioUncheckedIcon }}"
@@ -106,7 +117,7 @@
                 </FlexboxLayout>
             </FlexboxLayout>
 
-            <FlexboxLayout alignItems="center" justifyContent="space-between" class="evenRow">
+            <FlexboxLayout alignItems="center" justifyContent="space-between" class="oddRow">
                 <Label text="Comments" textWrap="true" class="site-visit-left"></Label>
                 <TextField class="visit-details-text"
                            (textChange)="dirtyData = true;"

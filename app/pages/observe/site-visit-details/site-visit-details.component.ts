@@ -82,6 +82,9 @@ export class SiteVisitDetailsComponent implements OnInit, OnDestroy {
     else if (infoPressed == "site-comments")
       tipText =
         "Please report any additional comments about your site visit.";
+    else if (infoPressed == "num-observers-looking-for-animals")
+      tipText =
+        "Please report the number of observers searching for animals during this site visit. When more than one observer contributes to the search for and count of individual animals on a site visit, it affects the statistical probability of detection during the time spent searching. This is important to take into account for some types of analysis of animal observation data.";
 
     let options: ModalDialogOptions = {
       viewContainerRef: this.viewContainerRef,

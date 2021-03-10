@@ -30,6 +30,7 @@ export class ObservationGroup {
     status: string;
 
     notes: string;
+    num_observers_searching: number;
 
     constructor(
         recordObservationTime: boolean

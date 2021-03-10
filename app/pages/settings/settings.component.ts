@@ -90,7 +90,7 @@ export class SettingsComponent implements OnInit {
 
     incrementDebug() {
        this.debugCounter ++;
-       if (this.debugCounter > 6) {
+       if (this.debugCounter > 5) {
            this._router.navigate(["/debug"]);
        }
     }

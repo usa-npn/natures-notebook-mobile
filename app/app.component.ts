@@ -50,6 +50,7 @@ require( "nativescript-master-technology" );
 export class AppComponent implements OnInit, AfterViewInit {
 
     public intialLoad = true;
+    public networkError = false;
     activeRoute: string;
     activeTab: string = 'observe';
     @ViewChild("scrollMenu", {static: false}) scrollMenu: ElementRef;
@@ -142,9 +143,11 @@ export class AppComponent implements OnInit, AfterViewInit {
                 this._observationsService.createIndex('obs__individual_id_idx', 'individual_id');
                 this._observationsService.createIndex('obs__individual_local_id_idx', 'individual_local_id');
                 this._observationsService.createIndex('obs__observation_date_idx', 'observation_date');
+                this._observationsService.sanitizeRawAbundanceValues();
             });
             this._observationGroupsService.createTable().then(() => {
                 this._observationGroupsService.addColumn('notes', 'VARCHAR(255)');
+                this._observationGroupsService.addColumn('num_observers_searching', 'INTEGER');
                 this._individualsService.createIndex('obsgr__timestamp_idx', 'timestamp');
                 this._observationsService.createIndex('obsgr__sync_status_idx', 'sync_status');
             });
@@ -218,8 +221,29 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
     }
 
+    // Returns a Promise that resolves after "ms" Milliseconds
+    timer = ms => new Promise(res => setTimeout(res, ms));
+
+    async networkTimeoutNotifier() {
+        for (var i = 0; i < 15; i++) {
+            if(this._networkMonitorService.connected) {
+                return;
+            }
+            await this.timer(1000);
+        }
+        if(!this._networkMonitorService.connected) {
+            this.networkError = true;
+        }
+    }
+
     async downloadDbAndGoToLogin() {
-        await this.initializeDatabases();
+        try {
+            // wait up to 15 seconds for network to come up
+            await this.networkTimeoutNotifier();
+            await this.initializeDatabases();
+        } catch(error) {
+            this.networkError = true;
+        }
         if(this._networkMonitorService.connected) {
             if(this._networkMonitorService.connectionType == "wifi") {
                 this._routerExtensions.navigate(["/login"], { clearHistory: true });
@@ -240,6 +264,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                     }
                 });
             }
+        } else {
+            this.networkError = true;
         }
     }
 

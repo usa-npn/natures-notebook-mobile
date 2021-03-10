@@ -49,6 +49,7 @@ export class ObservationGroupsService extends SyncableTableService {
         this.sqLiteTypes.set('method', 'text');
         this.sqLiteTypes.set('user_time', 'integer');
         this.sqLiteTypes.set('notes', 'text');
+        this.sqLiteTypes.set('num_observers_searching', 'integer');
         this.sqLiteTypes.set('timestamp', 'integer');
         this.sqLiteTypes.set('sync_status', 'integer');
         this.sqLiteTypes.set('sync_message', 'text');
@@ -74,6 +75,7 @@ export class ObservationGroupsService extends SyncableTableService {
         "method",
         "user_time",
         "notes",
+        "num_observers_searching",
         "observation_group_date",
         "observer_id",
         "station_id",
@@ -165,7 +167,8 @@ export class ObservationGroupsService extends SyncableTableService {
             && observationGroup.snow_ground == null
             && observationGroup.method == null
             && observationGroup.time_spent == null
-            && observationGroup.notes == null);
+            && observationGroup.notes == null
+            && observationGroup.num_observers_searching == null);
     }
 
     async updateObservationGroup(og: ObservationGroup) {
@@ -179,15 +182,18 @@ export class ObservationGroupsService extends SyncableTableService {
             if(!this.isNumber(og.snow_ground_coverage))
                 og.snow_ground_coverage = null;
 
+            if(!this.isNumber(og.num_observers_searching))
+                og.num_observers_searching = null;
+
             let query = `
             UPDATE ${this.tableName} SET 
             travel_time = ?, travel_time_units_id = ?, time_spent = ?, time_spent_units_id = ?, duration_of_search = ?, 
             duration_of_search_units_id = ?, snow_ground = ?, snow_ground_coverage = ?, snow_overstory_canopy = ?, 
-            method = ?, user_time = ?, notes = ?, timestamp = ? WHERE local_id = ?;
+            method = ?, user_time = ?, notes = ?, num_observers_searching = ?, timestamp = ? WHERE local_id = ?;
             `;
             let params = [og.travel_time, og.travel_time_units_id, og.time_spent, og.time_spent_units_id, og.duration_of_search,
                 og.duration_of_search_units_id, og.snow_ground, og.snow_ground_coverage, og.snow_overstory_canopy, og.method,
-                og.user_time, og.notes, og.timestamp, og.local_id];
+                og.user_time, og.notes, og.num_observers_searching, og.timestamp, og.local_id];
             this._databaseService.logDbInfo(`QUERY: ${query} VALUES: ${params}`);
             await this.getDatabase().execSQL(query, params);
         } catch(err) {
@@ -206,6 +212,9 @@ export class ObservationGroupsService extends SyncableTableService {
 
             if(!this.isNumber(og.snow_ground_coverage))
                 og.snow_ground_coverage = null;
+
+            if(!this.isNumber(og.num_observers_searching))
+                og.num_observers_searching = null;
 
             og.timestamp = new Date().getTime();
 

@@ -5,7 +5,7 @@ export default {
     "consumerkey": "consumer key for oauth",
     "consumersecret": "consumer secret for oauth",
     "scistarterkey": "scistarter api key",
-    "release-type": "production or development",
+    "releasetype": "production or development",
     "version": "app version number",
     "debug": boolean for debug mode, allows reading in a users debug sqlite db,
     "disableSyncing": boolean to disable syncing when debugging
