@@ -100,6 +100,22 @@ export class SyncService {
 
     }
 
+    async getUnsyncedSsiStatus(): Promise<boolean> {
+        try {
+            let query = `SELECT COUNT(*) AS null_ids FROM station_species_individual ssi
+            WHERE ssi.individual_id IS NULL`;
+            let result = await this._databaseService.db.get(query, []);
+            if(result['null_ids'] && result['null_ids'] > 0) {
+                return true
+            } else {
+                return false;
+            }
+        } catch(err) {
+            console.log('ERROR: ' + err);
+            this._databaseService.logDbError(err);
+        }
+    }
+
     async syncObservations() {
         try {
             if (this.syncing || this._configService.disableSyncing || !this._networkMonitorService.canSync()) {
@@ -110,13 +126,13 @@ export class SyncService {
             // this is only called when the client has outgoing unsynced individuals
             // ie the user created a new individual that wasn't synced right away
             let lastSyncTimestamp = await this.getLastSyncTimeStamp(this._individualsService.tableName);
-            if(applicationSettings.getBoolean('unsyncedIndividuals')) {
+            let unsyncedIndividuals = await this.getUnsyncedSsiStatus();
+            if(unsyncedIndividuals) {
                 console.log('there are unsynced individuals, syncing them now');
                 this.currentlySyncing = "individuals";
                 let individuals = await this._individualsService.syncIndividuals(lastSyncTimestamp);
                 this.currentlySyncing = "individual images";
                 await this.syncIndividualImages(individuals);
-                applicationSettings.setBoolean('unsyncedIndividuals', false);
             }
 
             let t1 = new Date();
@@ -148,8 +164,7 @@ export class SyncService {
 
     async syncIndividuals() {
         if(!this._networkMonitorService.canSync()) {
-            console.log('cant sync, setting unsyncedIndividuals to true');
-            applicationSettings.setBoolean('unsyncedIndividuals', true);
+            console.log('cant sync Individuals');
             return false;
         }
         try {
@@ -166,11 +181,9 @@ export class SyncService {
             await this.syncIndividualImages(individuals);
             this.progressValue += 1;
             this.syncing = false;
-            applicationSettings.setBoolean('unsyncedIndividuals', false);
             return true;    
         } catch (error) {
             console.log(error);
-            applicationSettings.setBoolean('unsyncedIndividuals', true);
             this.syncing = false;
             return error;
         }
@@ -217,13 +230,13 @@ export class SyncService {
 
             // this is only called when the client has outgoing unsynced individuals
             // ie the user created a new individual that wasn't synced right away
-            if(applicationSettings.getBoolean('unsyncedIndividuals')) {
+            let unsyncedIndividuals = await this.getUnsyncedSsiStatus();
+            if(unsyncedIndividuals) {
                 console.log('there are unsynced individuals, syncing them now');
                 this.currentlySyncing = "individuals";
                 let individuals = await this._individualsService.syncIndividuals(lastSyncTimestamp);
                 this.currentlySyncing = "individual images";
                 await this.syncIndividualImages(individuals);
-                applicationSettings.setBoolean('unsyncedIndividuals', false);
             }
             
             this.currentlySyncing = "individuals";

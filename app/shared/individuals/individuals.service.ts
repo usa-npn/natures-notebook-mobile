@@ -502,6 +502,12 @@ export class IndividualsService extends SyncableTableService {
         return insertInstead;
     }
 
+    // get all rows from local db with timestamp greater than last sync time
+    async getUnsyncedIndividualsFromDatabase<T> (lastSyncTimestamp): Promise<T[]> {
+        let query = `SELECT * FROM ${this.tableName} WHERE timestamp > ${lastSyncTimestamp} OR sync_status = 0 OR individual_id IS NULL`;
+        return (await this.getDatabase().all(query)).map(row => <T[]> row);
+    };
+
     /**
       * gets all individuals from the local database that were added or modified since the most recent sync.
       * Then syncs those individuals to the server.
@@ -509,7 +515,7 @@ export class IndividualsService extends SyncableTableService {
       * @returns promise of synced indiviudals
       */
     async syncIndividuals(lastSyncTimestamp: Number) {
-        let unsyncedIndividuals: Individual[] = await this.getUnsyncedFromDatabase<Individual> (lastSyncTimestamp);
+        let unsyncedIndividuals: Individual[] = await this.getUnsyncedIndividualsFromDatabase<Individual> (lastSyncTimestamp);
         let postIndividuals = unsyncedIndividuals.filter(ind => ind.individual_id == null);
         let putIndividuals = unsyncedIndividuals.filter(obs => obs.individual_id != null);
 
