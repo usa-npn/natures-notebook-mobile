@@ -149,7 +149,7 @@ export class SitesComponent implements OnInit {
     // }
 
     async everyLoad() {
-        this.sites = this._sitesService.sites;
+        this.sites = this._sitesService.sites.filter(site => site.active === 1);
         this.selectedGroup = this._networksService.selectedNetwork;
         this.selectedSite = this._sitesService.selectedSite;
         await this._individualsService.loadIndividualsForSite(this._sitesService.selectedSite);
