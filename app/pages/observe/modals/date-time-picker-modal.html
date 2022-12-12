@@ -30,13 +30,17 @@
             <StackLayout *ngIf="activeTab == 'show-date'"
                          class="date-picker-body-stack">
                 <DatePicker
+                        height="200"
                         [maxDate]="maxDate"
                         [minDate]="minDate"
                         [(ngModel)]="selectedDate"></DatePicker>
             </StackLayout>
             <StackLayout *ngIf="activeTab == 'show-time'"
                          class="date-picker-body-stack">
-                <TimePicker [time]="selectedTime" (timeChange)="onTimeChanged($event)"></TimePicker>
+                <TimePicker 
+                    height="200"
+                    [time]="selectedTime" 
+                    (timeChange)="onTimeChanged($event)"></TimePicker>
             </StackLayout>
 
             <FlexboxLayout justifyContent="space-between">
