@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"  
 	package="__PACKAGE__"
 		  xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="22"
-	android:versionName="1.8.0">
+	android:versionCode="23"
+	android:versionName="1.8.1">
 
 	<supports-screens
 		android:smallScreens="true"
@@ -34,6 +34,7 @@
             android:value="@string/nativescript_google_maps_api_key" />
 
 		<activity
+			android:exported="true"
 			android:name="com.tns.NativeScriptActivity"
 			android:label="@string/title_activity_kimera"
 			android:configChanges="keyboardHidden|orientation|screenSize"
