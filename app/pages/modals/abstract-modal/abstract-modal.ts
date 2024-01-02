@@ -1,7 +1,7 @@
-import {AndroidActivityBackPressedEventData, AndroidApplication} from "tns-core-modules/application";
-import {Page} from 'ui/page';
-import * as application from "tns-core-modules/application";
-import * as platform from "platform";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "@nativescript/core/application";
+import {Page} from '@nativescript/core/ui/page';
+import * as application from "@nativescript/core/application";
+const platform = require("@nativescript/core/platform");
 import { ModelService } from "~/shared/model/model.service";
 
 

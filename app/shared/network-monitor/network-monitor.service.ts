@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import * as connectivity from "connectivity";
+import * as connectivity from "@nativescript/core/connectivity";
 import { SettingsService } from "../settings/settings.service";
 import { DatabaseService } from "../database/database.service";
 

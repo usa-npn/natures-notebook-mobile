@@ -14,11 +14,10 @@ import {OauthService} from "../oauth/oauth.service";
 import {PeopleService} from "../people/people.service";
 import { SettingsService } from "../settings/settings.service";
 import { map, catchError } from 'rxjs/operators';
-import 'rxjs/add/operator/catch';
 import { ConfigService } from "../config-service";
 import { ScistarterService } from "../scistarter/scistarter.service";
 import { HttpClient } from "@angular/common/http";
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Injectable()
 export class ObservationGroupsService extends SyncableTableService {
@@ -291,7 +290,7 @@ export class ObservationGroupsService extends SyncableTableService {
 
     private tzoffset = (new Date()).getTimezoneOffset() * 60000;
     sendObservationGroupsToServer (observationGroups: ObservationGroup[], lastSyncTimestamp: number, operationType: string) {
-        const getUrl = this.baseUrl + `${this.serviceName}s`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `${this.serviceName}s`;
 
         let payload = observationGroups.map(observationGroup => {
             Object.keys(observationGroup).forEach((key) => (observationGroup[key] == null) && delete observationGroup[key]);

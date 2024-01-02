@@ -5,7 +5,6 @@ import {Site} from "../sites/site";
 import {Injectable} from "@angular/core";
 import {DatabaseService} from "../database/database.service";
 import {Observable, throwError} from "rxjs";
-import {Http} from "@angular/http";
 import {SyncableTableService} from "../syncable-table-service";
 import {SpeciesService} from "../species/species.service";
 import {SpeciesProtocolsService} from "../species/species-protocols.service";
@@ -17,18 +16,18 @@ import {ObservationGroupsService} from "../observation-groups/observation-groups
 import {ObservationGroup} from "../observation-groups/observation-group";
 import {SpeciesTypesService} from "../species/species-types.service";
 import {SpeciesSpeciesTypesService} from "../species/species-species-types.service";
-import * as platform from "platform";
+const platform = require("@nativescript/core/platform");
 import {Person} from "../people/person";
 import { PeopleService } from "../people/people.service";
 import { OauthService } from "../oauth/oauth.service";
 import { from } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
-import 'rxjs/add/operator/catch';
 import { ConfigService } from "../config-service";
 import { HttpClient } from "@angular/common/http";
 
-var imageSource = require("image-source");
-var fs = require("file-system");
+// var imageSource = require("@nativescript/core/image-source");
+import { ImageSource } from "@nativescript/core/image-source";
+var fs = require("@nativescript/core/file-system");
 
 @Injectable()
 export class IndividualsService extends SyncableTableService {
@@ -314,7 +313,7 @@ export class IndividualsService extends SyncableTableService {
             imagePath = '~/images/no-image-available.png'
         }
         if (platform.isIOS) {
-            return imageSource.fromFile(imagePath);
+            return ImageSource.fromFileSync(imagePath);
         } else {
             return imagePath;
         }
@@ -326,7 +325,7 @@ export class IndividualsService extends SyncableTableService {
       * @param operationType Either 'post' or 'put'.
       */
     sendIndividualsToServer (individuals: Individual[], operationType) {
-        const getUrl = this.baseUrl + `${this.serviceName}`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `${this.serviceName}`;
         let payload = individuals.map(individual => {
             Object.keys(individual).forEach((key) => (individual[key] == null) && delete individual[key]);
 

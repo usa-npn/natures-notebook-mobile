@@ -1,18 +1,18 @@
 import {Component, OnInit, ViewContainerRef, ChangeDetectorRef, AfterViewInit} from "@angular/core";
 var http = require("http");
 import {Router} from "@angular/router";
-import {ModalDialogService, ModalDialogOptions} from "nativescript-angular";
+import {ModalDialogService, ModalDialogOptions} from "@nativescript/angular";
 import {NetworksService} from "../../shared/networks/networks.service";
 import {Network} from "../../shared/networks/network";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {JoinGroupModal} from "./join-group/join-group-modal.component";
 import {SitesService} from "../../shared/sites/sites.service";
 import {NetworkMonitorService} from "../../shared/network-monitor/network-monitor.service";
 import {icons} from "../icons";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
-import { Page } from "tns-core-modules/ui/page/page";
+import { Page } from "@nativescript/core/ui/page";
 import { AlertModal } from "../modals/alert-modal/alert-modal.component";
-let utilsModule = require("tns-core-modules/utils/utils");
+let utilsModule = require("@nativescript/core/utils");
 
 @Component({
     moduleId: module.id,

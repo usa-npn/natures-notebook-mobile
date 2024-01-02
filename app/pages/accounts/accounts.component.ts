@@ -2,18 +2,18 @@ import {Component, OnInit, ChangeDetectorRef, NgZone} from "@angular/core";
 import {PeopleService} from "../../shared/people/people.service";
 import {Person} from "../../shared/people/person";
 import {Router} from "@angular/router";
-import { SwipeGestureEventData } from "ui/gestures";
+import { SwipeGestureEventData } from "@nativescript/core/ui/gestures";
 import {OauthService} from "../../shared/oauth/oauth.service";
 import {NetworksService} from "../../shared/networks/networks.service";
 import {SitesService} from "../../shared/sites/sites.service";
-import {RouterExtensions} from "nativescript-angular";
+import {RouterExtensions} from "@nativescript/angular";
 import {NetworkMonitorService} from "../../shared/network-monitor/network-monitor.service";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
 import {icons} from "../icons";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
-import {Page} from "tns-core-modules/ui/page";
-import * as application from "tns-core-modules/application";
-import {AndroidActivityBackPressedEventData, AndroidApplication} from "tns-core-modules/application";
+import {Page} from "@nativescript/core/ui/page";
+import * as application from "@nativescript/core/application";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "@nativescript/core/application";
 
 @Component({
     moduleId: module.id,

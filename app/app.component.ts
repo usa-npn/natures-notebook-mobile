@@ -18,27 +18,28 @@ import {DatabaseService} from './shared/database/database.service';
 import {SyncService} from './shared/sync/sync.service';
 import {OauthService} from './shared/oauth/oauth.service';
 import {NetworkMonitorService} from './shared/network-monitor/network-monitor.service';
-import * as application from "tns-core-modules/application";
+import * as application from "@nativescript/core/application";
 
 import {NetworksService} from "./shared/networks/networks.service";
-import * as platform from "platform";
-import * as dialogs from "tns-core-modules/ui/dialogs";
+const platform = require("@nativescript/core/platform");
+import * as dialogs from "@nativescript/core/ui/dialogs";
 import {NetworkPeopleService} from "./shared/networks/network-people.service";
 import {PeopleService} from "./shared/people/people.service";
 import {SitesService} from "./shared/sites/sites.service";
 import {IndividualsService} from "./shared/individuals/individuals.service";
 import {ObservationsService} from "./shared/observations/observations.service";
 import {ObservationGroupsService} from "./shared/observation-groups/observation-groups.service";
-import {RouterExtensions, ModalDialogOptions, ModalDialogService} from "nativescript-angular";
-import {isNullOrUndefined} from "tns-core-modules/utils/types";
-import {AndroidActivityBackPressedEventData, AndroidApplication} from "tns-core-modules/application";
+import {RouterExtensions, ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
+import {isNullOrUndefined} from "@nativescript/core/utils/types";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "@nativescript/core/application";
 import { ModelService } from './shared/model/model.service';
 import { SettingsService } from './shared/settings/settings.service';
 import { ConfigService } from './shared/config-service';
 import { AlertModal } from './pages/modals/alert-modal/alert-modal.component';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Page } from '@nativescript/core/ui/page';
 declare var GMSServices: any;
 var Sqlite = require("nativescript-sqlite");
+var applicationSettings = require("@nativescript/core/application-settings");
 require( "nativescript-master-technology" );
 
 @Component({
@@ -74,10 +75,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         private _configService: ConfigService,
         private _zone: NgZone,
         private viewContainerRef: ViewContainerRef,
-        private modalService: ModalDialogService,
-        private page: Page
+        private modalService: ModalDialogService
+        // private page: Page
     ) {
-        this.page.actionBarHidden = true;
+        // this.page.actionBarHidden = true;
     }
 
     public menuItems = [
@@ -159,12 +160,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
     }
 
-    async initializeDatabases() {
+    async initializeDatabases(migrationFinished) {
         console.log("initializing databases");
         await this._configService.debug ? this.loadExistingUserDatabase() : this.initializeUserDatabase();
         if (this._networkMonitorService.connected) {
             console.log('updateAndLoadSystemDatabase');
-            await this._dbService.updateAndLoadSystemDatabase();
+            await this._dbService.updateAndLoadSystemDatabase(migrationFinished);
         } else {
             console.log('loadSystemDatabase');
             await this._dbService.loadSystemDatabase();
@@ -174,7 +175,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     public modalOpen = false;
     public overRideAndroidBackButton() {
         if (platform.isAndroid) {
-            application.android.removeEventListener(AndroidApplication.activityBackPressedEvent);
+            //application.android.removeEventListener(AndroidApplication.activityBackPressedEvent);
             application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
                 console.log('intercepting android back button MAIN');
                 data.cancel = true; // prevents default back button behavior
@@ -198,28 +199,28 @@ export class AppComponent implements OnInit, AfterViewInit {
         if(platform.isAndroid) {
             application.android.foregroundActivity.finish();
         } else {
-            exit(0);
+            //exit(0);
         }
     }
 
-    popupWelcomeModal() {
-        let options: ModalDialogOptions = {
-            viewContainerRef: this.viewContainerRef,
-            context: {
-                headerText: "Welcome",
-                informationText: "Nature's Notebook needs to download a database of species information with size 2.5MB, would you like to continue?"
-            },
-            fullscreen: false
-        };
+    // popupWelcomeModal() {
+    //     let options: ModalDialogOptions = {
+    //         viewContainerRef: this.viewContainerRef,
+    //         context: {
+    //             headerText: "Welcome",
+    //             informationText: "Nature's Notebook needs to download a database of species information with size 2.5MB, would you like to continue?"
+    //         },
+    //         fullscreen: false
+    //     };
 
-        this.modalService.showModal(AlertModal, options).then(async (result) => {
-            if(result) {
-                await this.downloadDbAndGoToLogin()
-            } else {
-                this.closeApp();
-            }
-        });
-    }
+    //     this.modalService.showModal(AlertModal, options).then(async (result) => {
+    //         if(result) {
+    //             await this.downloadDbAndGoToLogin()
+    //         } else {
+    //             this.closeApp();
+    //         }
+    //     });
+    // }
 
     // Returns a Promise that resolves after "ms" Milliseconds
     timer = ms => new Promise(res => setTimeout(res, ms));
@@ -236,11 +237,11 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
     }
 
-    async downloadDbAndGoToLogin() {
+    async downloadDbAndGoToLogin(migrationFinished) {
         try {
             // wait up to 15 seconds for network to come up
             await this.networkTimeoutNotifier();
-            await this.initializeDatabases();
+            await this.initializeDatabases(migrationFinished);
         } catch(error) {
             this.networkError = true;
         }
@@ -274,20 +275,22 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (platform.isIOS) {
             GMSServices.provideAPIKey(config.googleapikey);
         } 
-        this.overRideAndroidBackButton();
+        // todo fix me! this.overRideAndroidBackButton();
 
         // // only reason initialize is called is because it's instant, monitorConnection has a delay before kicking off
         this._networkMonitorService.initialize(); //
         this._networkMonitorService.monitorConnection();
 
-        if(!this._oauthService.oauthCompleted && !this._configService.debug) {
-            if (platform.isIOS) {
-                this.popupWelcomeModal();
-            } else {
-                this.downloadDbAndGoToLogin();
-            }  
+        console.log('JJJEEFFF1111!!');
+        let migrationFinished = this._configService.cloudMigrationFinished();
+        console.log('JJJEEFFF22222!!');
+
+        console.log('oauth2registered: ' + applicationSettings.getBoolean(`oauth2registered`));
+        if(migrationFinished && !applicationSettings.getBoolean(`oauth2registered`) && !this._configService.debug) {
+            console.log('we are here!!!!!!!!!!123');
+            this.downloadDbAndGoToLogin(migrationFinished);
         } else {
-            await this.initializeDatabases();
+            await this.initializeDatabases(migrationFinished);
             this._routerExtensions.navigate(["/syncing"], { clearHistory: true });
             this.activeRoute = "/syncing";
             this.intialLoad = false;

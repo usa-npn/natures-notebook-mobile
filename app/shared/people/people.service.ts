@@ -1,15 +1,15 @@
 import {Person} from "./person";
 import {Injectable} from "@angular/core";
 import {DatabaseService} from "../database/database.service";
-import {Observable, of, throwError} from "rxjs";
-import 'rxjs/add/operator/catch';
+import {Observable, of, throwError, lastValueFrom} from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { getJSON } from "@nativescript/core/http";
 
 import {SyncableTableService} from "../syncable-table-service";
 import { OauthService } from "../oauth/oauth.service";
 import { catchError, map } from "rxjs/operators";
 import { ConfigService } from "../config-service";
-const applicationSettings = require("application-settings");
+const applicationSettings = require("@nativescript/core/application-settings");
 
 @Injectable()
 export class PeopleService extends SyncableTableService {
@@ -86,14 +86,13 @@ export class PeopleService extends SyncableTableService {
     async getPersonFromServer(accessToken, consumerKey) {
         console.log('retrieving person from server');
         const serviceRequest = `${this.serviceName}?access_token=${accessToken}&consumer_key=${consumerKey}`;
-        const getUrl = this.baseUrl + serviceRequest;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceRequest;
         console.log(getUrl);
-        let people = await this.http.get<Person[]>(getUrl)
+        let people = await lastValueFrom(this.http.get<Person[]>(getUrl)
         .pipe(catchError(err => {
             this._databaseService.logSyncError(`ERROR: ${err} PUT: ${getUrl}`);
             return [];
-        }))
-        .toPromise();
+        })));
         return people;
         // return [{
         //     "person_id": 26318,
@@ -108,6 +107,26 @@ export class PeopleService extends SyncableTableService {
         //   }];
     }
 
+    async getPersonFromServerByUsername(userName) {
+        console.log('retrieving person from server');
+        const serviceRequest = `usanpnperson?user_name=${userName}`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceRequest;
+        console.log(getUrl);
+        return new Promise ((resolve, reject) => {
+                getJSON(getUrl).then((res) => {
+                console.log("server response: " + JSON.stringify(res));
+                resolve(res);
+            });
+        });
+        // let person = await lastValueFrom(this.http.get<Person[]>(getUrl)
+        // .pipe(catchError(err => {
+        //     console.log('in thissss error');
+        //     this._databaseService.logSyncError(`ERROR: ${err} PUT: ${getUrl}`);
+        //     return [];
+        // })));
+        // return person;
+    }
+
     loadPeopleTokens() {
         for(let person of this.people) {
             person.userToken = applicationSettings.getString(`userToken${person.person_id}`);
@@ -115,7 +134,7 @@ export class PeopleService extends SyncableTableService {
     }
 
     putPeople (people: Person[]) {
-        const getUrl = this.baseUrl + `${this.serviceName}`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `${this.serviceName}`;
 
         let payload = people.map((person) => {
             Object.keys(person).forEach((key) => (person[key] == null) && delete person[key]);
@@ -133,12 +152,11 @@ export class PeopleService extends SyncableTableService {
         console.log(`PUT: ${getUrl + JSON.stringify(payload)}`);
         this._databaseService.logSyncInfo(`PUT: ${getUrl + JSON.stringify(payload)}`);
         
-        return this.http.put<Person>(getUrl, payload, options)
+        return lastValueFrom(this.http.put<Person>(getUrl, payload, options)
         .pipe(catchError(err => {
             this._databaseService.logSyncError(`ERROR: ${err} PUT: ${getUrl + JSON.stringify(payload)}`);
             return throwError(err);
-        }))
-        .toPromise();
+        })));
     }
 
 }

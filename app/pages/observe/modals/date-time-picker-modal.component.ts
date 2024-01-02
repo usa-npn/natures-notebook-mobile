@@ -1,13 +1,13 @@
 // /// <reference path="../../../node_modules/tns-platform-declarations/ios/ios.d.ts" /> Needed for autocompletion and compilation.
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import { SwipeGestureEventData } from "ui/gestures";
-import { Page } from 'ui/page';
-const pageCommon = require('ui/page/page-common').Page;
-import { Color } from 'color';
-import * as utils from 'utils/utils';
+import {ModalDialogParams} from "@nativescript/angular";
+import { SwipeGestureEventData } from "@nativescript/core/ui/gestures";
+import { Page } from '@nativescript/core/ui/page';
+const pageCommon = require('@nativescript/core/ui/page/page-common').Page;
+import { Color } from '@nativescript/core/color';
+import * as utils from '@nativescript/core/utils';
 import {icons} from "../../icons";
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Component({
     moduleId: module.id,

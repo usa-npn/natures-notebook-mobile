@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import {ModalDialogParams, ModalDialogService} from "nativescript-angular/modal-dialog";
-import { Page } from 'ui/page';
-import { Color } from 'color';
-import * as utils from 'utils/utils';
+import {ModalDialogParams, ModalDialogService} from "@nativescript/angular";
+import { Page } from '@nativescript/core/ui/page';
+import { Color } from '@nativescript/core/color';
+import * as utils from '@nativescript/core/utils';
 import {icons} from "../../icons";
 import { Observation } from '../../../shared/observations/Observation';
 import { SettingsService } from '../../../shared/settings/settings.service';
@@ -17,7 +17,7 @@ import { PeopleService } from '../../../shared/people/people.service';
 import { NetworkMonitorService } from '../../../shared/network-monitor/network-monitor.service';
 import { Router } from '@angular/router';
 import { Site } from '../../../shared/sites/site';
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Component({
     moduleId: module.id,

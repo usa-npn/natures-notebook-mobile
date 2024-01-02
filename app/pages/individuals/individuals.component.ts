@@ -6,22 +6,22 @@ import {Router} from "@angular/router";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
 import {Individual} from "../../shared/individuals/individual";
 import {SitesService} from "../../shared/sites/sites.service";
-import {ModalDialogService, ModalDialogOptions} from "nativescript-angular";
+import {ModalDialogService, ModalDialogOptions} from "@nativescript/angular";
 import {IndividualInfoModal} from "./individual-info/individual-info-modal.component";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {NewIndividualModal} from "./new-individual/new-individual-modal.component";
 import {SyncService} from "../../shared/sync/sync.service";
 
-import {ImageSource} from "tns-core-modules/image-source";
-import {GC} from "tns-core-modules/utils/utils";
-var imageSource = require("image-source");
-var fs = require("file-system");
-var imageModule = require("ui/image");
-import * as platform from "platform";
+// import {ImageSource} from "@nativescript/core/image-source";
+//import {GC} from "@nativescript/core/utils";
+// var imageSource = require("image-source");
+var fs = require("@nativescript/core/file-system");
+// var imageModule = require("ui/image");
+const platform = require("@nativescript/core/platform");
 import {icons} from "../icons";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 import { NetworksService } from "../../shared/networks/networks.service";
-let utilsModule = require("tns-core-modules/utils/utils");
+let utilsModule = require("@nativescript/core/utils");
 
 @Component({
     moduleId: module.id,

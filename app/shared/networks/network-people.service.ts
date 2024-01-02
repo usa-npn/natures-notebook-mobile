@@ -11,7 +11,7 @@ import {PeopleService} from "../people/people.service";
 import { map } from "rxjs/operators";
 import { ConfigService } from "../config-service";
 import { HttpClient } from "@angular/common/http";
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Injectable()
 export class NetworkPeopleService extends SyncableTableService {
@@ -47,7 +47,7 @@ export class NetworkPeopleService extends SyncableTableService {
     sqLiteTypes = new Map<string, string>();
 
     async joinNetwork (person_id: number, network_id: number) {
-        const getUrl = this.baseUrl + 'network_person';
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + 'network_person';
         let networkPerson = {
             network_id: network_id,
             person_id: person_id

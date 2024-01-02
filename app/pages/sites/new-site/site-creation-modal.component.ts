@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import { SwipeGestureEventData } from "ui/gestures";
+import {ModalDialogParams} from "@nativescript/angular";
+import { SwipeGestureEventData } from "@nativescript/core/ui/gestures";
 import {SitesService} from "../../../shared/sites/sites.service";
 import {Network} from "../../../shared/networks/network";
 import {Person} from "../../../shared/people/person";

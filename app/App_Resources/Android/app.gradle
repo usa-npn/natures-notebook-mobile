@@ -22,3 +22,7 @@ android {
     googlePlayServicesVersion = "15.0.1"
   }
 } 
+
+dependencies {
+  implementation 'com.android.support:multidex:1.0.0'
+}

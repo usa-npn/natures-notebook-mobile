@@ -4,7 +4,6 @@ import {Network} from "../networks/network";
 import {Injectable} from "@angular/core";
 import {DatabaseService} from "../database/database.service";
 import {Observable, of, from, throwError} from "rxjs";
-import 'rxjs/add/operator/catch';
 import {SyncableTableService} from "../syncable-table-service";
 import {OauthService} from "../oauth/oauth.service";
 import {PeopleService} from "../people/people.service";
@@ -14,7 +13,7 @@ import { catchError, map } from "rxjs/operators";
 import { ConfigService } from "../config-service";
 import { IndividualsService } from "../individuals/individuals.service";
 import { HttpClient } from "@angular/common/http";
-const applicationSettings = require("application-settings");
+const applicationSettings = require("@nativescript/core/application-settings");
 import config from '../../configuration.js';
 
 
@@ -212,7 +211,7 @@ export class SitesService extends SyncableTableService {
             }),
             catchError(err => {
                 console.log('Error in getSitesForPersonFromDatabase: ' + err);
-                return Observable.throw(err);
+                return throwError(err);
             })
         ).toPromise();
     }
@@ -300,7 +299,7 @@ export class SitesService extends SyncableTableService {
 
     async siteNameAlreadyExists(stationName: string, selectedGroup: Network, selectedPerson: Person) {
         const serviceName = `${this.serviceName}?station_name=${encodeURIComponent(stationName)}`;
-        const getUrl = this.baseUrl + serviceName;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceName;
         console.log(`retrieving ${getUrl}`);
         let serverStations = await this.http.get(getUrl)
         .pipe(catchError(err => {
@@ -317,7 +316,7 @@ export class SitesService extends SyncableTableService {
     }
 
     addSite (site: Site) {
-        const postUrl = this.baseUrl + `${this.serviceName}`;
+        const postUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `${this.serviceName}`;
 
         let options = this._oauthService.getRequestOptions(this._peopleService._selectedPerson.userToken);
         let payload = [{insert_object: site}];
@@ -335,7 +334,7 @@ export class SitesService extends SyncableTableService {
     }
 
     addNetworkStation (networkStation) {
-        const postUrl = this.baseUrl + `network_stations`;
+        const postUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `network_stations`;
 
         let options = this._oauthService.getRequestOptions(this._peopleService._selectedPerson.userToken);
         let payload = [{insert_object: networkStation}];

@@ -1,10 +1,9 @@
-import { platformNativeScriptDynamic } from 'nativescript-angular/platform';
+import { runNativeScriptAngularApp, platformNativeScript } from '@nativescript/angular';
 import { AppModule } from './app.module';
-import {enableProdMode} from "@angular/core";
 
-// enableProdMode();
 
-platformNativeScriptDynamic({
-    startPageActionBarHidden: true,
-    createFrameOnBootstrap: true
-}).bootstrapModule(AppModule);
+runNativeScriptAngularApp({
+    appModuleBootstrap: () => platformNativeScript().bootstrapModule(AppModule),
+    // startPageActionBarHidden: true,
+    // createFrameOnBootstrap: true
+});

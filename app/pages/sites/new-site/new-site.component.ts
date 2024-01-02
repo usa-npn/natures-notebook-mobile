@@ -4,9 +4,9 @@ var http = require("http");
 import {Site} from "../../../shared/sites/site";
 import {ActivatedRoute, Router} from "@angular/router";
 import {State, states} from "../states";
-import {registerElement} from "nativescript-angular/element-registry";
-import * as geolocation from "nativescript-geolocation";
-import {ModalDialogOptions, ModalDialogService} from "nativescript-angular";
+import {registerElement} from "@nativescript/angular";
+import * as geolocation from '@nativescript/geolocation';
+import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {PickerModal} from "../../modals/picker-modal/picker-modal.component";
 import {Subject} from "rxjs";
 import {BehaviorSubject} from "rxjs";
@@ -17,9 +17,8 @@ import {PeopleService} from "../../../shared/people/people.service";
 import {NetworksService} from "../../../shared/networks/networks.service";
 import {DatabaseService} from "../../../shared/database/database.service";
 //var mapsModule = require("nativescript-google-maps-sdk");
-import * as platform from "platform";
 import {MapView, Marker, Position} from 'nativescript-google-maps-sdk';
-import { Page } from "tns-core-modules/ui/page/page";
+import { Page } from "@nativescript/core/ui/page";
 
 // Important - must register MapView plugin in order to use in Angular templates
 registerElement("MapView", () => MapView);

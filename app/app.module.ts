@@ -1,9 +1,9 @@
 // this import should be first in order to load some required settings (like globals and reflect-metadata)
-import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-import { NativeScriptRouterModule } from "nativescript-angular/router";
-import { NativeScriptAnimationsModule } from "nativescript-angular/animations";
+import { NativeScriptModule } from '@nativescript/angular';
+import { NativeScriptRouterModule } from "@nativescript/angular";
+import { NativeScriptAnimationsModule } from "@nativescript/angular";
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
-import {NativeScriptHttpClientModule} from "nativescript-angular/http-client";
+import {NativeScriptHttpClientModule} from "@nativescript/angular";
 import { AppComponent } from './app.component';
 import {SitesComponent} from './pages/sites/sites.component';
 import {NewSiteComponent} from './pages/sites/new-site/new-site.component';
@@ -22,12 +22,12 @@ import { PhenophaseDefinitionsService } from './shared/phenophases/phenophase-de
 import { ProtocolPhenophasesService } from './shared/phenophases/protocol-phenophases.service';
 import { SpeciesService } from './shared/species/species.service';
 import { SettingsService } from './shared/settings/settings.service';
-import {registerElement} from "nativescript-angular/element-registry";
-import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
+import {registerElement} from "@nativescript/angular";
+import {ModalDialogService, ModalDialogOptions} from "@nativescript/angular";
 import {SiteInfoModal} from "./pages/sites/site-info/site-info-modal.component";
 import {IndividualsService} from "./shared/individuals/individuals.service";
 import {SyncingComponent} from "./pages/syncing/syncing.component";
-import {NativeScriptFormsModule} from "nativescript-angular";
+import {NativeScriptFormsModule} from "@nativescript/angular";
 import {SiteCreationModal} from "./pages/sites/new-site/site-creation-modal.component";
 import {NetworksService} from "./shared/networks/networks.service";
 import {SitesPipe} from './pages/sites/sites.pipe';
@@ -61,7 +61,7 @@ import { InformationModal } from './pages/modals/information-modal/information-m
 import { ConfigService } from './shared/config-service';
 import { AlertModal } from './pages/modals/alert-modal/alert-modal.component';
 import { ScistarterService } from './shared/scistarter/scistarter.service';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 // registerElement("Emoji", () => require("nativescript-emoji").Emoji);
 registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom);
@@ -144,7 +144,7 @@ registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom)
         NativeScriptModule,
         NativeScriptRouterModule,
         routing,
-        HttpModule
+        HttpClientModule
     ]
 })
 export class AppModule {}

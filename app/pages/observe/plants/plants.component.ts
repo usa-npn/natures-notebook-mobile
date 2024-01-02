@@ -1,5 +1,5 @@
 import {IndividualsAbstractComponent} from "../individuals-abstract.component";
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
+import {ModalDialogParams} from "@nativescript/angular";
 import {Component} from "@angular/core";
 import { Phenophase } from "~/shared/phenophases/phenophase";
 @Component({

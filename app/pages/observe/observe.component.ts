@@ -2,21 +2,21 @@ import {Component, ViewChild, OnInit, ViewContainerRef, OnDestroy} from "@angula
 import {SpeciesService} from "../../shared/species/species.service";
 var http = require("http");
 import {Router} from "@angular/router";
-import {ModalDialogOptions, ModalDialogService} from "nativescript-angular";
+import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {DateTimePickerModal} from "./modals/date-time-picker-modal.component";
 import {SettingsService} from "../../shared/settings/settings.service";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
 import {Subscription} from "rxjs";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {ObserveService} from "./observe.service";
 import {SitesService} from "../../shared/sites/sites.service";
 import {icons} from "../icons";
 import {PeopleService} from "../../shared/people/people.service";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 import { InformationModal } from "../modals/information-modal/information-modal.component";
 import { SyncService } from "../../shared/sync/sync.service";
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Component({
     moduleId: module.id,

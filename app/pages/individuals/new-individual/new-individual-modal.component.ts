@@ -1,17 +1,17 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import {PinchGestureEventData, SwipeGestureEventData} from "ui/gestures";
+import {ModalDialogParams} from "@nativescript/angular";
+import {PinchGestureEventData, SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {Individual} from "../../../shared/individuals/individual";
-import {Page} from "ui/page";
-import { Color } from 'color';
+import {Page} from "@nativescript/core/ui/page";
+import { Color } from '@nativescript/core/color';
 import {Species} from "../../../shared/species/species";
 import {SpeciesPipe} from "./species.pipe";
 import {Site} from "../../../shared/sites/site";
 import {icons} from "../../icons";
 import { NetworkMonitorService } from '../../../shared/network-monitor/network-monitor.service';
 import { SpeciesService } from '~/shared/species/species.service';
-var imageSource = require("image-source");
-var fs = require("file-system");
+var imageSource = require("@nativescript/core/image-source");
+var fs = require("@nativescript/core/file-system");
 
 @Component({
     moduleId: module.id,

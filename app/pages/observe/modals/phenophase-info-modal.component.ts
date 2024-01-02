@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import { SwipeGestureEventData } from "ui/gestures";
+import {ModalDialogParams} from "@nativescript/angular";
+import { SwipeGestureEventData } from "@nativescript/core/ui/gestures";
 import {Individual} from "../../../shared/individuals/individual";
-import {Page} from "ui/page";
-import { Color } from 'color';
+import {Page} from "@nativescript/core/ui/page";
+import { Color } from '@nativescript/core/color';
 import {Phenophase} from "../../../shared/phenophases/phenophase";
 import {PhenophaseDefinition} from "../../../shared/phenophases/phenophase-definition";
 import {SpeciesSpecificPhenophaseInformation} from "../../../shared/species/species-specific-phenophase-information";

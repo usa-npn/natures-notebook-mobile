@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {DatabaseService} from "./database/database.service";
 import {Observable, throwError} from "rxjs";
 import { map, catchError } from "rxjs/operators";
-import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/catch';
 import { ConfigService } from "./config-service";
 import { HttpClient } from "@angular/common/http";
 
@@ -15,14 +15,14 @@ export abstract class GenericTableService {
     }
 
     protected databaseName = "system_nn_db";
-    protected baseUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/webservices/v0/`;
+    // public baseUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/`;
     protected abstract serviceName: string;
     protected abstract tableName: string;
     protected abstract primaryKey: string;
     protected abstract serverTableColumns: string[];
     protected additionalTableColumns: string[] = ['deleted'];
     protected abstract tableColumns: string[];
-    protected abstract sqLiteTypes = new Map<string, string>([['deleted', 'integer']]);
+    protected sqLiteTypes = new Map<string, string>([['deleted', 'integer']]);
     protected tableConstraints: string = '';
 
     getDatabase() {

@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, ElementRef, ViewChild, ChangeDetectorRef} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import {PanGestureEventData, PinchGestureEventData, SwipeGestureEventData} from "ui/gestures";
+import {ModalDialogParams} from "@nativescript/angular";
+import {PanGestureEventData, PinchGestureEventData, SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {Individual} from "../../../shared/individuals/individual";
-import {ImageSource} from "tns-core-modules/image-source";
+// import {ImageSource} from "@nativescript/core/image-source";
 import {IndividualsService} from "../../../shared/individuals/individuals.service";
-import {WebView, LoadEventData} from "tns-core-modules/ui/web-view";
+import {WebView, LoadEventData} from "@nativescript/core/ui/web-view";
 import { icons } from "../../icons";
-import * as platform from "platform";
+const platform = require("@nativescript/core/platform");
 import { DatabaseService } from '~/shared/database/database.service';
-var imageSource = require("image-source");
-var fs = require("file-system");
-var imageModule = require("ui/image");
+// var imageSource = require("image-source");
+var fs = require("@nativescript/core/file-system");
+// var imageModule = require("ui/image");
 
 var UIViewContentModeScaleAspectFit: any;
 

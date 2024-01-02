@@ -36,7 +36,7 @@
                                         <Label text="{{ getIcon(item) }}"
                                                class="fa-icon"></Label>
                                     </FlexboxLayout>
-                                    <Label [text]="item.network_name" textWrap="true" width="90%"></Label>
+                                    <Label [text]="item.network_name || item.Name" textWrap="true" width="90%"></Label>
                                 </FlexboxLayout>
 
                                 <StackLayout *ngIf="(expandHierarchy && item.secondary_network) || item.showChildren">

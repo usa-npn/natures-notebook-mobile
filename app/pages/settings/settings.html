@@ -75,7 +75,7 @@
                    class="bordered-box" padding="4" marginBottom="2">
         <FlexboxLayout alignItems="center" height="50">
             <Label class="account-info-text" text="Current Account: "></Label>
-            <TextField text={{getAccountEmail()}} editable="false" flexGrow="1"></TextField>
+            <TextField text={{getAccountEmail()}} editable="false" flexGrow="1" height="50"></TextField>
         </FlexboxLayout>
         <StackLayout class="button-stack" style="width:100%" marginTop="2" (tap)="manageAccounts()">
             <Label text="{{groupIcon}}"

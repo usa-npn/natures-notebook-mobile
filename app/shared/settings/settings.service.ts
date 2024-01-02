@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import { Observable } from 'rxjs';
-var applicationSettings = require("application-settings");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 
 @Injectable()

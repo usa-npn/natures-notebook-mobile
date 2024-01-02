@@ -10,7 +10,6 @@ import {OauthService} from "../oauth/oauth.service";
 import {HttpHeaders, HttpClient} from "@angular/common/http";
 import {PeopleService} from "../people/people.service";
 import { catchError, map } from "rxjs/operators";
-import 'rxjs/add/operator/catch';
 import { ConfigService } from "../config-service";
 
 @Injectable()
@@ -324,7 +323,7 @@ export class ObservationsService extends SyncableTableService {
 
     private tzoffset = (new Date()).getTimezoneOffset() * 60000;
     sendObservationsToServer (observations: Observation[], lastSyncTimestamp, operationType) {
-        const getUrl = this.baseUrl + `${this.serviceName}`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + `${this.serviceName}`;
 
 
         let payload = observations.map(observation => {

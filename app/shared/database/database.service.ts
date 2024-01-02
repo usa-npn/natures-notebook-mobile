@@ -1,11 +1,12 @@
 import {Injectable} from "@angular/core";
 var Sqlite = require("nativescript-sqlite");
-var http = require("http");
-import * as fs from "file-system";
-var app = require("application");
-import * as platform from "platform";
+import { Http } from "@nativescript/core";
+import * as fs from "@nativescript/core/file-system";
+var app = require("@nativescript/core/application");
+const platform = require("@nativescript/core/platform");
 import { ConfigService } from "../config-service";
-import { getJSON } from "tns-core-modules/http";
+import { getJSON } from "@nativescript/core/http";
+declare var java: any;
 
 // service provides database query running, system database loading and updating, and database logging
 @Injectable()
@@ -113,13 +114,13 @@ export class DatabaseService {
     }
 
     loadSystemDatabase() {
-        return new Promise ((resolve, reject) => {
+        return new Promise<boolean> ((resolve, reject) => {
             if(fs.File.exists(this.getLocalDatabasePath())) {
                 (new Sqlite(this.systemDbName)).then(async (db) => {
                     db.resultType(Sqlite.RESULTSASOBJECT);
                     this.nn_system_db = db;
                     this.nn_system_db.resultType(Sqlite.RESULTSASOBJECT);
-                    resolve();
+                    resolve(true);
                 }, error => {
                     console.log("OPEN NN_SYSTEM_DB ERROR", error);
                     reject();
@@ -131,9 +132,10 @@ export class DatabaseService {
         });
     }
 
-    updateAndLoadSystemDatabase() {
+    updateAndLoadSystemDatabase(migrationFinished) {
+        let dbURL = "https://services.usanpn.org/web-services/v0/mobile/database";
         return new Promise ((resolve, reject) => {
-            getJSON(`${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/webservices/v0/mobile/database`).then((res) => {
+            getJSON(dbURL).then((res) => {
                     console.log("server response: " + JSON.stringify(res));
                     if(fs.File.exists(this.getLocalDatabasePath())) {
                         // compare version numbers
@@ -147,7 +149,7 @@ export class DatabaseService {
                                 console.log("system database already up to date");
                                 this.nn_system_db = db;
                                 this.nn_system_db.resultType(Sqlite.RESULTSASOBJECT);
-                                resolve();
+                                resolve(true);
                             }
                         }, error => {
                             console.log("OPEN NN_SYSTEM_DB ERROR", error);
@@ -185,10 +187,10 @@ export class DatabaseService {
             try {
                 console.log('getting db from: ');
                 console.log(serverDatabasePath);
-                http.getFile(serverDatabasePath, filePath).then((result) => {
+                Http.getFile(serverDatabasePath, filePath).then((result) => {
                     this.logSyncInfo(`GETFILE: ${serverDatabasePath}`);
-                    let headers = result.headers;
-                    console.log(JSON.stringify(headers));
+                    // let headers = result.headers;
+                    // console.log(JSON.stringify(headers));
                     console.log(JSON.stringify(result));
                     console.log("DB: ", databaseName, ", FilePath:", filePath, "Exists:", fs.File.exists(filePath));
                     if (platform.isAndroid) {
@@ -199,7 +201,7 @@ export class DatabaseService {
                     (new Sqlite(databaseName)).then(db => {
                         this.nn_system_db = db;
                         this.nn_system_db.resultType(Sqlite.RESULTSASOBJECT);
-                        resolve();
+                        resolve(true);
                     }, error => {
                         console.log("OPEN NN_SYSTEM_DB ERROR", error);
                         alert("There was an error updating the database, please reopen the app to try again.");
@@ -211,7 +213,7 @@ export class DatabaseService {
                     (new Sqlite(databaseName)).then(db => {
                         this.nn_system_db = db;
                         this.nn_system_db.resultType(Sqlite.RESULTSASOBJECT);
-                        resolve();
+                        resolve(true);
                     }, error => {
                         console.log("OPEN NN_SYSTEM_DB ERROR", error);
                         alert("There was an error updating the database, please reopen the app to try again.");

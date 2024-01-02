@@ -3,16 +3,14 @@ import {Person} from "../people/person";
 import {Injectable} from "@angular/core";
 import {DatabaseService} from "../database/database.service";
 import {Observable, throwError} from "rxjs";
-import {Http} from "@angular/http";
 import {SyncableTableService} from "../syncable-table-service";
 import {NetworkHierarchy} from "./network-hierarchy";
 import {NetworkPeopleService} from "./network-people.service";
 import { map, catchError } from "rxjs/operators";
-import 'rxjs/add/operator/catch';
 import { ConfigService } from "../config-service";
 import { HttpClient } from "@angular/common/http";
 import { NetworkPerson } from "./network-person";
-const applicationSettings = require("application-settings");
+const applicationSettings = require("@nativescript/core/application-settings");
 
 @Injectable()
 export class NetworksService extends SyncableTableService {
@@ -153,7 +151,19 @@ export class NetworksService extends SyncableTableService {
 
     async getHierarchyFromServer(): Promise<NetworkHierarchy[]> {
         const serviceName = `networks/hierarchy`;
-        const getUrl = this.baseUrl + serviceName;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceName;
+        console.log(`retrieving ${getUrl}`);
+        return this.http.get<NetworkHierarchy[]>(getUrl)
+        .pipe(catchError(err => {
+            this._databaseService.logSyncError(`ERROR: ${err} POST: ${getUrl}`);
+            return throwError(err);
+        }))
+        .toPromise();
+    };
+
+    async getLppsFromServer(): Promise<NetworkHierarchy[]> {
+        const serviceName = `networks/getLpps`;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceName;
         console.log(`retrieving ${getUrl}`);
         return this.http.get<NetworkHierarchy[]>(getUrl)
         .pipe(catchError(err => {

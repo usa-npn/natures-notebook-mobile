@@ -18,13 +18,13 @@ import {Observation} from "../observations/Observation";
 import { SettingsService } from "../settings/settings.service";
 import { NetworkMonitorService } from "../network-monitor/network-monitor.service";
 import { ConfigService } from "../config-service";
-import { ImageSource } from "tns-core-modules/image-source/image-source";
-import { getImage } from "tns-core-modules/http";
+import { ImageSource } from "@nativescript/core/image-source";
+import { getImage } from "@nativescript/core/http";
 import { keepAwake, allowSleepAgain } from "nativescript-insomnia";
 import { ScistarterService } from "../scistarter/scistarter.service";
-var imageSource = require("image-source");
-var fs = require("file-system");
-var applicationSettings = require("application-settings");
+var imageSource = require("@nativescript/core/image-source");
+var fs = require("@nativescript/core/file-system");
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Injectable()
 export class SyncService {
@@ -70,24 +70,28 @@ export class SyncService {
                 src = src.replace('.JPG', '_thumb.JPG');
                 src = src.replace('.png', '_thumb.png');
                 src = src.replace('.PNG', '_thumb.PNG');
+                src = src.replace('http://', 'https://');
                 // make the local filename is the same as the server file name without the url path
                 let fileName = src.split('/').pop();
-                // console.log('downloading: ' + src);
-                await getImage(src).then((res: ImageSource) => {
-                // await imageSource.fromUrl(src).then((res) => {
-                    var path = fs.path.join(folder.path, `${fileName}`);
-                    res.saveToFile(path, "png");
-                }, (error) => {
-                    console.log(src);
-                    console.log(error);
-                });
+                var path = fs.path.join(folder.path, `${fileName}`);
+                console.log('downloading: ' + src);
+                if(!fs.File.exists(path)) {
+                    await getImage(src).then((res: ImageSource) => {
+                    // await imageSource.fromUrl(src).then((res) => {
+                        res.saveToFile(path, "png");
+                    }, (error) => {
+                        console.log(src);
+                        console.log(error);
+                    });
+                }
             }
         }
 
         for(var sp of species) {
-            let src = this.BASE_MEDIA_URL + this.IMAGE_PATH + sp.genus + '_' + sp.species;
+            let src = this.BASE_MEDIA_URL + this.IMAGE_PATH + sp.genus + '_' + sp.species + '.png';
             if (!fs.File.exists(fs.path.join(folder.path, `${sp.genus}_${sp.species}.png`))) {
                 // console.log('downloading: ' + `${sp.genus}_${sp.species}.png`);
+                // console.log(src);
                 await getImage(src).then((res: ImageSource) => {
                     var path = fs.path.join(folder.path, `${sp.genus}_${sp.species}.png`);
                     res.saveToFile(path, "png");

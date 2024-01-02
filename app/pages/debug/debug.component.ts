@@ -3,19 +3,19 @@ import {
     ViewContainerRef, ChangeDetectorRef
 } from "@angular/core";
 import {Router} from "@angular/router";
-import {ModalDialogOptions, ModalDialogService} from "nativescript-angular";
+import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {SettingsService} from "../../shared/settings/settings.service";
-import {SwipeGestureEventData} from "ui/gestures";
-import {GC} from "tns-core-modules/utils/utils";
-import * as dialogs from "tns-core-modules/ui/dialogs";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
+//import {GC} from "tns-core-modules/utils/utils";
+import * as dialogs from "@nativescript/core/ui/dialogs";
 
 
-import * as application from "tns-core-modules/application";
-var appModule = require("application");
-import * as fs from "file-system";
+import * as application from "@nativescript/core/application";
+var appModule = require("@nativescript/core/application");
+import * as fs from "@nativescript/core/file-system";
 import {PeopleService} from "../../shared/people/people.service";
 import {icons} from "../icons";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 import { ConfigService } from "~/shared/config-service";
 import { DatabaseService } from "~/shared/database/database.service";
 var http = require("http");

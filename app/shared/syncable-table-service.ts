@@ -3,7 +3,6 @@ import {DatabaseService} from "./database/database.service";
 import {Observable, throwError} from "rxjs";
 import {GenericTableService} from "./generic-table-service";
 import { catchError, map } from "rxjs/operators";
-import 'rxjs/add/operator/catch';
 import { ConfigService } from "./config-service";
 import { HttpClient } from "@angular/common/http";
 
@@ -27,7 +26,7 @@ export abstract class SyncableTableService extends GenericTableService {
 
     // this pull is scoped to only retrieve results for provided parents in the hierarchy
     getFromServerForParents<T> (parents: any[], parentJoinColumn: string, serverJoinColumn: string) {
-        const getUrl = this.baseUrl + this.serviceName;
+        const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + this.serviceName;
         let params = '';
         if (parents.length === 1) {
             params = `?${serverJoinColumn}='` + parents[0][parentJoinColumn] + "'";

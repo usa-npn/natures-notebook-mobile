@@ -1,13 +1,13 @@
 import config from '../../configuration.js';
 import {Injectable} from "@angular/core";
-import {HttpResponse} from "http";
-// import {Http, Headers, RequestOptions} from "@angular/http";
-import { HttpHeaders } from '@angular/common/http';
+// import {HttpResponse} from "http";
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { ConfigService } from "../config-service";
-var http = require('http');
+// var http = require('http');
+const http = require("@nativescript/core/http");
 var oauthSignature = require("oauth-signature");
-var applicationSettings = require("application-settings");
-import { getJSON } from "tns-core-modules/http";
+var applicationSettings = require("@nativescript/core/application-settings");
+import { getJSON } from "@nativescript/core/http";
 
 @Injectable()
 export class OauthService {
@@ -28,6 +28,7 @@ export class OauthService {
     public tokenSecret:string[] = ["", "", "", "", "", "", "" , "", "", ""];
     public oauthCallbackScheme:string = "natures-notebook-oauth";
 
+    // public baseUrl = `http://${this._configService.getHost()}/`;
     public baseUrl = `${this._configService.getProtocol()}://${this._configService.getHost()}/`;
     public requestUrl:string = this.baseUrl + "oauth/request_token";
     public accessUrl:string = this.baseUrl + "oauth/access_token";
@@ -73,7 +74,7 @@ export class OauthService {
 
     getTimestamp() {
         return new Promise((resolve, reject) => {
-            getJSON(`${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/webservices/v0/mobile/timestamp`).then((res) => {
+            getJSON(`${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/mobile/timestamp`).then((res) => {
                 console.log('got timestamp from server!');
                 resolve(res['timestamp']);
             }, (e) => {
@@ -101,9 +102,11 @@ export class OauthService {
         parameters.oauth_signature = encodedSignature;
         let requestWithParams = url + this.objectToParamString(parameters);
         console.log("request: " + requestWithParams);
+        // return "blahh";
         return http.request({
-            url: requestWithParams,
+            url: requestWithParams, //"https://www.google.com",
             method: "GET"
+            //headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
     }
 
@@ -162,4 +165,36 @@ export class OauthService {
         return httpOptions;
     }
 
+    //oauth2
+    
+    authorize(authCode) {
+        console.log('OAUTH2 Retreiving auth token');
+        console.log(authCode);
+        let oauth2ConsumerKey:string = config.oauth2Consumerkey;
+        let authorizeUrl:string = `https://prod.usanpn.org/oauth/token`;
+        let body = new HttpParams()
+            .set('grant_type', "authorization_code")
+            .set('client_id', oauth2ConsumerKey)
+            .set('redirect_uri', `https://prod.usanpn.org/oauth-finished`)
+            .set('code', authCode);
+        return http.request({
+            url: authorizeUrl,
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            content: body.toString(),
+        })
+    }
+
+    getUserId(access_token) {
+        console.log('OAUTH2 Retreiving userId');
+        applicationSettings.setBoolean(`oauth2registered`, true);
+        let oauth2ConsumerKey:string = config.oauth2Consumerkey;
+        let userIdUrl:string = `https://${this._configService.getHost()}/oauth/userinfo`;
+        return http.request({
+            url: userIdUrl,
+            method: "GET",
+            headers: { "Content-Type": "application/x-www-form-urlencoded",
+                       "Authorization": "Bearer " + access_token }
+        })
+    }
 }

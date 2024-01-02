@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import { Page } from 'ui/page';
-const pageCommon = require('ui/page/page-common').Page;
-import { Color } from 'color';
-import * as utils from 'utils/utils';
-var applicationSettings = require("application-settings");
+import {ModalDialogParams} from "@nativescript/angular";
+import { Page } from '@nativescript/core/ui/page';
+const pageCommon = require('@nativescript/core/ui/page/page-common').Page;
+import { Color } from '@nativescript/core/color';
+import * as utils from '@nativescript/core/utils';
+var applicationSettings = require("@nativescript/core/application-settings");
 
 @Component({
     moduleId: module.id,

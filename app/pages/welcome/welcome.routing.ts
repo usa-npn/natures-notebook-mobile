@@ -1,6 +1,6 @@
-import { NgModule } from "@angular/core";
+import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { Routes } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NativeScriptRouterModule } from "@nativescript/angular";
 import { WelcomeComponent } from "./welcome.component";
 
 export const routes: Routes = [
@@ -12,6 +12,9 @@ export const routes: Routes = [
 
 @NgModule({
     imports: [NativeScriptRouterModule.forChild(routes)],  // set the lazy loaded routes using forChild
-    exports: [NativeScriptRouterModule]
+    exports: [NativeScriptRouterModule],
+    schemas: [
+        NO_ERRORS_SCHEMA
+    ]
 })
 export class WelcomeRoutingModule { }

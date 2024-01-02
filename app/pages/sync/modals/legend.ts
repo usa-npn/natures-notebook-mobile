@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy, ViewContainerRef} from '@angular/core';
-import {ModalDialogParams, ModalDialogService} from "nativescript-angular/modal-dialog";
-import { Page } from 'ui/page';
+import {ModalDialogParams, ModalDialogService} from "@nativescript/angular";
+import { Page } from '@nativescript/core/ui/page';
 
 @Component({
     moduleId: module.id,

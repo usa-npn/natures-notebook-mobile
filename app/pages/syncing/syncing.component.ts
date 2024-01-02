@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, AfterViewInit, ViewChild, NgZone} from "@angular/core";
-import { Progress } from "ui/progress";
+import { Progress } from "@nativescript/core/ui/progress";
 import {SyncService} from "../../shared/sync/sync.service";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 
 @Component({
     moduleId: module.id,

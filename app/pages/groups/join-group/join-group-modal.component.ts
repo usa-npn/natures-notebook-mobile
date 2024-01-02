@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import {Page} from "ui/page";
-import { Color } from 'color';
+import {ModalDialogParams} from "@nativescript/angular";
+import {Page} from "@nativescript/core/ui/page";
+import { Color } from '@nativescript/core/color';
 import {GroupsPipe} from "./groups.pipe";
 import {Network} from "../../../shared/networks/network";
 import {NetworkHierarchy} from "../../../shared/networks/network-hierarchy";
@@ -13,6 +13,7 @@ import {NetworkMonitorService} from "../../../shared/network-monitor/network-mon
 import {NetworksService} from "../../../shared/networks/networks.service";
 import {icons} from "../../icons";
 import { distinctUntilChanged, debounceTime} from "rxjs/operators";
+import { ConfigService } from '~/shared/config-service';
 
 @Component({
     moduleId: module.id,
@@ -31,7 +32,8 @@ export class JoinGroupModal implements OnInit, AfterViewInit {
                 private _syncService: SyncService,
                 private _peopleService: PeopleService,
                 private _networkMonitorService: NetworkMonitorService,
-                private groupsPipe: GroupsPipe) {
+                private groupsPipe: GroupsPipe,
+                private _configService: ConfigService) {
         // page.backgroundColor = new Color(50, 0, 0, 0);
 
         this.groups = params.context.groups;
@@ -206,7 +208,11 @@ export class JoinGroupModal implements OnInit, AfterViewInit {
     }
 
     public showGroup(group: NetworkHierarchy) {
+        if (this._configService.cloudMigrationFinished() && !(group.network_id > 0)) {
+            return false;
+        }
         return !group.hidden && !this.alreadyJoinedGroupIds.some((joinedGroupId) => joinedGroupId === group.network_id);
+        
     }
 
     public async closeModal() {
@@ -249,7 +255,16 @@ export class JoinGroupModal implements OnInit, AfterViewInit {
     ngOnInit() {
         this.isLoading = true;
         setTimeout(async () => {
-            this.groupsHierarchy = await this._networksService.getHierarchyFromServer();
+            if(this._configService.cloudMigrationFinished()) {
+                this.groupsHierarchy = await this._networksService.getLppsFromServer();
+                this.groupsHierarchy.forEach(group => {
+                    group.network_id = group.Network_ID;
+                    group.network_name = group.Name;
+                })
+            } else {
+                this.groupsHierarchy = await this._networksService.getHierarchyFromServer();
+            }
+            
             this.isLoading = false;
         }, 500);
         this.searchTerms

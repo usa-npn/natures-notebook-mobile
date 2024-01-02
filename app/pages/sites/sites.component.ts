@@ -4,10 +4,10 @@ var http = require("http");
 import {Site} from "../../shared/sites/site";
 import {Network} from "../../shared/networks/network";
 import {Router} from "@angular/router";
-import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
+import {ModalDialogService, ModalDialogOptions} from "@nativescript/angular";
 import {SiteInfoModal} from "./site-info/site-info-modal.component";
 import {PeopleService} from "../../shared/people/people.service";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {SiteCreationModal} from "./new-site/site-creation-modal.component";
 import {NetworksService} from "../../shared/networks/networks.service";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
@@ -16,11 +16,11 @@ import {icons} from "../icons";
 import {SpeciesSpecificPhenophaseInformationService} from "../../shared/species/species-specific-phenophase-information.service";
 import {Person} from "../../shared/people/person";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
-import {isNullOrUndefined} from "tns-core-modules/utils/types";
+import {isNullOrUndefined} from "@nativescript/core/utils/types";
 import {NetworkMonitorService} from "../../shared/network-monitor/network-monitor.service";
 import {DatabaseService} from "../../shared/database/database.service";
-import {Page} from "tns-core-modules/ui/page";
-let utilsModule = require("tns-core-modules/utils/utils");
+import {Page} from "@nativescript/core/ui/page";
+let utilsModule = require("@nativescript/core/utils");
 
 
 @Component({

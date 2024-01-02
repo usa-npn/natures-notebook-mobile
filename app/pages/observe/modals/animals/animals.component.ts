@@ -2,8 +2,8 @@ import {IndividualsAbstractComponent} from "../../individuals-abstract.component
 import {Component, ViewContainerRef} from "@angular/core";
 import {Subscription} from "rxjs";
 import {Individual} from "../../../../shared/individuals/individual";
-import {ModalDialogOptions} from "nativescript-angular";
-import {ModalDialogParams, ModalDialogService} from "nativescript-angular/modal-dialog";
+import {ModalDialogOptions} from "@nativescript/angular";
+import {ModalDialogParams, ModalDialogService} from "@nativescript/angular";
 import { Router } from "@angular/router";
 import { IndividualsService } from "../../../../shared/individuals/individuals.service";
 import { ObservationGroupsService } from "../../../../shared/observation-groups/observation-groups.service";
@@ -12,7 +12,7 @@ import { PeopleService } from "../../../../shared/people/people.service";
 import { SitesService } from "../../../../shared/sites/sites.service";
 import { SpeciesSpecificPhenophaseInformationService } from "../../../../shared/species/species-specific-phenophase-information.service";
 import { ObserveService } from "../../observe.service";
-import { Page } from "tns-core-modules/ui/page/page";
+import { Page } from "@nativescript/core/ui/page";
 import { SyncService } from "../../../../shared/sync/sync.service";
 import { PhenophasesService } from "../../../../shared/phenophases/phenophases.service";
 @Component({

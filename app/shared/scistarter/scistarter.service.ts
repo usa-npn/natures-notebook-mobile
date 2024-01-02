@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpHeaders, HttpClient} from "@angular/common/http";
-const applicationSettings = require("application-settings");
+const applicationSettings = require("@nativescript/core/application-settings");
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import config from '../../configuration.js';
@@ -39,7 +39,7 @@ export class ScistarterService {
                 } else {
                     applicationSettings.setString(`scistarter_profile_${this._peopleService.selectedPerson.person_id}`, "-1");
                 }
-                resolve();
+                resolve(true);
             });
         });
     }
@@ -89,7 +89,7 @@ export class ScistarterService {
             // let profile_id = 1;
             let profile_id = +applicationSettings.getString(`scistarter_profile_${this._peopleService.selectedPerson.person_id}`);
             if (profile_id == null || profile_id == -1)
-                resolve();
+                resolve(true);
 
             // #rm 2071 duration observed is #individuals in station * 2
             let duration = await this.getNumberOfIndividualsInObsGroup(observationGroupId) * 2 * 60;
@@ -106,7 +106,7 @@ export class ScistarterService {
 
             return this.http.post<ScistarterRecordEventResponse>(this.baseUrl+`/api/record_event?key=${this.k}`,body, httpOptions)
             .toPromise().then((result) => {
-                resolve();
+                resolve(true);
             });
         });
     }

@@ -9,10 +9,10 @@ import {
 } from "@angular/core";
 var http = require("http");
 import {Router} from "@angular/router";
-import {ModalDialogOptions, ModalDialogService} from "nativescript-angular";
+import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {ObservationGroupsService} from "../../../shared/observation-groups/observation-groups.service";
 import {Subscription} from "rxjs";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {ObservationGroup} from "../../../shared/observation-groups/observation-group";
 import {icons} from "../../icons";
 import {PickerModal} from "../../modals/picker-modal/picker-modal.component";

@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
-import {PanGestureEventData, PinchGestureEventData, SwipeGestureEventData} from "ui/gestures";
+import {ModalDialogParams} from "@nativescript/angular";
+import {PanGestureEventData, PinchGestureEventData, SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {icons} from "../../icons";
 var mapsModule = require("nativescript-google-maps-sdk");
 

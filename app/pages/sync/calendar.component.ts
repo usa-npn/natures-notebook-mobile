@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef, NgZone} from "@angular/core";
 import {Router} from "@angular/router";
 import {SyncService} from "../../shared/sync/sync.service";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
 import {ObservationsService} from "../../shared/observations/observations.service";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
@@ -11,12 +11,12 @@ import {Site} from "../../shared/sites/site";
 import {PeopleService} from "../../shared/people/people.service";
 import {SettingsService} from "../../shared/settings/settings.service";
 import {ObserveService} from "../observe/observe.service";
-import {ModalDialogOptions, ModalDialogService, RouterExtensions} from "nativescript-angular";
+import {ModalDialogOptions, ModalDialogService, RouterExtensions} from "@nativescript/angular";
 import {PickerModal} from "../modals/picker-modal/picker-modal.component";
 import {icons} from "../icons";
 import {ProtocolPhenophasesService} from "../../shared/phenophases/protocol-phenophases.service";
 import {NetworkMonitorService} from "../../shared/network-monitor/network-monitor.service";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 // import * as calendarModule from "nativescript-ui-calendar";
 
 import {
@@ -27,16 +27,16 @@ import {
     MonthCellStyle,
     CellStyle
 } from "nativescript-ui-calendar";
-import {Color} from "tns-core-modules/color";
+import {Color} from "@nativescript/core/color";
 import {RadCalendarComponent} from "nativescript-ui-calendar/angular";
 import { InformationModal } from "../modals/information-modal/information-modal.component";
-var applicationSettings = require("application-settings");
-import * as platform from "platform";
+var applicationSettings = require("@nativescript/core/application-settings");
+const platform = require("@nativescript/core/platform");
 import { DayObservationReviewModal } from "./modals/day-observations-review";
 import { ModelService } from "../../shared/model/model.service";
 import { SyncQueueModal } from "./modals/sync-queue";
-import * as application from "tns-core-modules/application";
-import {AndroidActivityBackPressedEventData, AndroidApplication} from "tns-core-modules/application";
+import * as application from "@nativescript/core/application";
+import {AndroidActivityBackPressedEventData, AndroidApplication} from "@nativescript/core/application";
 import { NetworksService } from "~/shared/networks/networks.service";
 import { LegendModal } from "./modals/legend";
 
@@ -109,7 +109,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     // color for unicode checkmark ios
     // https://stackoverflow.com/questions/42374048/color-not-changing-for-unicode-check-mark-2714-on-iphone
     public completeIconAndroid = '\u2713';////'\u2611';
-    public completeIconIos = '\u2611';//'\u2705';
+    public completeIconIos = '\u2705'; //'\u2611';//
     public incompleteIconAndroid = '\u25A8'; //square with upper right to lower left fill
     public incompleteIconIos = '\u25A8'; //square with upper right to lower left fill
 
@@ -214,7 +214,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     }
 
 
-    getIconColor(completed: boolean) {
+    getIconColor(completed: boolean):any {
         let green: Color = new Color("#69BD45");
         let yellow: Color = new Color("#E7BF05");
         let grey: Color = new Color("#505050");
@@ -265,16 +265,24 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
             let event: CalendarEvent;
             let events: Array<CalendarEvent> = new Array<CalendarEvent>();
+            let count = 1;
             this.observationCompleteStatus.forEach((completed, day) => {
-                if (completed != null) {
+                //sets incomlete ios icon to grey... complete ios checkmark is green as it's an image
+                if(this.isIOS)
+                    this.monthViewStyle.dayCellStyle.eventTextColor = new Color("#505050");
+                // else 
+                //     this.monthViewStyle.dayCellStyle.eventTextColor = new Color("#69BD45");
+                // count = count + 1;
+                // if (completed != null) {
                     event = new CalendarEvent(
                         this.getIconUnicode(completed), 
                         day, 
                         day, 
-                        false, 
+                        false,
+                        //new Color("#3b8132")); 
                         this.getIconColor(completed));
                     events.push(event);
-                }
+                // }
             });
 
             console.log('returning events: ' + events.length);
@@ -416,8 +424,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         dayCellStyle.cellPaddingHorizontal = 5;
         dayCellStyle.cellPaddingVertical = 5;
         dayCellStyle.cellBorderWidth = .5;
-        // dayCellStyle.cellBorderColor = "#d3d3d3";
+        dayCellStyle.cellBorderColor = new Color("#505050");
         // dayCellStyle.cellTextFontStyle = "Bold";
+        // dayCellStyle.cellBackgroundColor = new Color("#800000");
     
         //remove border around today
         this.monthViewStyle.todayCellStyle = dayCellStyle;

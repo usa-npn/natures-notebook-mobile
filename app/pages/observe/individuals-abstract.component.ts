@@ -4,8 +4,8 @@ import {
 } from "@angular/core";
 var http = require("http");
 import {Router} from "@angular/router";
-import {ModalDialogOptions, ModalDialogService} from "nativescript-angular";
-import {ModalDialogParams} from "nativescript-angular/modal-dialog";
+import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
+import {ModalDialogParams} from "@nativescript/angular";
 import {Individual} from "../../shared/individuals/individual";
 import {PickerModal} from "../modals/picker-modal/picker-modal.component";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
@@ -14,7 +14,7 @@ import {ObservationGroupsService} from "../../shared/observation-groups/observat
 import {Subscription} from "rxjs";
 import {PhenophaseInfoModal} from "./modals/phenophase-info-modal.component";
 import {AbundanceValue} from "../../shared/phenophases/abundance-value";
-import {SwipeGestureEventData} from "ui/gestures";
+import {SwipeGestureEventData} from "@nativescript/core/ui/gestures";
 import {Observation} from "../../shared/observations/Observation";
 import {ObservationsService} from "../../shared/observations/observations.service";
 import {PeopleService} from "../../shared/people/people.service";
@@ -25,7 +25,7 @@ import {SpeciesSpecificPhenophaseInformationService} from "../../shared/species/
 import {ObserveService} from "./observe.service";
 import {icons} from "../icons";
 import {SitesService} from "../../shared/sites/sites.service";
-import {Page} from "tns-core-modules/ui/page";
+import {Page} from "@nativescript/core/ui/page";
 import { SyncService } from "../../shared/sync/sync.service";
 import { PhenophasesService } from "../../shared/phenophases/phenophases.service";
 import { PhenophaseDefinition } from "~/shared/phenophases/phenophase-definition";

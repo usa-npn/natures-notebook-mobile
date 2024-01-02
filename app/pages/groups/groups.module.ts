@@ -1,4 +1,4 @@
-import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptCommonModule } from "@nativescript/angular";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { GroupsComponent } from "./groups.component"; // Import all components that will be used in the lazy loaded module
 //import { FeatureService } from "./feature.service"; // Import all services that will be used in the lazy loaded module
@@ -6,7 +6,7 @@ import { GroupsRoutingModule } from "./groups.routing"; // import the routing mo
 
 import {JoinGroupModal} from "./join-group/join-group-modal.component";
 import {GroupsPipe} from "./join-group/groups.pipe";
-import { NativeScriptFormsModule } from "nativescript-angular";
+import { NativeScriptFormsModule } from "@nativescript/angular";
 
 
 @NgModule({

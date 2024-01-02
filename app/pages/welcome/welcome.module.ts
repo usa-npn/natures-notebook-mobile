@@ -1,4 +1,4 @@
-import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptCommonModule } from "@nativescript/angular";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { WelcomeComponent } from "./welcome.component"; // Import all components that will be used in the lazy loaded module
 import { WelcomeRoutingModule } from "./welcome.routing"; // import the routing module
