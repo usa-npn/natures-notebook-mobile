@@ -177,6 +177,7 @@ export class IndividualsService extends SyncableTableService {
                 if (individual.species_id === sp.species_id) {
                     // need to deep clone here so that each individual has it's own phenophase info
                     // note method of deep cloning won't preserve date objects which currently isn't an issue
+                    //console.log('species = ' + JSON.stringify(sp));
                     individual.species = JSON.parse(JSON.stringify(sp));
                 }
             }

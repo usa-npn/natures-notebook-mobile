@@ -3,7 +3,7 @@
                class="picker-modal-full" *ngIf="!isLoading">
 
     <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" col="0">
-        <Label text="Join a Group"></Label>
+        <Label text="Join a Program"></Label>
     </FlexboxLayout>
 
     <StackLayout class="picker-stack" row="1" col="0">
@@ -23,7 +23,7 @@
                        style="text-align: center"
                        autocapitalizationType="none"
                        autocorrect="false"
-                       hint="search by group name">
+                       hint="search by program name">
             </TextField>
         </FlexboxLayout>
 
@@ -84,7 +84,7 @@
         <Button text="Join" (tap)="closeModal()" flexGrow="1"></Button>
     </FlexboxLayout>
     <FlexboxLayout row="2" col="0" class="picker-stack" *ngIf="loadingNewGroup">
-        <Button text="Downloading Group Data..." flexGrow="1"></Button>
+        <Button text="Downloading Program Data..." flexGrow="1"></Button>
     </FlexboxLayout>
 </GridLayout>
 

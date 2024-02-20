@@ -129,7 +129,7 @@ export class SitesComponent implements OnInit {
     }
 
     openBrowser() {
-        utilsModule.openUrl("https://www.usanpn.org/nn/guidelines");
+        utilsModule.openUrl("learning.usanpn.org");
     }
 
     // async initialLoad() {

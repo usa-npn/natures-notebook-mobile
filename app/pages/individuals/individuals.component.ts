@@ -132,7 +132,7 @@ export class IndividualsComponent implements OnInit {
     }
 
     openBrowser() {
-        utilsModule.openUrl("https://www.usanpn.org/nn/guidelines");
+        utilsModule.openUrl("learning.usanpn.org");
     }
 
     showList = false;

@@ -82,7 +82,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     public menuItems = [
-        { title: 'Groups', route: 'groups' },
+        { title: 'Programs', route: 'groups' },
         { title: 'Sites', route: 'sites' },
         { title: 'Plants & Animals', route: 'individuals' },
         { title: 'Observe', route: 'observe' },

@@ -18,8 +18,9 @@ import {icons} from "../icons";
 import {Page} from "@nativescript/core/ui/page";
 import { ConfigService } from "~/shared/config-service";
 import { DatabaseService } from "~/shared/database/database.service";
+import { Utils } from "@nativescript/core";
 var http = require("http");
-var bghttp = require("nativescript-background-http");
+var bghttp = require("@nativescript/background-http");//require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 
 
@@ -90,6 +91,15 @@ export class DebugComponent implements OnInit, AfterViewInit {
         if (this.lockbuttons || this.databaseUploaded) {
             return;
         }
+
+        // if(android.os.Build.VERSION.SDK_INT >= 26) {
+        //     const mChannel = new android.app.NotificationChannel('defaultNotificationChannel', 'Default', android.app.NotificationManager.IMPORTANCE_HIGH);
+        //     mChannel.setDescription('Test');
+
+        //     const notificationManager = Utils.android.getApplicationContext().getSystemService(android.app.NotificationManager.class);
+        //     notificationManager.createNotificationChannel(mChannel);
+        // }
+
         let dbname = '';
         let path = '';
         if (application.ios) {
@@ -103,13 +113,14 @@ export class DebugComponent implements OnInit, AfterViewInit {
         console.log('database path: ' + path);
         var file = fs.File.fromPath(dbname);
         var request = {
-            url: `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/webservices/upload`,
+            url: `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/web-services/upload`,
             method: "POST",
             headers: {
                 "Content-Type": "application/octet-stream",
                 "File-Name": "database"
             },
-            description: "{ 'uploading': 'natures_notebook.db' }"
+            description: "{ 'uploading': 'natures_notebook.db' }",
+            androidNotificationChannelID: 'defaultNotificationChaneel'
         };
 
         let uploadDateString = new Date().toISOString();
@@ -143,6 +154,9 @@ export class DebugComponent implements OnInit, AfterViewInit {
         ];
 
         console.log('check me');
+        console.log(this._peopleService.selectedPerson.username);
+        console.log(JSON.stringify(params[0]));
+
         console.log(params[0]['issueDateTime']);
 
         var task = session.multipartUpload(params, request);

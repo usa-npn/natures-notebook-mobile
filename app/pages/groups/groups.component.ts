@@ -93,7 +93,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
 
     async joinGroup() {
         if (!this._networkMonitorService.connected) {
-            alert("You need to connect your device to the internet to join a group.");
+            alert("You need to connect your device to the internet to join a Program.");
         } else {
             let options: ModalDialogOptions = {
                 viewContainerRef: this.viewContainerRef,
@@ -112,7 +112,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     }
 
     openBrowser() {
-        utilsModule.openUrl("https://www.usanpn.org/nn/guidelines/group-sites");
+        utilsModule.openUrl("learning.usanpn.org");
     }
 
     ngOnInit() {

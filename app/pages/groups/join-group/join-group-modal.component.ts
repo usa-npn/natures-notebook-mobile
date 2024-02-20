@@ -218,7 +218,7 @@ export class JoinGroupModal implements OnInit, AfterViewInit {
     public async closeModal() {
         if (this.selectedGroupHierarchy) {
             if (!this._networkMonitorService.connected) {
-                alert("You need to connect your device to the internet to join a group.");
+                alert("You need to connect your device to the internet to join a Program.");
                 return;
             } else {
 

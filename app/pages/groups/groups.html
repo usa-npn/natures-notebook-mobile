@@ -14,13 +14,13 @@
             <Label text="{{lightbulbIcon}}"
             class="lightbulb-icon"
             textWrap="true"></Label>
-            <Label text="Tap below to join a group"></Label>
+            <Label text="Tap below to join a Program"></Label>
         </FlexboxLayout>
         <StackLayout class="inner-box" width="95%">
             <Label (tap)="openBrowser()" textWrap="true">
                 <FormattedString>
-                <Span text="If you are participating in a local, organized effort, you might want to join a group so you have access to their sites. For more information about observing with a group, visit "></Span>
-                <Span text="www.usanpn.org/nn/guidelines/group-sites" textDecoration="underline"></Span>
+                <Span text="If you are here as a part of a Local Phenology Program, search for the name of your Program and tap 'Join' to gain access to their sites. To learn more about Local Phenology Programs, visit "></Span>
+                <Span text="usanpn.org/community/LocalPhenologyPrograms" textDecoration="underline"></Span>
                 </FormattedString>
             </Label>
         </StackLayout>
@@ -36,7 +36,7 @@
         <FlexboxLayout class="flex-header"
                        alignItems="center"
                        justifyContent="space-between">
-            <Label text="Group"></Label>
+            <Label text="Program"></Label>
             <Label text="Selected"></Label>
         </FlexboxLayout>
 
@@ -64,7 +64,7 @@
                      (tap)="joinGroup()">
             <Label text="{{groupIcon}}"
                    class="button-icon"></Label>
-            <Label text="Join a Group"
+            <Label text="Join a Program"
                    class="button-text"></Label>
         </StackLayout>
         <StackLayout class="button-stack"
