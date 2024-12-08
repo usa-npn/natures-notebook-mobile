@@ -52,7 +52,7 @@
     "css-loader": "~2.1.0",
     "file-loader": "^3.0.1",
     "jasmine-core": "^3.3.0",
-    "karma": "4.1.0",
+    "karma": "6.4.1",
     "karma-jasmine": "2.0.1",
     "karma-nativescript-launcher": "^0.4.0",
     "lazy": "1.0.11",
