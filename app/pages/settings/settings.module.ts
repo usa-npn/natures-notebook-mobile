@@ -19,8 +19,5 @@ import { PrivacyModal } from "./privacy-modal/privacy-modal.component";
         
     ], // declare all components that will be used within the module
     //providers: [ FeatureService ] // provide all services that will be used within the module
-    entryComponents: [
-        PrivacyModal
-    ]
 })
 export class SettingsModule { }

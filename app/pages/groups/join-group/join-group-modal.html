@@ -1,12 +1,12 @@
-<Page>
-<GridLayout columns="*" rows="auto,*,auto"
-               class="picker-modal-full" *ngIf="!isLoading">
+<GridLayout rows="*" columns="*">
+    <GridLayout columns="*" rows="auto,*,auto"
+                   class="picker-modal-full" *ngIf="!isLoading">
 
-    <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" col="0">
-        <Label text="Join a Program"></Label>
-    </FlexboxLayout>
+        <FlexboxLayout flexDirection="column" class="picker-header-stack" row="0" col="0">
+            <Label text="Join a Program"></Label>
+        </FlexboxLayout>
 
-    <StackLayout class="picker-stack" row="1" col="0">
+        <StackLayout class="picker-stack" row="1" col="0">
         <!--(ngModelChange)="searchTextChanged()"-->
 
         <FlexboxLayout class="flex-bordered-box"
@@ -83,18 +83,18 @@
         <Button text="Cancel" (tap)="cancelModal()" flexGrow="1"></Button>
         <Button text="Join" (tap)="closeModal()" flexGrow="1"></Button>
     </FlexboxLayout>
-    <FlexboxLayout row="2" col="0" class="picker-stack" *ngIf="loadingNewGroup">
-        <Button text="Downloading Program Data..." flexGrow="1"></Button>
+        <FlexboxLayout row="2" col="0" class="picker-stack" *ngIf="loadingNewGroup">
+            <Button text="Downloading Program Data..." flexGrow="1"></Button>
+        </FlexboxLayout>
+    </GridLayout>
+
+    <FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
+        <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
+            <Label text="loading..."></Label>
+            <ActivityIndicator [busy]="isLoading"
+                               horizontalAlignment="center"
+                               verticalAlignment="center" color="#6E6E6E">
+            </ActivityIndicator>
+        </FlexboxLayout>
     </FlexboxLayout>
 </GridLayout>
-
-<FlexboxLayout *ngIf="isLoading" justifyContent="center" width="100%" height="100%">
-    <FlexboxLayout alignItems="center" flexDirection="column" justifyContent="center" width="100%" height="100%">
-        <Label text="loading..."></Label>
-        <ActivityIndicator [busy]="isLoading"
-                           horizontalAlignment="center"
-                           verticalAlignment="center" color="#6E6E6E">
-        </ActivityIndicator>
-    </FlexboxLayout>
-</FlexboxLayout>
-</Page>

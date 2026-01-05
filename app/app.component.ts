@@ -37,6 +37,7 @@ import { SettingsService } from './shared/settings/settings.service';
 import { ConfigService } from './shared/config-service';
 import { AlertModal } from './pages/modals/alert-modal/alert-modal.component';
 import { Page } from '@nativescript/core/ui/page';
+import { ApplicationSettings } from '@nativescript/core';
 declare var GMSServices: any;
 var Sqlite = require("nativescript-sqlite");
 var applicationSettings = require("@nativescript/core/application-settings");
@@ -295,6 +296,26 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.activeRoute = "/syncing";
             this.intialLoad = false;
             await this._modelService.loadModel(true);
+            // try {
+            //     await this._modelService.loadModel(true);
+            // } catch(err) {
+            //     console.log(err);
+
+            //     // get info about variables and send to developer
+            //     for( let k in ApplicationSettings.getAllKeys()) {
+            //         console.log(k);
+            //         console.log(ApplicationSettings.getString(k));
+            //     }
+            //     //clear everything stored in applicationSettings
+            //     ApplicationSettings.clear();
+            //     //clear database tables (or delete and redownload)
+                
+
+            //     //take user to login screen
+            //     this.ngOnInit();
+            //     this._router.navigate(["/login"]);
+            // }
+            
             await this._syncService.syncAll();
             if((this._networksService._selectedNetwork && this._sitesService.groupSites.length == 1) 
                 || this._sitesService.personalSites.length == 1) {

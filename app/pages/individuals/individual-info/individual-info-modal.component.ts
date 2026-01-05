@@ -160,7 +160,7 @@ export class IndividualInfoModal implements AfterViewInit {
             if(args.error) {
                 this._dbService.log('PROFILE', 'ERROR', 'loadStartedEvent' + args.error);
             }
-            if(args.url.indexOf(`https://mynpn.usanpn.org/npnapps/species/${this.individual.species.genus}/${this.individual.species.species}`) != -1) {
+            if(args.url.indexOf(`https://naturesnotebook.usanpn.org/npnapps/species/${this.individual.species.genus}/${this.individual.species.species}`) != -1) {
                 this.onProfilePage = true;
             } else {
                 this.onProfilePage = false;

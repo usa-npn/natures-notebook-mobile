@@ -15,7 +15,5 @@ import { AccountsRoutingModule } from "./accounts.routing"; // import the routin
         AccountsComponent
     ], // declare all components that will be used within the module
     //providers: [ FeatureService ] // provide all services that will be used within the module
-    entryComponents: [
-    ]
 })
 export class AccountsModule { }

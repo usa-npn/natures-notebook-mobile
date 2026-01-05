@@ -25,9 +25,5 @@ import { NativeScriptFormsModule } from "@nativescript/angular";
         
     ], // declare all components that will be used within the module
     //providers: [ FeatureService ] // provide all services that will be used within the module
-    entryComponents: [
-        IndividualInfoModal,
-        NewIndividualModal
-    ]
 })
 export class IndividualsModule { }

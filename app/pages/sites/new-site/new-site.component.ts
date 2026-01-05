@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, AfterViewInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {SitesService} from "../../../shared/sites/sites.service";
-var http = require("http");
+//var http = require("http");
 import {Site} from "../../../shared/sites/site";
 import {ActivatedRoute, Router} from "@angular/router";
 import {State, states} from "../states";
@@ -66,7 +66,7 @@ export class NewSiteComponent implements OnInit, AfterViewInit {
                 private _networkService: NetworksService,
                 private _databaseService: DatabaseService,
                 private page: Page) {
-                    page.actionBarHidden = true;
+                    // page.actionBarHidden = true;
     }
 
     async setLocationFromGeoLocation() {

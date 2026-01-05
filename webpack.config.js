@@ -42,6 +42,9 @@ module.exports = (env) => {
             // });
 
             config.resolve.set('fallback', { 
+                "buffer": require.resolve("buffer/"),
+                "util": require.resolve("util/"),
+                "process": require.resolve("process/browser"),
                 "crypto": require.resolve("crypto-browserify"),
                 "url": require.resolve("url"),
                 "http": require.resolve("stream-http"),

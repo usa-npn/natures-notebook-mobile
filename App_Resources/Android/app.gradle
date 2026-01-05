@@ -1,25 +1,36 @@
 // You can add your native dependencies here
 dependencies {
 //  implementation 'androidx.multidex:multidex:2.0.1'
+  constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
 }
 
 android {
-  // compileSdkVersion 32
-  // buildToolsVersion "32.0.0"
+  compileSdkVersion 35
+  buildToolsVersion "35.0.0"
   // ndkVersion ""
 
   defaultConfig {
     minSdkVersion 21
-    // targetSdkVersion 32
+    targetSdkVersion 35
 
     // Version Information
-    versionCode 29
-    versionName "1.8.7"
-    
+    versionCode 30
+    versionName "1.8.8"
+
     generatedDensities = []
   }
 
   aaptOptions {
     additionalParameters "--no-version-vectors"
+  }
+  project.ext {
+    googlePlayServicesVersion = "15.0.1"
   }
 }

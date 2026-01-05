@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewContainerRef, ChangeDetectorRef, AfterViewInit} from "@angular/core";
-var http = require("http");
+//var http = require("http");
 import {Router} from "@angular/router";
 import {ModalDialogService, ModalDialogOptions} from "@nativescript/angular";
 import {NetworksService} from "../../shared/networks/networks.service";
@@ -12,7 +12,11 @@ import {icons} from "../icons";
 import {ObservationGroupsService} from "../../shared/observation-groups/observation-groups.service";
 import { Page } from "@nativescript/core/ui/page";
 import { AlertModal } from "../modals/alert-modal/alert-modal.component";
+import { Application } from "@nativescript/core";
+import * as platform from "@nativescript/core/platform";
 let utilsModule = require("@nativescript/core/utils");
+
+declare var android: any;
 
 @Component({
     moduleId: module.id,
@@ -32,7 +36,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
                 private _router: Router,
                 private page: Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     groupIcon = icons.groupIcon;
@@ -65,11 +69,22 @@ export class GroupsComponent implements OnInit, AfterViewInit {
                 informationText: `As a member of ${group.name} all of your observations are automatically added to this group.`,
                 showCancel: false
             },
-            fullscreen: false
+            fullscreen: true
         };
 
         this.modalService.showModal(AlertModal, options).then(async (result) => {
-            
+            if (platform.isAndroid) {
+                const activity = Application.android.startActivity || Application.android.foregroundActivity;
+                if (activity) {
+                    const window = activity.getWindow();
+                    const View = android.view.View;
+
+                    // Restore system UI visibility to respect fitsSystemWindows
+                    window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    );
+                }
+            }
         });
     }
 

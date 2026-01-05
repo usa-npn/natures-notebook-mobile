@@ -41,6 +41,7 @@ import { NetworksService } from "~/shared/networks/networks.service";
 import { LegendModal } from "./modals/legend";
 
 declare var com: any;
+declare var android: any;
 
 @Component({
     moduleId: module.id,
@@ -68,7 +69,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
                 private _zone: NgZone,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     @ViewChild("myCalendar", {static: false}) _calendar: RadCalendarComponent;
@@ -384,11 +385,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
                 headerText: "Tip",
                 informationText: "By default, your observations will only sync when wi-fi access is available. You can change this under the settings tab by selecting No for Sync over wi-fi only."
             },
-            fullscreen: false
+            fullscreen: true
         };
 
         this.modalService.showModal(InformationModal, options).then(() => {
             applicationSettings.setBoolean("userHasSeenWifiReminder", true);
+            if (platform.isAndroid) {
+                const activity = application.android.startActivity || application.android.foregroundActivity;
+                if (activity) {
+                    const window = activity.getWindow();
+                    const View = android.view.View;
+
+                    // Restore system UI visibility to respect fitsSystemWindows
+                    window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    );
+                }
+            }
         });
     }
 

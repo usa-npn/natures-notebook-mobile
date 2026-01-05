@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, AfterViewInit, ViewChild, NgZone} from "@
 import { Progress } from "@nativescript/core/ui/progress";
 import {SyncService} from "../../shared/sync/sync.service";
 import {Page} from "@nativescript/core/ui/page";
+import { ApplicationSettings } from "@nativescript/core";
 
 @Component({
     moduleId: module.id,
@@ -15,7 +16,7 @@ export class SyncingComponent implements OnInit, AfterViewInit {
     constructor(public _syncService: SyncService,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     onValueChanged(args) {
@@ -30,6 +31,24 @@ export class SyncingComponent implements OnInit, AfterViewInit {
         setInterval(() => {
             this.progressValue += 1;
         }, 300);
+
+        //if on screen for more than 10 seconds without syncing anything
+        // setTimeout(()=> {
+        //     if(this._syncService.currentlySyncing == '') {
+        //         // get info about variables and send to developer
+        //         for( let k in ApplicationSettings.getAllKeys()) {
+        //             console.log(k);
+        //             console.log(ApplicationSettings.getString(k));
+        //         }
+        //         //clear everything stored in applicationSettings
+        //         ApplicationSettings.clear();
+        //         //clear database tables (or delete and redownload)
+
+
+        //         //take user to login screen
+        //         this._router.navigate(["/login"]);
+        //     }
+        // }, 1000)
     }
     
     ngAfterViewInit() {

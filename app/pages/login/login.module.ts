@@ -16,7 +16,5 @@ import { LoginRoutingModule } from "./login.routing"; // import the routing modu
         
     ], // declare all components that will be used within the module
     //providers: [ FeatureService ] // provide all services that will be used within the module
-    entryComponents: [
-    ]
 })
 export class LoginModule { }

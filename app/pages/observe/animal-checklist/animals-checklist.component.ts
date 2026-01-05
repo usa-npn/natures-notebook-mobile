@@ -4,7 +4,7 @@ import {
 } from "@angular/core";
 import {Species} from "../../../shared/species/species";
 import {SpeciesService} from "../../../shared/species/species.service";
-var http = require("http");
+//var http = require("http");
 import {Router} from "@angular/router";
 import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {Individual} from "../../../shared/individuals/individual";
@@ -28,6 +28,9 @@ import { SyncService } from "../../../shared/sync/sync.service";
 import { SettingsService } from "../../../shared/settings/settings.service";
 import { PhenophasesService } from "../../../shared/phenophases/phenophases.service";
 import { NetworksService } from "../../../shared/networks/networks.service";
+import { Application } from "@nativescript/core/application";
+const platform = require("@nativescript/core/platform");
+declare var android: any;
 
 @Component({
     moduleId: module.id,
@@ -57,7 +60,7 @@ export class AnimalsChecklistComponent implements OnInit, AfterViewInit, OnDestr
                 private _phenophaseService: PhenophasesService,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     activeTab = "site-visit-details";
@@ -333,7 +336,20 @@ export class AnimalsChecklistComponent implements OnInit, AfterViewInit, OnDestr
             },
             fullscreen: true
         };
-        this.modalService.showModal(ToolTipModal, options).then(() => {});
+        this.modalService.showModal(ToolTipModal, options).then(() => {
+            if (platform.isAndroid) {
+                const activity = Application.android.startActivity || Application.android.foregroundActivity;
+                if (activity) {
+                    const window = activity.getWindow();
+                    const View = android.view.View;
+
+                    // Restore system UI visibility to respect fitsSystemWindows
+                    window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    );
+                }
+            }
+        });
     }
 
     addAnimal() {

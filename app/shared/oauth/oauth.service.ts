@@ -187,6 +187,7 @@ export class OauthService {
 
     getUserId(access_token) {
         console.log('OAUTH2 Retreiving userId');
+        // maybe comment this out???
         applicationSettings.setBoolean(`oauth2registered`, true);
         let oauth2ConsumerKey:string = config.oauth2Consumerkey;
         let userIdUrl:string = `https://${this._configService.getHost()}/oauth/userinfo`;

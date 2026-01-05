@@ -21,7 +21,7 @@ import { SitesService } from "../../shared/sites/sites.service";
 import { IndividualsService } from "../../shared/individuals/individuals.service";
 import { icons } from "../icons";
 var applicationSettings = require("@nativescript/core/application-settings");
-var http = require("http");
+//var http = require("http");
 const platform = require("@nativescript/core/platform");
 import { Page } from "@nativescript/core/ui/page";
 import { ConfigService } from "~/shared/config-service";
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 private _cdr: ChangeDetectorRef,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     @ViewChild("loginWebView", {static: false}) loginWebView: ElementRef;

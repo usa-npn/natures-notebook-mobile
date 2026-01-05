@@ -7,7 +7,7 @@ import {
     ChangeDetectionStrategy,
     ViewContainerRef, OnDestroy
 } from "@angular/core";
-var http = require("http");
+//var http = require("http");
 import {Router} from "@angular/router";
 import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {ObservationGroupsService} from "../../../shared/observation-groups/observation-groups.service";
@@ -22,6 +22,9 @@ import {IndividualsService} from "../../../shared/individuals/individuals.servic
 import {SettingsService} from "../../../shared/settings/settings.service";
 import {ToolTipModal} from "../modals/tooltip";
 import { SyncService } from "../../../shared/sync/sync.service";
+import { Application } from "@nativescript/core/application";
+const platform = require("@nativescript/core/platform");
+declare var android: any;
 
 @Component({
   moduleId: module.id,
@@ -94,7 +97,20 @@ export class SiteVisitDetailsComponent implements OnInit, OnDestroy {
       fullscreen: true
     };
 
-    this.modalService.showModal(ToolTipModal, options).then(() => {});
+    this.modalService.showModal(ToolTipModal, options).then(() => {
+      if (platform.isAndroid) {
+        const activity = Application.android.startActivity || Application.android.foregroundActivity;
+        if (activity) {
+          const window = activity.getWindow();
+          const View = android.view.View;
+
+          // Restore system UI visibility to respect fitsSystemWindows
+          window.getDecorView().setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+          );
+        }
+      }
+    });
   }
 
   toggleSnowOnGround(radioValue: boolean) {

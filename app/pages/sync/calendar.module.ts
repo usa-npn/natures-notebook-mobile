@@ -26,10 +26,5 @@ import { LegendModal } from "./modals/legend";
         
     ], // declare all components that will be used within the module
     //providers: [ FeatureService ] // provide all services that will be used within the module
-    entryComponents: [
-        DayObservationReviewModal,
-        SyncQueueModal,
-        LegendModal
-    ]
 })
 export class CalendarModule { }

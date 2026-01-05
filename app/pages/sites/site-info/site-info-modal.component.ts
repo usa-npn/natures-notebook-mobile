@@ -40,6 +40,7 @@ export class SiteInfoModal {
         (this.mapView.nativeElement).latitude = this.siteLatitude;
         (this.mapView.nativeElement).longitude = this.siteLongitude;
         (this.mapView.nativeElement).zoom = this.zoomLvl;
+        (this.mapView.nativeElement).tilt = this.tilt;
 
         this.marker.position = mapsModule.Position.positionFromLatLng(this.siteLatitude, this.siteLongitude);
         this.marker.title = `${this.siteName}`;

@@ -35,20 +35,20 @@
             (tap)="openSpeciesProfile()" width="100%"></Button>
 
     <FlexboxLayout flexDirection="column" class="filter-stack" flexGrow="1" row="3" col="0">
-        <Image #individualImage [src]="getIndividualImage(individual)" height="100%" width="100%" (tap)="toggleImageFullScreen()"></Image>
+        <Image #individualImage [src]="getIndividualImage(individual)" height="100%" width="100%"></Image>
     </FlexboxLayout>
 
     <Button text="OK" (tap)="close('OK')" width="{{100 * pinchZoom}}%" row="4" col="0"></Button>
 </GridLayout>
 
 <GridLayout columns="*" rows="*,auto" row="0" col="0" width="100%" [visibility]="showProfile ? 'visible' : 'collapse'">
-    <WebView #profile src="{{BASE_URL+'nn/'+individual.species.genus+'_'+individual.species.species}}" row="0" col="0"></WebView>
+    <WebView #profile src="https://naturesnotebook.usanpn.org/npnapps/species/{{individual.species.genus+'/'+individual.species.species}}" row="0" col="0"></WebView>
     <Button *ngIf="onProfilePage" text="Back to Individual Details" (tap)="showProfile = false;" width="100%" height="50" row="1" col="0"></Button>
     <Button *ngIf="!onProfilePage" text="Back" (tap)="webViewBack()" width="100%" height="50" row="1" col="0"></Button>
 </GridLayout>
 
 <GridLayout columns="*" rows="*,auto" style="background-color: black" [visibility]="imageFullScreen ? 'visible' : 'collapse'">
-    <ImageZoom #zoomer [src]="getIndividualImage(individual)" row="0" col="0"></ImageZoom>
+    <!-- <ImageZoom #zoomer [src]="getIndividualImage(individual)" row="0" col="0"></ImageZoom> -->
     <Button text="Back to Individual Details" (tap)="toggleImageFullScreen()" row="1" col="0"></Button>
 </GridLayout>
 </FlexboxLayout>

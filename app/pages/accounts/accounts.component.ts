@@ -37,7 +37,7 @@ export class AccountsComponent implements OnInit {
         private _zone: NgZone,
         private page: Page
         ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     public people: Person[] = [];

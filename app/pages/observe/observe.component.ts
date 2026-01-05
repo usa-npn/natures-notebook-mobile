@@ -1,6 +1,6 @@
 import {Component, ViewChild, OnInit, ViewContainerRef, OnDestroy} from "@angular/core";
 import {SpeciesService} from "../../shared/species/species.service";
-var http = require("http");
+//var http = require("http");
 import {Router} from "@angular/router";
 import {ModalDialogOptions, ModalDialogService} from "@nativescript/angular";
 import {DateTimePickerModal} from "./modals/date-time-picker-modal.component";
@@ -16,6 +16,8 @@ import {PeopleService} from "../../shared/people/people.service";
 import {Page} from "@nativescript/core/ui/page";
 import { InformationModal } from "../modals/information-modal/information-modal.component";
 import { SyncService } from "../../shared/sync/sync.service";
+import { Application } from "@nativescript/core";
+import * as platform from "@nativescript/core/platform";
 var applicationSettings = require("@nativescript/core/application-settings");
 
 @Component({
@@ -40,7 +42,7 @@ export class ObserveComponent implements OnInit, OnDestroy {
                 public _peopleService: PeopleService,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     activeTab = "site-visit-details";
@@ -111,6 +113,18 @@ export class ObserveComponent implements OnInit, OnDestroy {
                 };
                 await this.saveSubpage(cont);
             }
+            if (platform.isAndroid) {
+                const activity = Application.android.startActivity || Application.android.foregroundActivity;
+                if (activity) {
+                    const window = activity.getWindow();
+                    const View = android.view.View;
+
+                    // Restore system UI visibility to respect fitsSystemWindows
+                    window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    );
+                }
+            }
         })
     }
 
@@ -121,11 +135,23 @@ export class ObserveComponent implements OnInit, OnDestroy {
                 headerText: "Reminder",
                 informationText: "After you record observations for plants and animals, don't forget to enter details in the site-visit details tab."
             },
-            fullscreen: false
+            fullscreen: true
         };
 
         this.modalService.showModal(InformationModal, options).then(() => {
             applicationSettings.setBoolean("userHasSeenSiteVisitDetailsReminder", true);
+            if (platform.isAndroid) {
+                const activity = Application.android.startActivity || Application.android.foregroundActivity;
+                if (activity) {
+                    const window = activity.getWindow();
+                    const View = android.view.View;
+
+                    // Restore system UI visibility to respect fitsSystemWindows
+                    window.getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    );
+                }
+            }
         });
     }
 

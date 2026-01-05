@@ -109,7 +109,7 @@ export class PeopleService extends SyncableTableService {
 
     async getPersonFromServerByUsername(userName) {
         console.log('retrieving person from server');
-        const serviceRequest = `usanpnperson?user_name=${userName}`;
+        const serviceRequest = `usanpnperson?user_name=${encodeURI(userName)}`;
         const getUrl = `${this._configService.getWebServiceProtocol()}://${this._configService.getWebServiceHost()}/${this._configService.getWebServiceSubURL()}/v0/` + serviceRequest;
         console.log(getUrl);
         return new Promise ((resolve, reject) => {

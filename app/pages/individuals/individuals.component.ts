@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewContainerRef} from "@angular/core";
 import {Species} from "../../shared/species/species";
 import {SpeciesService} from "../../shared/species/species.service";
-var http = require("http");
+//var http = require("http");
 import {Router} from "@angular/router";
 import {IndividualsService} from "../../shared/individuals/individuals.service";
 import {Individual} from "../../shared/individuals/individual";
@@ -42,7 +42,7 @@ export class IndividualsComponent implements OnInit {
                 private _router: Router,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     backwardIcon = icons.backwardIcon;

@@ -8,6 +8,10 @@
 
         <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
         <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
+
+         <!-- Add these: -->
+        <item name="android:statusBarColor">@color/ns_primaryDark</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="AppTheme" parent="AppThemeBase21">

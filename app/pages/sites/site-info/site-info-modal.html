@@ -11,7 +11,6 @@
                  longitude="{{ siteLongitude }}"
                  zoom="{{ zoomLvl }}"
                  bearing="{{ bearing }}"
-                 tilt="0"
                  i-padding="50,50,50,50"
                  padding="{{ padding }}"
                  (mapReady)="onMapReady($event)"
@@ -25,7 +24,7 @@
 
     <GridLayout visibility="{{ imageFullScreen ? 'visible' : 'collapsed' }}" columns="*" rows="auto,*" style="background-color: black">
         <Button text="Back to Site Details" (tap)="toggleImageFullScreen()" row="0" col="0"></Button>
-        <ImageZoom src="{{siteImage}}" row="1" col="0"></ImageZoom>
+        <!-- <ImageZoom src="{{siteImage}}" row="1" col="0"></ImageZoom> -->
     </GridLayout>
     
 </FlexboxLayout>

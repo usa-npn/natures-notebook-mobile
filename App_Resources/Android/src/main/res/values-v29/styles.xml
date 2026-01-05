@@ -10,6 +10,9 @@
             but the way the app is converted may lead to visual issues 
         -->
         <item name="android:forceDarkAllowed">false</item>
+        
+        <item name="android:statusBarColor">@color/ns_primaryDark</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="AppTheme" parent="AppThemeBase29">

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewContainerRef, NgZone} from "@angular/core";
 import {SitesService} from "../../shared/sites/sites.service";
-var http = require("http");
+// var http = require("http");
 import {Site} from "../../shared/sites/site";
 import {Network} from "../../shared/networks/network";
 import {Router} from "@angular/router";
@@ -20,6 +20,7 @@ import {isNullOrUndefined} from "@nativescript/core/utils/types";
 import {NetworkMonitorService} from "../../shared/network-monitor/network-monitor.service";
 import {DatabaseService} from "../../shared/database/database.service";
 import {Page} from "@nativescript/core/ui/page";
+import { NativeDialogConfig, NativeDialogService } from '@nativescript/angular';
 let utilsModule = require("@nativescript/core/utils");
 
 
@@ -36,6 +37,7 @@ export class SitesComponent implements OnInit {
                 private _networksService: NetworksService,
                 private _individualsService: IndividualsService,
                 private modalService: ModalDialogService,
+                private nativeDialogService: NativeDialogService,
                 private viewContainerRef: ViewContainerRef,
                 private _sspiService: SpeciesSpecificPhenophaseInformationService,
                 private _peopleService: PeopleService,
@@ -45,7 +47,7 @@ export class SitesComponent implements OnInit {
                 private page:Page
                 ) {
         console.log('test');
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
         console.log('test');
     }
 
@@ -90,10 +92,11 @@ export class SitesComponent implements OnInit {
                         siteLongitude: site.longitude,
                         siteLatitude: site.latitude,
                         siteImage: site.file_url},
-            fullscreen: true
+                        fullscreen: true
+            
         };
 
-        this.modalService.showModal(SiteInfoModal, options).then((dialogResult: string) => {});
+        this.modalService.showModal(SiteInfoModal, options).then(() => {});
     }
 
     public popupSiteCreation() {
@@ -109,7 +112,8 @@ export class SitesComponent implements OnInit {
                 fullscreen: false
             };
             
-            this.modalService.showModal(SiteCreationModal, options).then((dialogResult: string) => {
+            this.modalService.showModal(SiteCreationModal, options)
+            .then((dialogResult: string) => {
                 if (dialogResult != "cancel" && !isNullOrUndefined(dialogResult))
                     // this._router.navigate([`/newSite/${dialogResult}`]);
                     // workaround for https://github.com/NativeScript/nativescript-angular/issues/1380

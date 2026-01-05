@@ -13,7 +13,5 @@ import { WelcomeRoutingModule } from "./welcome.routing"; // import the routing 
     declarations: [
         WelcomeComponent
     ],
-    entryComponents: [
-    ]
 })
 export class WelcomeModule { }

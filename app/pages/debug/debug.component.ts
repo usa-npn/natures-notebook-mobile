@@ -19,7 +19,7 @@ import {Page} from "@nativescript/core/ui/page";
 import { ConfigService } from "~/shared/config-service";
 import { DatabaseService } from "~/shared/database/database.service";
 import { Utils } from "@nativescript/core";
-var http = require("http");
+//var http = require("http");
 var bghttp = require("@nativescript/background-http");//require("nativescript-background-http");
 var session = bghttp.session("image-upload");
 
@@ -41,7 +41,7 @@ export class DebugComponent implements OnInit, AfterViewInit {
                 private _router: Router,
                 private page:Page
                 ) {
-        page.actionBarHidden = true;
+        // page.actionBarHidden = true;
     }
 
     uploadIcon = icons.uploadIcon;

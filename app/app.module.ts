@@ -1,5 +1,5 @@
 // this import should be first in order to load some required settings (like globals and reflect-metadata)
-import { NativeScriptModule } from '@nativescript/angular';
+import { NativeDialogConfig, NativeDialogService, NativeScriptModule } from '@nativescript/angular';
 import { NativeScriptRouterModule } from "@nativescript/angular";
 import { NativeScriptAnimationsModule } from "@nativescript/angular";
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
@@ -64,7 +64,7 @@ import { ScistarterService } from './shared/scistarter/scistarter.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 // registerElement("Emoji", () => require("nativescript-emoji").Emoji);
-registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom);
+// registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom);
 
 @NgModule({
     schemas: [NO_ERRORS_SCHEMA],
@@ -76,6 +76,8 @@ registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom)
         IndividualsService,
         ModalDialogService,
         ModelService,
+        NativeDialogService,
+        NativeDialogConfig,
         NetworkMonitorService,
         NetworkPeopleService,
         NetworksService,
@@ -120,17 +122,6 @@ registerElement('ImageZoom', () => require('nativescript-image-zoom').ImageZoom)
         SiteVisitDetailsComponent,
         SyncingComponent,
         SyncStatusObservationPipe,
-        ToolTipModal
-    ],
-    entryComponents: [
-        AnimalPhenophasesModal,
-        DateTimePickerModal,
-        InformationModal,
-        AlertModal,
-        PhenophaseInfoModal,
-        PickerModal,
-        SiteCreationModal,
-        SiteInfoModal,
         ToolTipModal
     ],
     bootstrap: [
