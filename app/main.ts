@@ -1,3 +1,4 @@
+import './shims/native-class-shim';
 import { runNativeScriptAngularApp, platformNativeScript } from '@nativescript/angular';
 import { AppModule } from './app.module';
 

@@ -1,0 +1,112 @@
+diff --git a/node_modules/@nativescript/core/accessibility/font-scale.ios.js b/node_modules/@nativescript/core/accessibility/font-scale.ios.js
+index a74439b..9ab16f7 100644
+--- a/node_modules/@nativescript/core/accessibility/font-scale.ios.js
++++ b/node_modules/@nativescript/core/accessibility/font-scale.ios.js
+@@ -26,19 +26,34 @@ export function getFontScaleCategory() {
+     }
+     return FontScaleCategory.Medium;
+ }
++// Newer iOS SDKs no longer expose these as metadata globals; fall back to Apple's documented raw string values.
++const _UIContentSizeCategoryExtraSmall = typeof UIContentSizeCategoryExtraSmall !== 'undefined' ? UIContentSizeCategoryExtraSmall : 'UICTContentSizeCategoryXS';
++const _UIContentSizeCategorySmall = typeof UIContentSizeCategorySmall !== 'undefined' ? UIContentSizeCategorySmall : 'UICTContentSizeCategoryS';
++const _UIContentSizeCategoryMedium = typeof UIContentSizeCategoryMedium !== 'undefined' ? UIContentSizeCategoryMedium : 'UICTContentSizeCategoryM';
++const _UIContentSizeCategoryLarge = typeof UIContentSizeCategoryLarge !== 'undefined' ? UIContentSizeCategoryLarge : 'UICTContentSizeCategoryL';
++const _UIContentSizeCategoryExtraLarge = typeof UIContentSizeCategoryExtraLarge !== 'undefined' ? UIContentSizeCategoryExtraLarge : 'UICTContentSizeCategoryXL';
++const _UIContentSizeCategoryExtraExtraLarge = typeof UIContentSizeCategoryExtraExtraLarge !== 'undefined' ? UIContentSizeCategoryExtraExtraLarge : 'UICTContentSizeCategoryXXL';
++const _UIContentSizeCategoryExtraExtraExtraLarge = typeof UIContentSizeCategoryExtraExtraExtraLarge !== 'undefined' ? UIContentSizeCategoryExtraExtraExtraLarge : 'UICTContentSizeCategoryXXXL';
++const _UIContentSizeCategoryAccessibilityMedium = typeof UIContentSizeCategoryAccessibilityMedium !== 'undefined' ? UIContentSizeCategoryAccessibilityMedium : 'UICTContentSizeCategoryAccessibilityM';
++const _UIContentSizeCategoryAccessibilityLarge = typeof UIContentSizeCategoryAccessibilityLarge !== 'undefined' ? UIContentSizeCategoryAccessibilityLarge : 'UICTContentSizeCategoryAccessibilityL';
++const _UIContentSizeCategoryAccessibilityExtraLarge = typeof UIContentSizeCategoryAccessibilityExtraLarge !== 'undefined' ? UIContentSizeCategoryAccessibilityExtraLarge : 'UICTContentSizeCategoryAccessibilityXL';
++const _UIContentSizeCategoryAccessibilityExtraExtraLarge = typeof UIContentSizeCategoryAccessibilityExtraExtraLarge !== 'undefined' ? UIContentSizeCategoryAccessibilityExtraExtraLarge : 'UICTContentSizeCategoryAccessibilityXXL';
++const _UIContentSizeCategoryAccessibilityExtraExtraExtraLarge = typeof UIContentSizeCategoryAccessibilityExtraExtraExtraLarge !== 'undefined' ? UIContentSizeCategoryAccessibilityExtraExtraExtraLarge : 'UICTContentSizeCategoryAccessibilityXXXL';
++const _UIContentSizeCategoryDidChangeNotification = typeof UIContentSizeCategoryDidChangeNotification !== 'undefined' ? UIContentSizeCategoryDidChangeNotification : 'UIContentSizeCategoryDidChangeNotification';
++const _UIContentSizeCategoryNewValueKey = typeof UIContentSizeCategoryNewValueKey !== 'undefined' ? UIContentSizeCategoryNewValueKey : 'UIContentSizeCategoryNewValueKey';
+ const sizeMap = new Map([
+-    [UIContentSizeCategoryExtraSmall, 0.5],
+-    [UIContentSizeCategorySmall, 0.7],
+-    [UIContentSizeCategoryMedium, 0.85],
+-    [UIContentSizeCategoryLarge, 1],
+-    [UIContentSizeCategoryExtraLarge, 1.15],
+-    [UIContentSizeCategoryExtraExtraLarge, 1.3],
+-    [UIContentSizeCategoryExtraExtraExtraLarge, 1.5],
+-    [UIContentSizeCategoryAccessibilityMedium, 2],
+-    [UIContentSizeCategoryAccessibilityLarge, 2.5],
+-    [UIContentSizeCategoryAccessibilityExtraLarge, 3],
+-    [UIContentSizeCategoryAccessibilityExtraExtraLarge, 3.5],
+-    [UIContentSizeCategoryAccessibilityExtraExtraExtraLarge, 4],
++    [_UIContentSizeCategoryExtraSmall, 0.5],
++    [_UIContentSizeCategorySmall, 0.7],
++    [_UIContentSizeCategoryMedium, 0.85],
++    [_UIContentSizeCategoryLarge, 1],
++    [_UIContentSizeCategoryExtraLarge, 1.15],
++    [_UIContentSizeCategoryExtraExtraLarge, 1.3],
++    [_UIContentSizeCategoryExtraExtraExtraLarge, 1.5],
++    [_UIContentSizeCategoryAccessibilityMedium, 2],
++    [_UIContentSizeCategoryAccessibilityLarge, 2.5],
++    [_UIContentSizeCategoryAccessibilityExtraLarge, 3],
++    [_UIContentSizeCategoryAccessibilityExtraExtraLarge, 3.5],
++    [_UIContentSizeCategoryAccessibilityExtraExtraExtraLarge, 4],
+ ]);
+ function contentSizeUpdated(fontSize) {
+     if (sizeMap.has(fontSize)) {
+@@ -69,13 +84,13 @@ function setupConfigListener(attempt = 0) {
+         setTimeout(() => setupConfigListener(attempt + 1), 1);
+         return;
+     }
+-    fontSizeObserver = Application.ios.addNotificationObserver(UIContentSizeCategoryDidChangeNotification, (args) => {
+-        const fontSize = args.userInfo.valueForKey(UIContentSizeCategoryNewValueKey);
++    fontSizeObserver = Application.ios.addNotificationObserver(_UIContentSizeCategoryDidChangeNotification, (args) => {
++        const fontSize = args.userInfo.valueForKey(_UIContentSizeCategoryNewValueKey);
+         contentSizeUpdated(fontSize);
+     });
+     Application.on(Application.exitEvent, () => {
+         if (fontSizeObserver) {
+-            Application.ios.removeNotificationObserver(fontSizeObserver, UIContentSizeCategoryDidChangeNotification);
++            Application.ios.removeNotificationObserver(fontSizeObserver, _UIContentSizeCategoryDidChangeNotification);
+             fontSizeObserver = null;
+         }
+         Application.off(Application.resumeEvent, useIOSFontScale);
+diff --git a/node_modules/@nativescript/core/application/application.ios.js b/node_modules/@nativescript/core/application/application.ios.js
+index b2aa1d2..581cc7d 100644
+--- a/node_modules/@nativescript/core/application/application.ios.js
++++ b/node_modules/@nativescript/core/application/application.ios.js
+@@ -3,6 +3,16 @@ import { isEmbedded } from '../ui/embedding';
+ import { IOSHelper } from '../ui/core/view/view-helper';
+ import * as Utils from '../utils';
+ import { ApplicationCommon } from './application-common';
++// Newer iOS SDKs can omit these from generated metadata; NSNotificationName raw values always equal their symbol name.
++function _notificationName(name) {
++    return typeof globalThis[name] !== 'undefined' ? globalThis[name] : name;
++}
++const _UIApplicationDidFinishLaunchingNotification = _notificationName('UIApplicationDidFinishLaunchingNotification');
++const _UIApplicationDidBecomeActiveNotification = _notificationName('UIApplicationDidBecomeActiveNotification');
++const _UIApplicationDidEnterBackgroundNotification = _notificationName('UIApplicationDidEnterBackgroundNotification');
++const _UIApplicationWillTerminateNotification = _notificationName('UIApplicationWillTerminateNotification');
++const _UIApplicationDidReceiveMemoryWarningNotification = _notificationName('UIApplicationDidReceiveMemoryWarningNotification');
++const _UIApplicationDidChangeStatusBarOrientationNotification = _notificationName('UIApplicationDidChangeStatusBarOrientationNotification');
+ var CADisplayLinkTarget = /** @class */ (function (_super) {
+     __extends(CADisplayLinkTarget, _super);
+     function CADisplayLinkTarget() {
+@@ -78,12 +88,12 @@ export class iOSApplication extends ApplicationCommon {
+         this._delegateHandlers = new Map();
+         this._notificationObservers = [];
+         this.displayedOnce = false;
+-        this.addNotificationObserver(UIApplicationDidFinishLaunchingNotification, this.didFinishLaunchingWithOptions.bind(this));
+-        this.addNotificationObserver(UIApplicationDidBecomeActiveNotification, this.didBecomeActive.bind(this));
+-        this.addNotificationObserver(UIApplicationDidEnterBackgroundNotification, this.didEnterBackground.bind(this));
+-        this.addNotificationObserver(UIApplicationWillTerminateNotification, this.willTerminate.bind(this));
+-        this.addNotificationObserver(UIApplicationDidReceiveMemoryWarningNotification, this.didReceiveMemoryWarning.bind(this));
+-        this.addNotificationObserver(UIApplicationDidChangeStatusBarOrientationNotification, this.didChangeStatusBarOrientation.bind(this));
++        this.addNotificationObserver(_UIApplicationDidFinishLaunchingNotification, this.didFinishLaunchingWithOptions.bind(this));
++        this.addNotificationObserver(_UIApplicationDidBecomeActiveNotification, this.didBecomeActive.bind(this));
++        this.addNotificationObserver(_UIApplicationDidEnterBackgroundNotification, this.didEnterBackground.bind(this));
++        this.addNotificationObserver(_UIApplicationWillTerminateNotification, this.willTerminate.bind(this));
++        this.addNotificationObserver(_UIApplicationDidReceiveMemoryWarningNotification, this.didReceiveMemoryWarning.bind(this));
++        this.addNotificationObserver(_UIApplicationDidChangeStatusBarOrientationNotification, this.didChangeStatusBarOrientation.bind(this));
+     }
+     getRootView() {
+         return this._rootView;
+diff --git a/node_modules/@nativescript/core/platforms/android/core.aar b/node_modules/@nativescript/core/platforms/android/core.aar
+new file mode 100644
+index 0000000..09b3af4
+Binary files /dev/null and b/node_modules/@nativescript/core/platforms/android/core.aar differ
